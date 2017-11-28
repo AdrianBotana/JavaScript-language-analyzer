@@ -214,8 +214,16 @@ class Syntactic(object):
                 self.file_error.write("ERROR: en S no id \n")
 
     def Q(self):  # Estados 33,34,35,36
-        self.token = self.tokens.pop(0)
         self.U()
+        if self.token[0] is 'id':
+            self.token = self.tokens.pop(0)
+            if self.token[0] is 'abre-par':
+                self.token = self.tokens.pop(0)
+        elif self.token[0] is 'abre-par':
+            self.token = self.tokens.pop(0)
+        elif self.token is 'cte-ent' or self.token is 'string' or self.token is 'true' or self.token is 'false':  # COMPLETAR
+            self.token = self.tokens.pop(0)
+
 
 
     def comprobar_tabla(self, lexema):
