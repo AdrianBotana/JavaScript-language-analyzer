@@ -213,8 +213,10 @@ class Syntactic(object):
             else:
                 self.file_error.write("ERROR: en S no id \n")
 
-    def Q(self):
+    def Q(self):  # Estados 33,34,35,36
         self.token = self.tokens.pop(0)
+        self.U()
+
 
     def comprobar_tabla(self, lexema):
         result = None
