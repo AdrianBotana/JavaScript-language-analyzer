@@ -259,8 +259,8 @@ def tabla_simbolos():
     return tabla
 
 
-def lexico():
-    analyzer = LexAnalizer(sys.argv[1])
+def lexico(file_name):
+    analyzer = LexAnalizer(file_name)
     os.remove(os.path.dirname(os.path.realpath(__file__)) + os.sep + "token.txt")
     token = analyzer.pedirToken()
 
@@ -269,7 +269,7 @@ def lexico():
         token = analyzer.pedirToken()
 
     print "Fichero generado: token.txt"
-    return tokens_list(sys.argv[1])
+    return tokens_list(file_name)
 
 
 def main():

@@ -1,13 +1,12 @@
 import sys
 
 import lexico
-from tablaSimbolos import TablaSimbolos
 
 
 class Syntactic(object):
     def __init__(self, file_name):
         self.tokens = lexico.tokens_list(file_name)
-        self.tablaSimbolos = TablaSimbolos()
+        self.tablaSimbolos = lexico.lexico(sys.argv[1])
         self.file_error = open("errorSintactico.txt", "w")
         self.token = self.tokens.pop(0)
 
@@ -152,15 +151,14 @@ class Syntactic(object):
     def comprobar_tabla(self, lexema):
         result = None
         try:
-            aux = self.tablaSimbolos.tabla[lexema]
-            result = aux.lexema
+            aux = self.tablaSimbolos[lexema]
+            result = aux[0]
         except IndexError, AttributeError:
             self.file_error.write("ERROR: id no definido \n")
         return result
 
 
 def main():
-    lexico.main()
     syntactic = Syntactic(sys.argv[1])
     #syntactic.show_tokens()
     syntactic.P()
