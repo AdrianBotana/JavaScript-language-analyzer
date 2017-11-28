@@ -269,7 +269,7 @@ def lexico(file_name):
         token = analyzer.pedirToken()
 
     print "Fichero generado: token.txt"
-    return tokens_list(file_name)
+    return analyzer.tablaSimbolos
 
 
 def main():

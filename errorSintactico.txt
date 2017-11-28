@@ -1,2 +1,0 @@
-ERROR: en P en palabra reservada
-ERROR: en P 

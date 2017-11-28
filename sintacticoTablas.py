@@ -6,13 +6,13 @@ import lexico
 class Syntactic(object):
     def __init__(self, file_name):
         self.tokens = lexico.tokens_list(file_name)
-        self.tablaSimbolos = lexico.lexico(sys.argv[1])
+        self.tablaSimbolos = lexico.lexico(file_name)
         self.file_error = open("errorSintactico.txt", "w")
         self.token = self.tokens.pop(0)
 
     def show_tokens(self):
         while self.tokens.__len__() > 0:
-            print self.tokens.pop()
+            print self.tokens.pop(0)
     #TODO: Casos de errores de la mayoria de los no terminales
 
     def P(self):
@@ -23,7 +23,7 @@ class Syntactic(object):
                 self.F()
                 self.Z()
                 self.P()
-            elif aux == 'var' or aux == 'if' or aux == 'write' or aux == 'prompt' or aux == 'id' or aux == 'return':  # Estado 2
+            elif aux == 'var' or aux == 'if' or aux == 'write' or aux == 'do' or aux == 'prompt' or aux == 'id' or aux == 'return':  # Estado 2
                 self.B()
                 self.Z()
                 self.P()
@@ -37,8 +37,10 @@ class Syntactic(object):
             self.P()
         elif self.token[0] == 'eof':
             print "El programa ha terminado"  # Estado 4
+        elif self.token[0] =='id':
+            self.file_error.write("ERROR: en P id mal declarado\n")
         else:
-            self.file_error.write("ERROR: en P \n")
+            self.file_error.write("ERROR: en P")
 
     def Z(self):
         print self.token[0] +"Z"
@@ -50,8 +52,12 @@ class Syntactic(object):
                     self.Z()
             else:
                 self.file_error.write("ERROR: en Z no salto linea tras comentario \n")
-        #else:
-            #self.file_error.write("ERROR: en Z no coment/* \n")
+        else:
+            self.file_error.write("ERROR: en Z no coment/* \n")
+
+    def Z1(self):
+        if self.token[0] == 'coment/*':
+            self.Z()
 
     def C1(self):
         print self.token[0] + "C1"
@@ -130,6 +136,7 @@ class Syntactic(object):
     def B(self):  # Estado 23, 24, 25, 26
         print self.token[0] + "B"
         aux = self.comprobar_tabla(self.token[1])
+        print aux
         if aux is 'var':
             self.token = self.tokens.pop(0)
             self.T()
@@ -139,28 +146,48 @@ class Syntactic(object):
                 self.V1()
         elif aux is 'if':
             self.token = self.tokens.pop(0)
-        elif aux is 'write':
+            if self.comprobar_tabla(self.token[1]) is 'abre-par':
+                self.token = self.tokens.pop(0)
+                self.Q()
+                if self.comprobar_tabla(self.token[1]) is 'cierr-par':
+                    self.token = self.tokens.pop(0)
+                    self.S()
+        elif aux is 'do':
             self.token = self.tokens.pop(0)
-        elif aux is 'prompt':
+            self.Z1()
+            if self.token[0] is 'abre-llave':
+                self.token = self.tokens.pop(0)
+                self.Z()
+                self.S1()
+                if self.token[0] is 'cierr-llave':
+                    self.token = self.tokens.pop(0)
+                    if self.token[0] is 'palabra reservada':
+                        if self.comprobar_tabla(self.token[1]) is 'while':
+                            self.token = self.tokens.pop(0)
+                            if self.token[0] is 'abre-par':
+                                self.token = self.tokens.pop(0)
+                                self.Q()
+                                if self.token[0] is 'cierr-par':
+                                    self.token = self.tokens.pop(0)
+        else:
             self.token = self.tokens.pop(0)
-        elif aux is 'id':
-            self.token = self.tokens.pop(0)
-        elif aux is 'return':
-            self.token = self.tokens.pop(0)
+            self.S()
+            self.M()
+
+    def S(self):
+        print 'hola'
 
     def comprobar_tabla(self, lexema):
         result = None
         try:
-            aux = self.tablaSimbolos[lexema]
-            result = aux[0]
-        except IndexError, AttributeError:
+            result = self.tablaSimbolos[lexema]
+        except IndexError:
             self.file_error.write("ERROR: id no definido \n")
         return result
 
 
 def main():
     syntactic = Syntactic(sys.argv[1])
-    #syntactic.show_tokens()
     syntactic.P()
 
 
