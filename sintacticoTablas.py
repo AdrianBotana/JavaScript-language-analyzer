@@ -174,8 +174,47 @@ class Syntactic(object):
             self.S()
             self.M()
 
-    def S(self):
-        print 'hola'
+    def S(self):  # Estado 27,28,29,30,31,32
+        if self.token[0] is 'palabra reservada':
+            if self.comprobar_tabla(self.token[1]) is 'write':
+                self.token = self.tokens.pop(0)
+                if self.token[0] is 'abre-par':
+                    self.token = self.tokens.pop(0)
+                    self.W()
+                    if self.token[0] is 'cierr-par':
+                        self.token = self.tokens.pop(0)
+            if self.comprobar_tabla(self.token[1]) is 'prompt':
+                self.token = self.tokens.pop(0)
+                if self.token[0] is 'abre-par':
+                    self.token = self.tokens.pop(0)
+                    if self.token[0] is 'id':
+                        self.token = self.tokens.pop(0)
+                        if self.token[0] is 'cierr-par':
+                            self.token = self.tokens.pop(0)
+        if self.comprobar_tabla(self.token[1]) is 'return':
+                self.token = self.tokens.pop(0)
+                self.Y()
+        else:
+            if self.token[0] is 'id':
+                self.token = self.tokens.pop(0)
+                if self.token[0] is 'op-asign':
+                    self.token = self.tokens.pop(0)
+                    self.Q()
+                elif self.token[0] is 'or-logic':
+                    self.token = self.tokens.pop(0)
+                    self.Q()
+                elif self.token[0] is 'abre-par':
+                    self.token = self.tokens.pop(0)
+                    self.W()
+                    if self.token[0] is 'cierr-par':
+                        self.token = self.tokens.pop(0)
+                else:
+                    self.file_error.write("ERROR: en S no operador \n")
+            else:
+                self.file_error.write("ERROR: en S no id \n")
+
+    def Q(self):
+        self.token = self.tokens.pop(0)
 
     def comprobar_tabla(self, lexema):
         result = None

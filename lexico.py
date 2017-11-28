@@ -86,7 +86,7 @@ class LexAnalizer(object):
             self.char = self.filePointer.read(1)
 
             if self.char == '=':
-                return "o-logic",
+                return "or-logic",
             else:
                 self.file_error.write("ERROR: Asignacion OR logico mal formada \n")
 
