@@ -1,12 +1,12 @@
 import sys
 
-import lexico
+import lexico_old
 
 
 class Syntactic(object):
     def __init__(self, file_name):
-        self.tokens = lexico.tokens_list(file_name)
-        self.tablaSimbolos = lexico.lexico(file_name)
+        self.tokens = lexico_old.tokens_list(file_name)
+        self.tablaSimbolos = lexico_old.lexico(file_name)
         self.file_error = open("errorSintactico.txt", "w")
         self.token = self.tokens.pop(0)
 

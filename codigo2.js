@@ -1,4 +1,5 @@
 //hola
 "sdfasfd"
 var chars s--;
-var int hola;
+var chars hola = "que pasa";
+var we = s + "hola"
