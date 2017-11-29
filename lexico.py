@@ -137,6 +137,10 @@ class LexAnalizer(object):
             self.char = self.filePointer.read(1)
             return "op-arit", 3
 
+        if self.char == '!':  # Estado: compruebo si se trata de un operador de esclamacion
+            self.char = self.filePointer.read(1)
+            return "op-arit", 5
+
         if self.char == '(':  # Estado: compruebo si se trata de un abre-parentesis
             self.char = self.filePointer.read(1)
             return "abre-par",

@@ -219,12 +219,19 @@ class Syntactic(object):
             self.token = self.tokens.pop(0)
             if self.token[0] is 'abre-par':
                 self.token = self.tokens.pop(0)
+            #elif :
+
         elif self.token[0] is 'abre-par':
             self.token = self.tokens.pop(0)
         elif self.token is 'cte-ent' or self.token is 'string' or self.token is 'true' or self.token is 'false':  # COMPLETAR
             self.token = self.tokens.pop(0)
 
-
+    def U(self):  # Estados 42,43,44,45
+        if self.token[0] is 'op-arit':
+            if self.token[1] is '1' or self.token[1] is '2' or self.token[1] is '5':
+                self.token = self.tokens.pop(0)
+            else:
+                self.file_error.write("ERROR: en U no op-arit correcto \n")
 
     def comprobar_tabla(self, lexema):
         result = None
