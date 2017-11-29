@@ -1,16 +1,27 @@
-<coment/*>
+<palabra reservada,50>
+<palabra reservada,27>
 <salto linea>
-<coment/*>
 <salto linea>
+<string,"sdfasfd">
 <salto linea>
 <palabra reservada,50>
 <palabra reservada,6>
 <id,55>
+<post-dec>
 <puntoComa>
-<coment/*>
 <salto linea>
 <palabra reservada,50>
-<palabra reservada,27>
+<palabra reservada,6>
 <id,56>
+<or-logic>
+<op-asign>
+<string,"que pasa">
 <puntoComa>
+<salto linea>
+<palabra reservada,50>
+<id,57>
+<op-asign>
+<id,55>
+<op-arit,1>
+<string,"hola">
 <salto linea>

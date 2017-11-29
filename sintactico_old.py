@@ -9,6 +9,7 @@ class Syntactic(object):
         self.tablaSimbolos = lexico_old.lexico(file_name)
         self.file_error = open("errorSintactico.txt", "w")
         self.token = self.tokens.pop(0)
+        print self.tokens
 
     def show_tokens(self):
         while self.tokens.__len__() > 0:
