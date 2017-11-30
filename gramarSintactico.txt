@@ -1,30 +1,43 @@
+//// Decidimos implementar el comentario //, cadenas con "",  el + y -, operador relacional ==, 
+//// operador logico && y operadores de asignacion = y |=
+
 Axioma = P
 
-NoTerminales = { P T T2 O M M1 C C1 A A1 }
+NoTerminales = { P T T1 O M M1 C C1 A A1 Q R R1 Z B }
 
-Terminales = { var id write ( ) { } int chars bool function while cte-ent cadena = + - ; == && , }
+Terminales = { var id write ( ) { } int chars bool function while cte-ent coment cadena return |= = + - ; == && , }
 
 Producciones = {
-P -> var T id ;
-P -> id = T2 M
-P -> write ( T2 M1 ) ;
-P -> while ( C ) { P }
-P -> function T id ( A ) { P }
-T -> int
-T -> chars
-T2 -> cte-ent
-T2 -> cadena
-T2 -> id
-O -> +
-O -> -
-M -> O T2 M
-M -> ;
-M1 -> O T2 M1
-M1 -> lambda
-C -> T2 == T2 C1  
-C1 -> && T2 == T2 C1
-C1 -> lambda
-A -> T2 id A1
-A1 -> , T2 id A1
-A1 -> lambda
+P -> var T id ; ////1
+P -> id B T1 M ////2
+P -> write ( T1 M1 ) ; ////3 
+P -> while ( C ) { Z Q } ////4 
+P -> function T id ( A ) { Z Q R } ////5
+P -> Z ////6
+B -> = ////7
+B -> |= ////8
+T -> int ////9 
+T -> chars ////10 
+T -> bool ////11 
+T1 -> cte-ent ////12 
+T1 -> cadena ////13 
+T1 -> id ////14 
+O -> + ////15 
+O -> - ////16 
+M -> O T1 M ////17 
+M -> ; ////18
+M1 -> O T1 M1 ////19 
+M1 -> lambda ////20 
+C -> T1 == T1 C1 ////21 
+C1 -> && T1 == T1 C1 ////22 
+C1 -> lambda ////23 
+A -> T1 id A1 ////24 
+A1 -> , T1 id A1 ////25 
+A1 -> lambda ////26 
+Q -> P Q ////27
+Q -> lambda ////28
+R -> return T1 ; ////29
+R -> lambda ////30
+Z -> coment ////31
+Z -> lambda ////32 
 }

@@ -21,9 +21,11 @@
 <eol>
 <id,55>
 <blanc>
+<asig_or,|>
 <asig>
 <blanc>
 <id,57>
+<puntocoma>
 <eol>
 <id,58>
 <eol>

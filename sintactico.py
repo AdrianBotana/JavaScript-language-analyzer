@@ -4,35 +4,48 @@ from lexico import gen_tokens
 
 tokens, tabla = gen_tokens(sys.argv[1])
 gramar = open("gramarSintactico.txt", "w")
-gramar.write('''Axioma = P
+gramar.write('''//// Decidimos implementar el comentario //, cadenas con "",  el + y -, operador relacional ==, 
+//// operador logico && y operadores de asignacion = y |=
 
-NoTerminales = { P T T2 O M M1 C C1 A A1 }
+Axioma = P
 
-Terminales = { var id write ( ) { } int chars bool function while cte-ent cadena = + - ; == && , }
+NoTerminales = { P T T1 O M M1 C C1 A A1 Q R R1 Z B }
+
+Terminales = { var id write ( ) { } int chars bool function while cte-ent coment cadena return |= = + - ; == && , }
 
 Producciones = {
-P -> var T id ;
-P -> id = T2 M
-P -> write ( T2 M1 ) ;
-P -> while ( C ) { P }
-P -> function T id ( A ) { P }
-T -> int
-T -> chars
-T2 -> cte-ent
-T2 -> cadena
-T2 -> id
-O -> +
-O -> -
-M -> O T2 M
-M -> ;
-M1 -> O T2 M1
-M1 -> lambda
-C -> T2 == T2 C1  
-C1 -> && T2 == T2 C1
-C1 -> lambda
-A -> T2 id A1
-A1 -> , T2 id A1
-A1 -> lambda
+P -> var T id ; ////1
+P -> id B T1 M ////2
+P -> write ( T1 M1 ) ; ////3 
+P -> while ( C ) { Z Q } ////4 
+P -> function T id ( A ) { Z Q R } ////5
+P -> Z ////6
+B -> = ////7
+B -> |= ////8
+T -> int ////9 
+T -> chars ////10 
+T -> bool ////11 
+T1 -> cte-ent ////12 
+T1 -> cadena ////13 
+T1 -> id ////14 
+O -> + ////15 
+O -> - ////16 
+M -> O T1 M ////17 
+M -> ; ////18
+M1 -> O T1 M1 ////19 
+M1 -> lambda ////20 
+C -> T1 == T1 C1 ////21 
+C1 -> && T1 == T1 C1 ////22 
+C1 -> lambda ////23 
+A -> T1 id A1 ////24 
+A1 -> , T1 id A1 ////25 
+A1 -> lambda ////26 
+Q -> P Q ////27
+Q -> lambda ////28
+R -> return T1 ; ////29
+R -> lambda ////30
+Z -> coment ////31
+Z -> lambda ////32 
 }''')
 
 
@@ -42,7 +55,7 @@ class Syntactic(object):
         self.tablaSimbolos = tabla
         self.semantico = open("errorSemantico.txt", "w")
         self.file_error = open("errorSintactico.txt", "w")
-        self.parse= open("parseSintactico.txt", "w")
+        self.parse = open("parseSintactico.txt", "w")
         self.parse.write("Des ")
         self.token = self.tokens.pop(0)
         self.tipos = list()
@@ -100,13 +113,22 @@ class Syntactic(object):
             if self.token[1] is '=':
                 self.token = self.tokens.pop(0)
                 aux = self.T1(index)
-                if aux is None:
-                    self.file_error.write("ERROR: en T1 mal tipo\n")
-                    return -1
+                if aux is 'int':
+                    if aux is 'chars':
+                        self.M(aux, index)
+            elif self.token[1] is '|':
+                self.token = self.tokens.pop(0)
+                if self.token[1] is '=':
+                    self.token = self.tokens.pop(0)
+                    aux = self.T1(index)
+                    if aux is 'int':
+                        if aux is 'chars':
+                            self.M(aux, index)
                 else:
-                    self.M(aux, index)
+                    self.file_error.write("ERROR: en B mal operador\n")
+                    return -1
             else:
-                self.file_error.write("ERROR: en P mal operador\n")
+                self.file_error.write("ERROR: en B mal operador\n")
                 return -1
         else:
             self.file_error.write("ERROR: en P palabra no valida\n")
@@ -131,7 +153,6 @@ class Syntactic(object):
                 self.file_error.write("ERROR: en M falta punto y coma")
                 return -1
         self.file_error.write("ERROR: en M operador no aceptado")
-        return -1
 
     def T1(self, index):
         if self.token[0] == 'int':
@@ -140,7 +161,6 @@ class Syntactic(object):
             if aux is not 'chars':
                 if aux is not 'int':
                     self.semantico.write(aux + "\n")
-                    return -1
                 else:
                     return aux
             else:
@@ -151,7 +171,6 @@ class Syntactic(object):
             if aux is not 'chars':
                 if aux is not 'int':
                     self.semantico.write(aux + "\n")
-                    return -1
                 else:
                     return aux
             else:
@@ -165,13 +184,14 @@ class Syntactic(object):
             if aux is not 'chars':
                 if aux is not 'int':
                     self.semantico.write(aux + "\n")
-                    return -1
                 else:
                     self.token = self.tokens.pop(0)
                     return aux
             else:
                 self.token = self.tokens.pop(0)
                 return aux
+        else:
+            self.file_error.write("ERROR: en T1 mal tipo\n")
 
     def comprobar_ids(self, index, index1):
         try:
