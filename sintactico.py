@@ -127,6 +127,7 @@ class Syntactic(object):
                     self.M1(tipo)
                     self.token = self.tokens.pop(0)
                 if self.token[1] is ';':
+                    self.parse.write("19 ")
                     self.token = self.tokens.pop(0)
                     return self.axioma()
                 else:
@@ -262,14 +263,14 @@ class Syntactic(object):
 
     def M1(self, aux):
         if self.token[1] is '+':
-            self.parse.write("16 ")
+            self.parse.write("18 ")
             self.parse.write("14 ")
             self.token = self.tokens.pop(0)
             tipo = self.T()
             if tipo != aux:
                 self.semantico.write("ERROR: no se puede concatenar un tipo " + aux + " con un tipo " + tipo)
         if self.token[1] is '-':
-            self.parse.write("16 ")
+            self.parse.write("18 ")
             self.parse.write("15 ")
             self.token = self.tokens.pop(0)
             tipo = self.T()
@@ -277,6 +278,7 @@ class Syntactic(object):
                 self.semantico.write("ERROR: no se puede concatenar un tipo " + aux + " con un tipo " + tipo)
             if self.token[1] is not ')':
                 return self.M1(aux)
+
 
     def comprobar_ids(self, index, index1):
         try:

@@ -28,7 +28,6 @@ token_re = re.compile(token_pattern, re.VERBOSE)
 file_tokens = open("tokensLexico.txt", "w")
 file_error = open("errorLexico.txt", "w")
 tokens = list()
-tokens.append(('fin','se acabo'))
 
 
 class TokenizerException(Exception): pass
@@ -79,4 +78,5 @@ def gen_tokens(file_name):
             else:
                 file_tokens.write("<" + tok[0] + "," + tok[1] + ">\n")
     print "Fichero generado: tokensLexico.txt"
+    tokens.append(('fin', 'se acabo'))
     return tokens, tabla

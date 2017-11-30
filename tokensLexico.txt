@@ -35,6 +35,6 @@
 <blanc>
 <arit>
 <blanc>
-<id,58>
+<id,56>
 <cerrar_par,)>
 <puntocoma>
