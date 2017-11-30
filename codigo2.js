@@ -1,6 +1,3 @@
-var int
-//hola
-"sdfasfd"
-var chars s--;
-var chars hola |= "que pasa";
-var we = s + "hola"
+var chars hola;
+var int adios;
+hola = adios;
