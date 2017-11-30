@@ -17,7 +17,7 @@ token_pattern = r"""
 |(?P<asig>[=])
 |(?P<igual_cond>==)
 |(?P<and_cond>&&)
-|(?P<coment>//[a-zA-Z_ ][a-zA-Z0-9_ ]*)
+|(?P<comment>//[a-zA-Z_ ][a-zA-Z0-9_ ]*)
 |(?P<arit>[+])
 |(?P<dec>--)
 |(?P<arit1>[-])
@@ -72,7 +72,7 @@ def gen_tokens(file_name):
         else:
             if tok[1] is not ' ':
                 if tok[0] != 'eol':
-                    tokens.append((tok[0], tok[1]))
+                    tokens.append((tok[0],tok[1]))
             if tok[0] == 'eol' or tok[1] is ' ' or tok[1] is ';' or tok[1] is '=' or tok[1] is '+':
                 file_tokens.write("<" + tok[0] + ">\n")
             else:

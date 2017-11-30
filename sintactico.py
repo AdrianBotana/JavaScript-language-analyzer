@@ -3,6 +3,8 @@ import sys
 from lexico import gen_tokens
 
 tokens, tabla = gen_tokens(sys.argv[1])
+#print tokens
+
 gramar = open("gramarSintactico.txt", "w")
 gramar.write('''//// Decidimos implementar el comentario //, cadenas con "",  el + y -, operador relacional ==, 
 //// operador logico && y operadores de asignacion = y |=
@@ -24,28 +26,27 @@ B -> = ////7
 B -> |= ////8
 T -> int ////9 
 T -> chars ////10 
-T -> bool ////11 
-T1 -> cte-ent ////12 
-T1 -> cadena ////13 
-T1 -> id ////14 
-O -> + ////15 
-O -> - ////16 
-M -> O T1 M ////17 
-M -> ; ////18
-M1 -> O T1 M1 ////19 
-M1 -> lambda ////20 
-C -> T1 == T1 C1 ////21 
-C1 -> && T1 == T1 C1 ////22 
-C1 -> lambda ////23 
-A -> T1 id A1 ////24 
-A1 -> , T1 id A1 ////25 
-A1 -> lambda ////26 
-Q -> P Q ////27
-Q -> lambda ////28
-R -> return T1 ; ////29
-R -> lambda ////30
-Z -> coment ////31
-Z -> lambda ////32 
+T1 -> cte-ent ////11 
+T1 -> cadena ////12 
+T1 -> id ////13 
+O -> + ////14 
+O -> - ////15 
+M -> O T1 M ////16 
+M -> ; ////17
+M1 -> O T1 M1 ////18 
+M1 -> lambda ////19 
+C -> T1 == T1 C1 ////20 
+C1 -> && T1 == T1 C1 ////21 
+C1 -> lambda ////22 
+A -> T1 id A1 ////23 
+A1 -> , T1 id A1 ////24 
+A1 -> lambda ////25 
+Q -> P Q ////26
+Q -> lambda ////27
+R -> return T1 ; ////28
+R -> lambda ////29 
+Z -> comment ////30
+Z -> lambda ////31
 }''')
 
 
@@ -65,6 +66,7 @@ class Syntactic(object):
             self.parse.write("1 ")
             self.token = self.tokens.pop(0)
             if self.token[1] is 'int':
+                self.parse.write("9 ")
                 self.token = self.tokens.pop(0)
                 if self.token[0] is 'id':
                     index = tabla.index(self.token[1])
@@ -80,6 +82,7 @@ class Syntactic(object):
                     self.file_error.write("ERROR: en P falta id\n")
                     return -1
             elif self.token[1] is 'chars':
+                self.parse.write("10 ")
                 self.token = self.tokens.pop(0)
                 if self.token[0] is 'id':
                     index = tabla.index(self.token[1])
@@ -97,13 +100,19 @@ class Syntactic(object):
             else:
                 self.file_error.write("ERROR: en T tipo no definido\n")
                 return -1
-        elif self.tokens[1] is 'while':
+        elif self.token[1] == 'while':
             print self.token
-        elif self.tokens[1] is 'function':
+        elif self.token[1] is 'function':
             print self.token
-        elif self.tokens[1] is 'write':
+        elif self.token[1] is 'write':
             print self.token
+        elif self.token[0] == 'comment':
+            self.parse.write("6 ")
+            self.parse.write("30 ")
+            self.token = self.tokens.pop(0)
+            return self.axioma()
         elif self.token[0] is 'id':
+            self.parse.write("2 ")
             index = tabla.index(self.token[1])
             a = self.comprobar_declarado(index)
             if a is not None:
@@ -111,19 +120,23 @@ class Syntactic(object):
                 return -1
             self.token = self.tokens.pop(0)
             if self.token[1] is '=':
+                self.parse.write("7 ")
                 self.token = self.tokens.pop(0)
                 aux = self.T1(index)
                 if aux is 'int':
                     if aux is 'chars':
                         self.M(aux, index)
+                    else:
+                        self.file_error.write("ERROR: en T\n")
+                else:
+                    self.file_error.write("ERROR: en T\n")
             elif self.token[1] is '|':
                 self.token = self.tokens.pop(0)
                 if self.token[1] is '=':
+                    self.parse.write("8 ")
                     self.token = self.tokens.pop(0)
                     aux = self.T1(index)
-                    if aux is 'int':
-                        if aux is 'chars':
-                            self.M(aux, index)
+                    self.M(aux, index)
                 else:
                     self.file_error.write("ERROR: en B mal operador\n")
                     return -1
@@ -136,9 +149,13 @@ class Syntactic(object):
 
     def M(self, aux, index):
         if self.token[1] is '+':
+            self.parse.write("16 ")
+            self.parse.write("14 ")
             self.token = self.tokens.pop(0)
             self.T1(index)
         elif self.token[1] is '-':
+            self.parse.write("16 ")
+            self.parse.write("15 ")
             self.token = self.tokens.pop(0)
             self.T1(index)
             if self.token[1] is ';':
@@ -147,15 +164,16 @@ class Syntactic(object):
                 return self.M(aux, index)
         else:
             if self.token[1] is ';':
+                self.parse.write("17 ")
                 self.token = self.tokens.pop(0)
                 return self.axioma()
             else:
                 self.file_error.write("ERROR: en M falta punto y coma")
-                return -1
         self.file_error.write("ERROR: en M operador no aceptado")
 
     def T1(self, index):
         if self.token[0] == 'int':
+            self.parse.write("11 ")
             self.token = self.tokens.pop(0)
             aux = self.comprobar_tipos(index, 'int')
             if aux is not 'chars':
@@ -166,6 +184,7 @@ class Syntactic(object):
             else:
                 return aux
         elif self.token[0] == 'chars':
+            self.parse.write("12 ")
             self.token = self.tokens.pop(0)
             aux = self.comprobar_tipos(index, 'chars')
             if aux is not 'chars':
@@ -176,6 +195,7 @@ class Syntactic(object):
             else:
                 return aux
         elif self.token[0] == 'id':
+            self.parse.write("13 ")
             index1 = tabla.index(self.token[1])
             a = self.comprobar_declarado(index1)
             if a is not None:

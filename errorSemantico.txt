@@ -1,1 +1,1 @@
-ERROR: el id hola es tipo chars y el id caca es tipo int
+ERROR: variable no ceclarada

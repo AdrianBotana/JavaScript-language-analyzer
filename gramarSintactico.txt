@@ -18,26 +18,25 @@ B -> = ////7
 B -> |= ////8
 T -> int ////9 
 T -> chars ////10 
-T -> bool ////11 
-T1 -> cte-ent ////12 
-T1 -> cadena ////13 
-T1 -> id ////14 
-O -> + ////15 
-O -> - ////16 
-M -> O T1 M ////17 
-M -> ; ////18
-M1 -> O T1 M1 ////19 
-M1 -> lambda ////20 
-C -> T1 == T1 C1 ////21 
-C1 -> && T1 == T1 C1 ////22 
-C1 -> lambda ////23 
-A -> T1 id A1 ////24 
-A1 -> , T1 id A1 ////25 
-A1 -> lambda ////26 
-Q -> P Q ////27
-Q -> lambda ////28
-R -> return T1 ; ////29
-R -> lambda ////30
-Z -> coment ////31
-Z -> lambda ////32 
+T1 -> cte-ent ////11 
+T1 -> cadena ////12 
+T1 -> id ////13 
+O -> + ////14 
+O -> - ////15 
+M -> O T1 M ////16 
+M -> ; ////17
+M1 -> O T1 M1 ////18 
+M1 -> lambda ////19 
+C -> T1 == T1 C1 ////20 
+C1 -> && T1 == T1 C1 ////21 
+C1 -> lambda ////22 
+A -> T1 id A1 ////23 
+A1 -> , T1 id A1 ////24 
+A1 -> lambda ////25 
+Q -> P Q ////26
+Q -> lambda ////27
+R -> return T1 ; ////28
+R -> lambda ////29 
+Z -> comment ////30
+Z -> lambda ////31
 }

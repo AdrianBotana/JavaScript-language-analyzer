@@ -5,6 +5,8 @@
 <id,55>
 <puntocoma>
 <eol>
+<comment,//buenas>
+<eol>
 <PR,50>
 <blanc>
 <PR,6>
@@ -24,7 +26,7 @@
 <asig_or,|>
 <asig>
 <blanc>
-<id,57>
+<id,56>
 <puntocoma>
 <eol>
 <id,58>

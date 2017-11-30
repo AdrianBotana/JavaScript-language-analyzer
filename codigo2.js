@@ -1,5 +1,6 @@
 var chars hola;
+//buenas
 var chars adios;
 var int caca;
-hola |= caca;
-ja
+hola |= adios;
+jamon
