@@ -1,4 +1,5 @@
 var chars hola;
 var chars adios;
-hola = adios
+var int caca;
+hola = caca
 ja

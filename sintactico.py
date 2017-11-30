@@ -40,6 +40,7 @@ class Syntactic(object):
     def __init__(self):
         self.tokens = tokens
         self.tablaSimbolos = tabla
+        self.semantico = open("errorSemantico.txt", "w")
         self.file_error = open("errorSintactico.txt", "w")
         self.parse= open("parseSintactico.txt", "w")
         self.parse.write("Des ")
@@ -93,7 +94,8 @@ class Syntactic(object):
             index = tabla.index(self.token[1])
             a = self.comprobar_declarado(index)
             if a is not None:
-                print a
+                self.semantico.write(a + "\n")
+                return -1
             self.token = self.tokens.pop(0)
             if self.token[1] is '=':
                 self.token = self.tokens.pop(0)
@@ -137,7 +139,8 @@ class Syntactic(object):
             aux = self.comprobar_tipos(index, 'int')
             if aux is not 'chars':
                 if aux is not 'int':
-                    print aux
+                    self.semantico.write(aux + "\n")
+                    return -1
                 else:
                     return aux
             else:
@@ -147,7 +150,8 @@ class Syntactic(object):
             aux = self.comprobar_tipos(index, 'chars')
             if aux is not 'chars':
                 if aux is not 'int':
-                    print aux
+                    self.semantico.write(aux + "\n")
+                    return -1
                 else:
                     return aux
             else:
@@ -156,11 +160,12 @@ class Syntactic(object):
             index1 = tabla.index(self.token[1])
             a = self.comprobar_declarado(index1)
             if a is not None:
-                print a
+                self.semantico.write(a + "\n")
             aux = self.comprobar_ids(index, index1)
             if aux is not 'chars':
                 if aux is not 'int':
-                    print aux
+                    self.semantico.write(aux + "\n")
+                    return -1
                 else:
                     self.token = self.tokens.pop(0)
                     return aux
