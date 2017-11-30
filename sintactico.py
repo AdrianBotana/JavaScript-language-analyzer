@@ -3,7 +3,7 @@ import sys
 from lexico import gen_tokens
 
 tokens, tabla = gen_tokens(sys.argv[1])
-#print tokens
+# print tokens
 
 gramar = open("gramarSintactico.txt", "w")
 gramar.write('''//// Decidimos implementar el comentario //, cadenas con "",  el + y -, operador relacional ==, 
@@ -49,6 +49,14 @@ Z -> comment ////30
 Z -> lambda ////31
 }''')
 
+'''Pruebas
+Des 5 11 24 13 26 31 27 1 9 28 29 13 ////pruebo function
+Des 4 21 13 13 23 31 27 1 9 28 ////pruebo while
+Des 2 7 13 17 15 12 18 ////prueba asignar valores
+Des 1 9 ////prueba a inicializar
+Des 3 13 20 ////prueba write
+Des 6 31 o 6 32 ////prueba comentarios'''
+
 
 class Syntactic(object):
     def __init__(self):
@@ -62,7 +70,10 @@ class Syntactic(object):
         self.tipos = list()
 
     def axioma(self):
-        if self.token[1] is 'var':  # Estado 1
+        if self.token[0] is 'fin':
+            print "Analizado el fichero completo"
+            return 0
+        elif self.token[1] is 'var':  # Estado 1
             self.parse.write("1 ")
             self.token = self.tokens.pop(0)
             if self.token[1] is 'int':
@@ -105,7 +116,25 @@ class Syntactic(object):
         elif self.token[1] is 'function':
             print self.token
         elif self.token[1] is 'write':
-            print self.token
+            self.parse.write("3 ")
+            self.token = self.tokens.pop(0)
+            if self.token[1] is '(':
+                self.token = self.tokens.pop(0)
+                tipo = self.T()
+                if self.token[1] is ')':
+                    self.token = self.tokens.pop(0)
+                else:
+                    self.M1(tipo)
+                    self.token = self.tokens.pop(0)
+                if self.token[1] is ';':
+                    self.token = self.tokens.pop(0)
+                    return self.axioma()
+                else:
+                    self.file_error.write("ERROR: en P falta punto y coma\n")
+                    return -1
+            else:
+                self.file_error.write("ERROR: en P falta abre parentesis en write\n")
+                return -1
         elif self.token[0] == 'comment':
             self.parse.write("6 ")
             self.parse.write("30 ")
@@ -123,13 +152,7 @@ class Syntactic(object):
                 self.parse.write("7 ")
                 self.token = self.tokens.pop(0)
                 aux = self.T1(index)
-                if aux is 'int':
-                    if aux is 'chars':
-                        self.M(aux, index)
-                    else:
-                        self.file_error.write("ERROR: en T\n")
-                else:
-                    self.file_error.write("ERROR: en T\n")
+                self.M(aux, index)
             elif self.token[1] is '|':
                 self.token = self.tokens.pop(0)
                 if self.token[1] is '=':
@@ -213,6 +236,48 @@ class Syntactic(object):
         else:
             self.file_error.write("ERROR: en T1 mal tipo\n")
 
+    def T(self):
+        if self.token[0] == 'int':
+            self.parse.write("11 ")
+            self.token = self.tokens.pop(0)
+            return 'int'
+        elif self.token[0] == 'chars':
+            self.parse.write("12 ")
+            self.token = self.tokens.pop(0)
+            return 'chars'
+        elif self.token[0] == 'id':
+            self.parse.write("13 ")
+            index = tabla.index(self.token[1])
+            a = self.comprobar_declarado(index)
+            if a is not None:
+                self.semantico.write(a + "\n")
+            if self.comprobar_tipos(index, 'int') is 'int':
+                self.token = self.tokens.pop(0)
+                return 'int'
+            else:
+                self.token = self.tokens.pop(0)
+                return 'chars'
+        else:
+            self.file_error.write("ERROR: en T1 mal tipo\n")
+
+    def M1(self, aux):
+        if self.token[1] is '+':
+            self.parse.write("16 ")
+            self.parse.write("14 ")
+            self.token = self.tokens.pop(0)
+            tipo = self.T()
+            if tipo != aux:
+                self.semantico.write("ERROR: no se puede concatenar un tipo " + aux + " con un tipo " + tipo)
+        if self.token[1] is '-':
+            self.parse.write("16 ")
+            self.parse.write("15 ")
+            self.token = self.tokens.pop(0)
+            tipo = self.T()
+            if tipo != aux:
+                self.semantico.write("ERROR: no se puede concatenar un tipo " + aux + " con un tipo " + tipo)
+            if self.token[1] is not ')':
+                return self.M1(aux)
+
     def comprobar_ids(self, index, index1):
         try:
             if self.tipos.count([index, 'int']) is 0:
@@ -235,7 +300,7 @@ class Syntactic(object):
             aux = [index, tipo]
             self.tipos.index(aux)
             return tipo
-        except IndexError:
+        except ValueError:
             return "ERROR: el id " + self.tablaSimbolos[index] + " no es tipo " + tipo
 
     def comprobar_declarado(self, index):

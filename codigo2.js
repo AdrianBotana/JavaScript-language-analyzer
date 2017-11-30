@@ -3,4 +3,4 @@ var chars hola;
 var chars adios;
 var int caca;
 hola |= adios;
-jamon
+write(hola + ja);

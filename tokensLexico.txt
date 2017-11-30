@@ -29,5 +29,12 @@
 <id,56>
 <puntocoma>
 <eol>
+<PR,54>
+<abrir_par,(>
+<id,55>
+<blanc>
+<arit>
+<blanc>
 <id,58>
-<eol>
+<cerrar_par,)>
+<puntocoma>

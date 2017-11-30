@@ -28,6 +28,7 @@ token_re = re.compile(token_pattern, re.VERBOSE)
 file_tokens = open("tokensLexico.txt", "w")
 file_error = open("errorLexico.txt", "w")
 tokens = list()
+tokens.append(('fin','se acabo'))
 
 
 class TokenizerException(Exception): pass
