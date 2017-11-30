@@ -1,2 +1,1 @@
-ERROR: en T1 mal tipo
-ERROR: en M operando no aceptado
+ERROR: en M falta punto y coma

@@ -1,3 +1,4 @@
 var chars hola;
-var int adios;
-hola = adios;
+var chars adios;
+hola = adios
+ja
