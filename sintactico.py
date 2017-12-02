@@ -1,9 +1,11 @@
 import sys
 
+import os
+
 from lexico import gen_tokens
 
 tokens, tabla = gen_tokens(sys.argv[1])
-print tokens
+# print tokens
 
 gramar = open("gramarSintactico.txt", "w")
 gramar.write('''//// Decidimos implementar el comentario //, cadenas con "",  el + y -, operador relacional ==, 
@@ -141,7 +143,13 @@ class Syntactic(object):
                                         self.token = self.tokens.pop(0)
                                     elif self.token[0] == 'blanc':
                                         self.token = self.tokens.pop(0)
-                                    self.Q()
+                                    try:
+                                        self.Q()
+                                    except RuntimeError:  # Cosa que hay que arreglar
+                                        self.file_error.close()
+                                        file_error = open("errorSintactico.txt", "w")
+                                        file_error.write("ERROR: fallo dentro del while")
+                                        return -1
                                     return self.axioma()
                                 else:
                                     self.file_error.write("ERROR: en P abrir corchete")

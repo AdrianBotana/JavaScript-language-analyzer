@@ -4,7 +4,6 @@
     <list default="true" id="c23a96c5-bb83-4644-9cd5-0dc878c1d015" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/codigo2.js" afterPath="$PROJECT_DIR$/codigo2.js" />
-      <change beforePath="$PROJECT_DIR$/parseSintactico.txt" afterPath="$PROJECT_DIR$/parseSintactico.txt" />
       <change beforePath="$PROJECT_DIR$/sintactico.py" afterPath="$PROJECT_DIR$/sintactico.py" />
       <change beforePath="$PROJECT_DIR$/tokensLexico.txt" afterPath="$PROJECT_DIR$/tokensLexico.txt" />
     </list>
@@ -32,8 +31,8 @@
           <file leaf-file-name="sintactico.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/sintactico.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="240">
-                  <caret line="143" column="44" lean-forward="false" selection-start-line="143" selection-start-column="44" selection-end-line="143" selection-end-column="44" />
+                <state relative-caret-position="2295">
+                  <caret line="135" column="52" lean-forward="true" selection-start-line="135" selection-start-column="52" selection-end-line="135" selection-end-column="52" />
                   <folding>
                     <element signature="e#0#10#0" expanded="true" />
                   </folding>
@@ -78,8 +77,8 @@
                       <file leaf-file-name="codigo2.js" pinned="false" current-in-tab="true">
                         <entry file="file://$PROJECT_DIR$/codigo2.js">
                           <provider selected="true" editor-type-id="text-editor">
-                            <state relative-caret-position="63">
-                              <caret line="8" column="19" lean-forward="false" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
+                            <state relative-caret-position="114">
+                              <caret line="11" column="5" lean-forward="true" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
                               <folding />
                             </state>
                           </provider>
@@ -110,7 +109,7 @@
                       <file leaf-file-name="errorSintactico.txt" pinned="false" current-in-tab="true">
                         <entry file="file://$PROJECT_DIR$/errorSintactico.txt">
                           <provider selected="true" editor-type-id="text-editor">
-                            <state relative-caret-position="0">
+                            <state relative-caret-position="-45">
                               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
                               <folding />
                             </state>
@@ -186,7 +185,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-7" />
-    <option name="width" value="1629" />
+    <option name="width" value="1631" />
     <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager">
@@ -30196,7 +30195,14 @@
       <option name="project" value="LOCAL" />
       <updated>1512077850796</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="VA EL WHILE ME CAGO EN LA PUTA, QUE HASTA PUEDO DECLARAR WHILES DENTRO DE WHILES">
+      <created>1512251871354</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1512251871354</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -30243,7 +30249,8 @@
     <MESSAGE value="Changes" />
     <MESSAGE value="Corrections" />
     <MESSAGE value="Write funciona" />
-    <option name="LAST_COMMIT_MESSAGE" value="Write funciona" />
+    <MESSAGE value="VA EL WHILE ME CAGO EN LA PUTA, QUE HASTA PUEDO DECLARAR WHILES DENTRO DE WHILES" />
+    <option name="LAST_COMMIT_MESSAGE" value="VA EL WHILE ME CAGO EN LA PUTA, QUE HASTA PUEDO DECLARAR WHILES DENTRO DE WHILES" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -30539,26 +30546,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/errorSintactico.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/errorSemantico.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/codigo2.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="8" column="19" lean-forward="false" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
           <folding />
         </state>
       </provider>
@@ -30571,10 +30562,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/errorSintactico.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-45">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/codigo2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="11" column="5" lean-forward="true" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/sintactico.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="143" column="44" lean-forward="false" selection-start-line="143" selection-start-column="44" selection-end-line="143" selection-end-column="44" />
+        <state relative-caret-position="2295">
+          <caret line="135" column="52" lean-forward="true" selection-start-line="135" selection-start-column="52" selection-end-line="135" selection-end-column="52" />
           <folding>
             <element signature="e#0#10#0" expanded="true" />
           </folding>

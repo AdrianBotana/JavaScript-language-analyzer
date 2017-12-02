@@ -77,11 +77,11 @@
 <asig>
 <asig>
 <blanc>
-<int,3>
+<int,2>
 <cerrar_par,)>
 <abrir_llave,{>
 <eol>
-<blanc,    >
+<blanc,        >
 <comment,//que cosa>
 <eol>
 <blanc,    >
