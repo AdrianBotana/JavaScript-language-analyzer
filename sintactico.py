@@ -3,7 +3,7 @@ import sys
 from lexico import gen_tokens
 
 tokens, tabla = gen_tokens(sys.argv[1])
-# print tokens
+print tokens
 
 gramar = open("gramarSintactico.txt", "w")
 gramar.write('''//// Decidimos implementar el comentario //, cadenas con "",  el + y -, operador relacional ==, 
@@ -112,9 +112,37 @@ class Syntactic(object):
                 self.file_error.write("ERROR: en T tipo no definido\n")
                 return -1
         elif self.token[1] == 'while':
-            print self.token
+            self.parse.write("4 ")
+            self.token = self.tokens.pop(0)
+            if self.token [1] == '(':
+                self.token = self.tokens.pop(0)
+                self.parse.write("20 ")
+                aux = self.T()
+                if aux is None:
+                    return -1
+                if self.token[1] == '=':
+                    self.token = self.tokens.pop(0)
+                    if self.token[1] == '=':
+                        self.token = self.tokens.pop(0)
+                        aux2 = self.T()
+                        if aux2 is None:
+                            return -1
+                        if aux == aux2:
+                            print "mola"  # Aqui falta por seguir, y parse no terminado
+                        else:
+                            self.semantico.write("ERROR: no puedes comparar un tipo " + aux + " con un tipo " + aux2)
+                    else:
+                        self.file_error.write("ERROR: en C mal operacion de comparacion\n")
+                        return -1
+                else:
+                    self.file_error.write("ERROR: en C falta operacion de comparacion\n")
+                    return -1
+            else:
+                self.file_error.write("ERROR: en P falta parentesis en el while\n")
+                return -1
         elif self.token[1] is 'function':
             print self.token
+            self.token = self.tokens.pop(0)
         elif self.token[1] is 'write':
             self.parse.write("3 ")
             self.token = self.tokens.pop(0)
@@ -252,6 +280,7 @@ class Syntactic(object):
             a = self.comprobar_declarado(index)
             if a is not None:
                 self.semantico.write(a + "\n")
+                return None
             if self.comprobar_tipos(index, 'int') is 'int':
                 self.token = self.tokens.pop(0)
                 return 'int'

@@ -13,7 +13,7 @@ P -> id B T1 M ////2
 P -> write ( T1 M1 ) ; ////3 
 P -> while ( C ) { Z Q } ////4 
 P -> function T id ( A ) { Z Q R } ////5
-P -> Z ////6
+P -> comment ////6
 B -> = ////7
 B -> |= ////8
 T -> int ////9 

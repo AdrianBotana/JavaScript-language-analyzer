@@ -38,3 +38,16 @@
 <id,56>
 <cerrar_par,)>
 <puntocoma>
+<eol>
+<PR,52>
+<abrir_par,(>
+<id,55>
+<blanc>
+<asig>
+<asig>
+<blanc>
+<id,56>
+<blanc>
+<cerrar_par,)>
+<abrir_llave,{>
+<cerrar_llave,}>
