@@ -128,9 +128,30 @@ class Syntactic(object):
                         if aux2 is None:
                             return -1
                         if aux == aux2:
-                            print "mola"  # Aqui falta por seguir, y parse no terminado
+                            a = self.C1()
+                            if a == -1:
+                                return -1
+                            if self.token[1] == ')':
+                                self.token = self.tokens.pop(0)
+                                if self.token[1] == '{':
+                                    self.token = self.tokens.pop(0)
+                                    if self.token[0] == 'comment':
+                                        self.parse.write("6 ")
+                                        self.parse.write("30 ")
+                                        self.token = self.tokens.pop(0)
+                                    elif self.token[0] == 'blanc':
+                                        self.token = self.tokens.pop(0)
+                                    self.Q()
+                                    return self.axioma()
+                                else:
+                                    self.file_error.write("ERROR: en P abrir corchete")
+                                    return -1
+                            else:
+                                self.file_error.write("ERROR: en P falta cerrar parentesis")
+                                return -1
                         else:
                             self.semantico.write("ERROR: no puedes comparar un tipo " + aux + " con un tipo " + aux2)
+                            return -1
                     else:
                         self.file_error.write("ERROR: en C mal operacion de comparacion\n")
                         return -1
@@ -164,6 +185,10 @@ class Syntactic(object):
             else:
                 self.file_error.write("ERROR: en P falta abre parentesis en write\n")
                 return -1
+        elif self.token[0] == 'blanc':
+            self.token = self.tokens.pop(0)
+        elif self.token[1] == '}':
+            pass
         elif self.token[0] == 'comment':
             self.parse.write("6 ")
             self.parse.write("30 ")
@@ -198,6 +223,42 @@ class Syntactic(object):
         else:
             self.file_error.write("ERROR: en P palabra no valida\n")
             return -1
+
+    def Q(self):
+        if self.token[1] == '}':
+            self.token = self.tokens.pop(0)
+        else:
+            self.axioma()
+            self.Q()
+
+    def C1(self):
+        if self.token[1] != ')':
+            if self.token[1] == '&&':
+                self.token = self.tokens.pop(0)
+                aux = self.T()
+                if aux is None:
+                    return -1
+                if self.token[1] == '=':
+                    self.token = self.tokens.pop(0)
+                    if self.token[1] == '=':
+                        self.token = self.tokens.pop(0)
+                        aux2 = self.T()
+                        if aux2 is None:
+                            return -1
+                        if aux == aux2:
+                            return self.C1()
+                        else:
+                            self.semantico.write("ERROR: no puedes comparar un tipo " + aux + " con un tipo " + aux2)
+                            return -1
+                    else:
+                        self.file_error.write("ERROR: en C mal operacion de comparacion\n")
+                        return -1
+                else:
+                    self.file_error.write("ERROR: en C mal operacion de comparacion\n")
+                    return -1
+            else:
+                self.file_error.write("ERROR: en C falta operacion de comparacion\n")
+                return -1
 
     def M(self, aux, index):
         if self.token[1] is '+':
@@ -307,7 +368,6 @@ class Syntactic(object):
                 self.semantico.write("ERROR: no se puede concatenar un tipo " + aux + " con un tipo " + tipo)
             if self.token[1] is not ')':
                 return self.M1(aux)
-
 
     def comprobar_ids(self, index, index1):
         try:

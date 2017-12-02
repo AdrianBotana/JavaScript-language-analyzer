@@ -47,7 +47,44 @@
 <asig>
 <blanc>
 <id,56>
-<blanc>
 <cerrar_par,)>
 <abrir_llave,{>
+<eol>
+<blanc,    >
+<PR,50>
+<blanc>
+<PR,6>
+<blanc>
+<id,58>
+<puntocoma>
+<eol>
+<blanc,    >
+<PR,54>
+<abrir_par,(>
+<id,55>
+<blanc>
+<arit>
+<blanc>
+<chars,"que cosa">
+<cerrar_par,)>
+<puntocoma>
+<eol>
+<blanc,    >
+<PR,52>
+<abrir_par,(>
+<int,2>
+<blanc>
+<asig>
+<asig>
+<blanc>
+<int,3>
+<cerrar_par,)>
+<abrir_llave,{>
+<eol>
+<blanc,    >
+<comment,//que cosa>
+<eol>
+<blanc,    >
+<cerrar_llave,}>
+<eol>
 <cerrar_llave,}>
