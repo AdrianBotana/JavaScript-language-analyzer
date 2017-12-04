@@ -10,4 +10,7 @@ while(hola == adios){
     while(2 == 2){
         //que cosa
     }
+    function int cosa(){
+
+    }
 }

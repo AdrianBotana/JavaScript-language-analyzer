@@ -87,4 +87,18 @@
 <blanc,    >
 <cerrar_llave,}>
 <eol>
+<blanc,    >
+<PR,20>
+<blanc>
+<PR,27>
+<blanc>
+<id,59>
+<abrir_par,(>
+<cerrar_par,)>
+<abrir_llave,{>
+<eol>
+<eol>
+<blanc,    >
+<cerrar_llave,}>
+<eol>
 <cerrar_llave,}>

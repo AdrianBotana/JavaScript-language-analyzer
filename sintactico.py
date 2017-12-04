@@ -1,7 +1,5 @@
 import sys
 
-import os
-
 from lexico import gen_tokens
 
 tokens, tabla = gen_tokens(sys.argv[1])
@@ -40,8 +38,8 @@ M1 -> lambda ////19
 C -> T1 == T1 C1 ////20 
 C1 -> && T1 == T1 C1 ////21 
 C1 -> lambda ////22 
-A -> T1 id A1 ////23 
-A1 -> , T1 id A1 ////24 
+A -> T id A1 ////23 
+A1 -> , T id A1 ////24 
 A1 -> lambda ////25 
 Q -> P Q ////26
 Q -> lambda ////27
@@ -49,6 +47,7 @@ R -> return T1 ; ////28
 R -> lambda ////29 
 Z -> comment ////30
 Z -> lambda ////31
+A -> lambda ////32
 }''')
 
 '''Pruebas
@@ -70,6 +69,7 @@ class Syntactic(object):
         self.parse.write("Des ")
         self.token = self.tokens.pop(0)
         self.tipos = list()
+        self.fun = list()
 
     def axioma(self):
         if self.token[0] is 'fin':
@@ -116,7 +116,7 @@ class Syntactic(object):
         elif self.token[1] == 'while':
             self.parse.write("4 ")
             self.token = self.tokens.pop(0)
-            if self.token [1] == '(':
+            if self.token[1] == '(':
                 self.token = self.tokens.pop(0)
                 self.parse.write("20 ")
                 aux = self.T()
@@ -170,8 +170,26 @@ class Syntactic(object):
                 self.file_error.write("ERROR: en P falta parentesis en el while\n")
                 return -1
         elif self.token[1] is 'function':
-            print self.token
             self.token = self.tokens.pop(0)
+            ret = ""
+            if self.token[1] == 'int':
+                ret = 'int'
+            elif self.token[1] == 'chars':
+                ret = 'chars'
+            else:
+                self.file_error.write("ERROR: en P tipo de funcion no existe\n")
+            self.token = self.tokens.pop(0)
+            if self.token[0] == 'id':
+                self.fun.append([self.token[1], ret])
+            else:
+                self.file_error.write("ERROR: en P falta id en function\n")
+            self.token = self.tokens.pop(0)
+            if self.token[1] == '(':
+                self.token = self.tokens.pop(0)
+                self.A()
+                # COMPLETAR
+            else:
+                self.file_error.write("ERROR: en P falta abre parentesis en function\n")
         elif self.token[1] is 'write':
             self.parse.write("3 ")
             self.token = self.tokens.pop(0)
@@ -231,6 +249,27 @@ class Syntactic(object):
         else:
             self.file_error.write("ERROR: en P palabra no valida\n")
             return -1
+
+    def A(self):
+        if self.token[1] != ')':
+            self.token = self.tokens.pop(0)
+            if self.token[1] == 'int':
+                var = 'int'
+                self.token = self.tokens.pop(0)
+                if self.token[0] == 'id':
+                    self.tipos.append([self.token[1], var])
+            elif self.token[1] == 'chars':
+                var = 'chars'
+                self.token = self.tokens.pop(0)
+                if self.token[0] == 'id':
+                    self.tipos.append([self.token[1], var])
+            else:
+                self.file_error.write("ERROR: en A tipo de parametro no existe\n")
+            self.token = self.tokens.pop(0)
+            return self.A()
+        elif self.token[1] == ',':
+            self.token = self.tokens.pop(0)
+            # COMPLETAR
 
     def Q(self):
         if self.token[1] == '}':
