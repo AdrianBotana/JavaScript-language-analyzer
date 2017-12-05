@@ -420,7 +420,10 @@ class Syntactic(object):
                 self.token = self.tokens.pop(0)
                 return aux
         else:
-            self.file_error.write("ERROR: en T1 mal tipo\n")
+            if self.token[1] == '+':
+                self.file_error.write("ERROR: en O mal operando\n")
+            else:
+                self.file_error.write("ERROR: en T1 mal tipo\n")
 
     def T(self):
         if self.token[0] == 'int':
@@ -445,7 +448,10 @@ class Syntactic(object):
                 self.token = self.tokens.pop(0)
                 return 'chars'
         else:
-            self.file_error.write("ERROR: en T1 mal tipo\n")
+            if self.token[1] == '+':
+                self.file_error.write("ERROR: en O mal operando\n")
+            else:
+                self.file_error.write("ERROR: en T1 mal tipo\n")
 
     def M1(self, aux):
         if self.token[1] is '+':

@@ -33,7 +33,7 @@
 <abrir_par,(>
 <id,55>
 <blanc>
-<arit1,->
+<arit>
 <blanc>
 <id,56>
 <cerrar_par,)>
@@ -63,6 +63,7 @@
 <abrir_par,(>
 <id,55>
 <blanc>
+<arit>
 <arit>
 <blanc>
 <chars,"que cosa">
