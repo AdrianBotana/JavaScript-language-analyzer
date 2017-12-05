@@ -10,7 +10,9 @@ while(hola == adios){
     while(2 == 2){
         //que cosa
     }
-    function int cosa(){
+}
 
-    }
+function chars cosa(){
+    var int que;
+    return hola;
 }

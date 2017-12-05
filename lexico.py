@@ -78,5 +78,6 @@ def gen_tokens(file_name):
             else:
                 file_tokens.write("<" + tok[0] + "," + tok[1] + ">\n")
     print "Fichero generado: tokensLexico.txt"
+    print "Fichero generado: errorLexico.txt"
     tokens.append(('fin', 'se acabo'))
     return tokens, tabla

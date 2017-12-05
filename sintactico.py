@@ -178,18 +178,63 @@ class Syntactic(object):
                 ret = 'chars'
             else:
                 self.file_error.write("ERROR: en P tipo de funcion no existe\n")
+                return -1
             self.token = self.tokens.pop(0)
             if self.token[0] == 'id':
+                name = self.token[1]
                 self.fun.append([self.token[1], ret])
             else:
                 self.file_error.write("ERROR: en P falta id en function\n")
+                return -1
             self.token = self.tokens.pop(0)
             if self.token[1] == '(':
                 self.token = self.tokens.pop(0)
                 self.A()
-                # COMPLETAR
+                if self.token[1] == ')':
+                    self.token = self.tokens.pop(0)
+                    if self.token[1] == '{':
+                        self.token = self.tokens.pop(0)
+                        if self.token[0] == 'comment':
+                            self.parse.write("6 ")
+                            self.parse.write("30 ")
+                            self.token = self.tokens.pop(0)
+                        elif self.token[0] == 'blanc':
+                            self.token = self.tokens.pop(0)
+                        try:
+                            self.Q()
+                            if self.token[1] == 'return':
+                                self.token = self.tokens.pop(0)
+                                val = self.T()
+                                aux = self.fun.pop()
+                                if aux[1] != val or aux[0] != name:
+                                    self.file_error.write(
+                                        "ERROR: en R no se puede devolver un tipo diferente a la funcion\n")
+                                    return -1
+                                if self.token[1] == ';':
+                                    self.token = self.tokens.pop(0)
+                                else:
+                                    self.file_error.write("ERROR: en R falta punto y coma\n")
+                                    return -1
+                            if self.token[1] == '}':
+                                self.token = self.tokens.pop(0)
+                                return self.axioma()
+                            else:
+                                self.file_error.write("ERROR: en P cerrar corchete")
+                                return -1
+                        except RuntimeError:  # Cosa que hay que arreglar
+                            self.file_error.close()
+                            file_error = open("errorSintactico.txt", "w")
+                            file_error.write("ERROR: fallo dentro del function")
+                            return -1
+                    else:
+                        self.file_error.write("ERROR: en P abrir corchete")
+                        return -1
+                else:
+                    self.file_error.write("ERROR: en A mal formado\n")
+                    return -1
             else:
                 self.file_error.write("ERROR: en P falta abre parentesis en function\n")
+                return -1
         elif self.token[1] is 'write':
             self.parse.write("3 ")
             self.token = self.tokens.pop(0)
@@ -251,7 +296,10 @@ class Syntactic(object):
             return -1
 
     def A(self):
-        if self.token[1] != ')':
+        if self.token[1] == ',':
+            self.token = self.tokens.pop(0)
+            return self.A()
+        elif self.token[1] != ')':
             self.token = self.tokens.pop(0)
             if self.token[1] == 'int':
                 var = 'int'
@@ -267,13 +315,12 @@ class Syntactic(object):
                 self.file_error.write("ERROR: en A tipo de parametro no existe\n")
             self.token = self.tokens.pop(0)
             return self.A()
-        elif self.token[1] == ',':
-            self.token = self.tokens.pop(0)
-            # COMPLETAR
 
     def Q(self):
         if self.token[1] == '}':
             self.token = self.tokens.pop(0)
+        elif self.token[1] == 'return':
+            pass
         else:
             self.axioma()
             self.Q()
@@ -441,16 +488,17 @@ class Syntactic(object):
         except ValueError:
             return "ERROR: el id " + self.tablaSimbolos[index] + " no es tipo " + tipo
 
-    def comprobar_declarado(self, index):
-        if self.tipos.count([index, 'int']) is 0:
-            if self.tipos.count([index, 'chars']) is 0:
+    def comprobar_declarado(self, id):
+        if self.tipos.count([id, 'int']) is 0:
+            if self.tipos.count([id, 'chars']) is 0:
                 return "ERROR: variable no ceclarada"
 
 
 def main():
-    print "Fichero generado: erroresSintactico.txt"
     print "Fichero generado: gramarSintactico.txt"
-    print "Fichero generado: parseSintactico.txt"
+    print "Fichero generado: erroresSintactico.txt"
+    print "Fichero generado: parseSemantico.txt"
+    print "Fichero generado: errorSemantico.txt"
     Syntactic().axioma()
 
 
