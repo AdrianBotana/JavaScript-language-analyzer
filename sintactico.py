@@ -453,6 +453,8 @@ class Syntactic(object):
             self.parse.write("14 ")
             self.token = self.tokens.pop(0)
             tipo = self.T()
+            if tipo is None:
+                return -1
             if tipo != aux:
                 self.semantico.write("ERROR: no se puede concatenar un tipo " + aux + " con un tipo " + tipo + "\n")
         elif self.token[1] is '-':
@@ -460,6 +462,8 @@ class Syntactic(object):
             self.parse.write("15 ")
             self.token = self.tokens.pop(0)
             tipo = self.T()
+            if tipo is None:
+                return -1
             if tipo != aux:
                 self.semantico.write("ERROR: no se puede concatenar un tipo " + aux + " con un tipo " + tipo + "\n")
             if self.token[1] is not ')':
