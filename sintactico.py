@@ -244,7 +244,9 @@ class Syntactic(object):
                 if self.token[1] is ')':
                     self.token = self.tokens.pop(0)
                 else:
-                    self.M1(tipo)
+                    a = self.M1(tipo)
+                    if a == -1:
+                        return -1
                     self.token = self.tokens.pop(0)
                 if self.token[1] is ';':
                     self.parse.write("19 ")
@@ -376,7 +378,7 @@ class Syntactic(object):
                 return self.axioma()
             else:
                 self.file_error.write("ERROR: en M falta punto y coma")
-        self.file_error.write("ERROR: en M operador no aceptado")
+        self.file_error.write("ERROR: en O operador no aceptado")
 
     def T1(self, index):
         if self.token[0] == 'int':
@@ -452,16 +454,19 @@ class Syntactic(object):
             self.token = self.tokens.pop(0)
             tipo = self.T()
             if tipo != aux:
-                self.semantico.write("ERROR: no se puede concatenar un tipo " + aux + " con un tipo " + tipo)
-        if self.token[1] is '-':
+                self.semantico.write("ERROR: no se puede concatenar un tipo " + aux + " con un tipo " + tipo + "\n")
+        elif self.token[1] is '-':
             self.parse.write("18 ")
             self.parse.write("15 ")
             self.token = self.tokens.pop(0)
             tipo = self.T()
             if tipo != aux:
-                self.semantico.write("ERROR: no se puede concatenar un tipo " + aux + " con un tipo " + tipo)
+                self.semantico.write("ERROR: no se puede concatenar un tipo " + aux + " con un tipo " + tipo + "\n")
             if self.token[1] is not ')':
                 return self.M1(aux)
+        else:
+            self.file_error.write("ERROR: en O operador no aceptado\n")
+            return -1
 
     def comprobar_ids(self, index, index1):
         try:
