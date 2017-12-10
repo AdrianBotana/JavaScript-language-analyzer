@@ -311,6 +311,7 @@ class Syntactic(object):
                 return -1
         else:
             self.file_error.write("ERROR: en P palabra no valida\n")
+            print self.token
             return -1
 
     def A(self):
@@ -387,23 +388,29 @@ class Syntactic(object):
             self.parse.write("14 ")
             self.token = self.tokens.pop(0)
             self.T1(index)
+            if self.token[1] is ';':
+                self.token = self.tokens.pop(0)
+                return self.axioma()
+            else:
+                return self.M(aux, index)
         elif self.token[1] == '-':
             self.parse.write("16 ")
             self.parse.write("15 ")
             self.token = self.tokens.pop(0)
             self.T1(index)
             if self.token[1] is ';':
+                self.token = self.tokens.pop(0)
                 return self.axioma()
             else:
                 return self.M(aux, index)
         else:
-            self.file_error.write("ERROR: en O operador no aceptado")
-        if self.token[1] == ';':
-            self.parse.write("17 ")
-            self.token = self.tokens.pop(0)
-            return self.axioma()
-        else:
-            self.file_error.write("ERROR: en M falta punto y coma")
+            if self.token[1] == ';':
+                self.parse.write("17 ")
+                self.token = self.tokens.pop(0)
+                return self.axioma()
+            else:
+                self.file_error.write("ERROR: en M falta punto y coma\n")
+        self.file_error.write("ERROR: en O operador no aceptado\n")
 
     def T1(self, index):
         if self.token[0] == 'int':

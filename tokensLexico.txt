@@ -16,11 +16,25 @@
 <int,4>
 <puntocoma>
 <eol>
+<PR,50>
+<blanc>
+<PR,6>
+<blanc>
+<id,56>
+<puntocoma>
+<eol>
+<id,56>
+<blanc>
+<asig>
+<blanc>
+<chars,"que pasa">
+<puntocoma>
+<eol>
 <PR,20>
 <blanc>
 <PR,27>
 <blanc>
-<id,56>
+<id,57>
 <abrir_par,(>
 <cerrar_par,)>
 <abrir_llave,{>
@@ -30,7 +44,7 @@
 <blanc>
 <PR,6>
 <blanc>
-<id,57>
+<id,56>
 <puntocoma>
 <eol>
 <cerrar_llave,}>
