@@ -382,12 +382,12 @@ class Syntactic(object):
             self.parse.write("22 ")
 
     def M(self, aux, index):
-        if self.token[1] is '+':
+        if self.token[1] == '+':
             self.parse.write("16 ")
             self.parse.write("14 ")
             self.token = self.tokens.pop(0)
             self.T1(index)
-        elif self.token[1] is '-':
+        elif self.token[1] == '-':
             self.parse.write("16 ")
             self.parse.write("15 ")
             self.token = self.tokens.pop(0)
@@ -397,13 +397,13 @@ class Syntactic(object):
             else:
                 return self.M(aux, index)
         else:
-            if self.token[1] is ';':
-                self.parse.write("17 ")
-                self.token = self.tokens.pop(0)
-                return self.axioma()
-            else:
-                self.file_error.write("ERROR: en M falta punto y coma")
-        self.file_error.write("ERROR: en O operador no aceptado")
+            self.file_error.write("ERROR: en O operador no aceptado")
+        if self.token[1] == ';':
+            self.parse.write("17 ")
+            self.token = self.tokens.pop(0)
+            return self.axioma()
+        else:
+            self.file_error.write("ERROR: en M falta punto y coma")
 
     def T1(self, index):
         if self.token[0] == 'int':

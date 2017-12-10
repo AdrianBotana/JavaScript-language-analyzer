@@ -5,6 +5,17 @@
 <id,55>
 <puntocoma>
 <eol>
+<id,55>
+<blanc>
+<asig>
+<blanc>
+<int,2>
+<blanc>
+<arit>
+<blanc>
+<int,4>
+<puntocoma>
+<eol>
 <PR,20>
 <blanc>
 <PR,27>
