@@ -56,7 +56,10 @@ Des 4 21 13 13 23 31 27 1 9 28 ////pruebo while
 Des 2 7 13 17 15 12 18 ////prueba asignar valores
 Des 1 9 ////prueba a inicializar
 Des 3 13 20 ////prueba write
-Des 6 31 o 6 32 ////prueba comentarios'''
+Des 6 31 o 6 32 ////prueba comentarios
+
+Repasar las pruebas
+'''
 
 
 class Syntactic(object):
@@ -143,6 +146,8 @@ class Syntactic(object):
                                         self.token = self.tokens.pop(0)
                                     elif self.token[0] == 'blanc':
                                         self.token = self.tokens.pop(0)
+                                    else:
+                                        self.parse.write("31 ")
                                     try:
                                         self.Q()
                                     except RuntimeError:  # Cosa que hay que arreglar
@@ -170,12 +175,15 @@ class Syntactic(object):
                 self.file_error.write("ERROR: en P falta parentesis en el while\n")
                 return -1
         elif self.token[1] is 'function':
+            self.parse.write("5 ")
             self.token = self.tokens.pop(0)
             ret = ""
             if self.token[1] == 'int':
                 ret = 'int'
+                self.parse.write("9 ")
             elif self.token[1] == 'chars':
                 ret = 'chars'
+                self.parse.write("10 ")
             else:
                 self.file_error.write("ERROR: en P tipo de funcion no existe\n")
                 return -1
@@ -200,9 +208,12 @@ class Syntactic(object):
                             self.token = self.tokens.pop(0)
                         elif self.token[0] == 'blanc':
                             self.token = self.tokens.pop(0)
+                        else:
+                            self.parse.write("31 ")
                         try:
                             self.Q()
                             if self.token[1] == 'return':
+                                self.parse.write("28 ")
                                 self.token = self.tokens.pop(0)
                                 val = self.T()
                                 aux = self.fun.pop()
@@ -215,12 +226,17 @@ class Syntactic(object):
                                 else:
                                     self.file_error.write("ERROR: en R falta punto y coma\n")
                                     return -1
-                            if self.token[1] == '}':
-                                self.token = self.tokens.pop(0)
-                                return self.axioma()
+                                if self.token[0] == 'blanc':
+                                    self.token = self.tokens.pop(0)
+                                if self.token[1] == '}':
+                                    self.token = self.tokens.pop(0)
+                                    return self.axioma()
+                                else:
+                                    self.file_error.write("ERROR: en P cerrar corchete")
+                                    return -1
                             else:
-                                self.file_error.write("ERROR: en P cerrar corchete")
-                                return -1
+                                self.parse.write("29 ")
+                                return self.axioma()
                         except RuntimeError:  # Cosa que hay que arreglar
                             self.file_error.close()
                             file_error = open("errorSintactico.txt", "w")
@@ -299,9 +315,11 @@ class Syntactic(object):
 
     def A(self):
         if self.token[1] == ',':
+            self.parse.write("24 ")
             self.token = self.tokens.pop(0)
             return self.A()
         elif self.token[1] != ')':
+            self.parse.write("23 ")
             self.token = self.tokens.pop(0)
             if self.token[1] == 'int':
                 var = 'int'
@@ -317,18 +335,23 @@ class Syntactic(object):
                 self.file_error.write("ERROR: en A tipo de parametro no existe\n")
             self.token = self.tokens.pop(0)
             return self.A()
+        else:
+            self.parse.write("25 ")
 
     def Q(self):
         if self.token[1] == '}':
+            self.parse.write("27 ")
             self.token = self.tokens.pop(0)
         elif self.token[1] == 'return':
             pass
         else:
+            self.parse.write("26 ")
             self.axioma()
             self.Q()
 
     def C1(self):
         if self.token[1] != ')':
+            self.parse.write("21 ")
             if self.token[1] == '&&':
                 self.token = self.tokens.pop(0)
                 aux = self.T()
@@ -355,6 +378,8 @@ class Syntactic(object):
             else:
                 self.file_error.write("ERROR: en C falta operacion de comparacion\n")
                 return -1
+        else:
+            self.parse.write("22 ")
 
     def M(self, aux, index):
         if self.token[1] is '+':

@@ -1,1 +1,0 @@
-ERROR: fallo dentro del while
