@@ -1,5 +1,6 @@
 var int a;
-a = 2 + 4;
+var int b;
+a = 2 + 3;
 var chars b;
 b = "que pasa";
 function int hola(){

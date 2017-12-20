@@ -2,10 +2,11 @@ var chars hola;
 var chars adios;
 var int caca;
 hola |= adios;
-write(hola + adios);
+write(2);
+write(hola);
 while(hola == adios){
     var chars id;
-    write(hola + "que cosa");
+    write(hola);
 }
 
 function chars cosa(){

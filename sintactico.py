@@ -77,7 +77,7 @@ class Syntactic(object):
     def axioma(self):
         if self.token[0] is 'fin':
             print "Analizado el fichero completo"
-            return 0
+            exit(0)
         elif self.token[1] is 'var':  # Estado 1
             self.parse.write("1 ")
             self.token = self.tokens.pop(0)
@@ -93,10 +93,10 @@ class Syntactic(object):
                         return self.axioma()
                     else:
                         self.file_error.write("ERROR: en P falta punto y coma\n")
-                        return -1
+                        exit(-1)
                 else:
                     self.file_error.write("ERROR: en P falta id\n")
-                    return -1
+                    exit(-1)
             elif self.token[1] is 'chars':
                 self.parse.write("10 ")
                 self.token = self.tokens.pop(0)
@@ -109,13 +109,13 @@ class Syntactic(object):
                         return self.axioma()
                     else:
                         self.file_error.write("ERROR: en P falta punto y coma\n")
-                        return -1
+                        exit(-1)
                 else:
                     self.file_error.write("ERROR: en P falta id\n")
-                    return -1
+                    exit(-1)
             else:
                 self.file_error.write("ERROR: en T tipo no definido\n")
-                return -1
+                exit(-1)
         elif self.token[1] == 'while':
             self.parse.write("4 ")
             self.token = self.tokens.pop(0)
@@ -124,18 +124,18 @@ class Syntactic(object):
                 self.parse.write("20 ")
                 aux = self.T()
                 if aux is None:
-                    return -1
+                    exit(-1)
                 if self.token[1] == '=':
                     self.token = self.tokens.pop(0)
                     if self.token[1] == '=':
                         self.token = self.tokens.pop(0)
                         aux2 = self.T()
                         if aux2 is None:
-                            return -1
+                            exit(-1)
                         if aux == aux2:
                             a = self.C1()
                             if a == -1:
-                                return -1
+                                exit(-1)
                             if self.token[1] == ')':
                                 self.token = self.tokens.pop(0)
                                 if self.token[1] == '{':
@@ -154,26 +154,26 @@ class Syntactic(object):
                                         self.file_error.close()
                                         file_error = open("errorSintactico.txt", "w")
                                         file_error.write("ERROR: fallo dentro del while")
-                                        return -1
+                                        exit(-1)
                                     return self.axioma()
                                 else:
                                     self.file_error.write("ERROR: en P abrir corchete")
-                                    return -1
+                                    exit(-1)
                             else:
                                 self.file_error.write("ERROR: en P falta cerrar parentesis")
-                                return -1
+                                exit(-1)
                         else:
                             self.semantico.write("ERROR: no puedes comparar un tipo " + aux + " con un tipo " + aux2)
-                            return -1
+                            exit(-1)
                     else:
                         self.file_error.write("ERROR: en C mal operacion de comparacion\n")
-                        return -1
+                        exit(-1)
                 else:
                     self.file_error.write("ERROR: en C falta operacion de comparacion\n")
-                    return -1
+                    exit(-1)
             else:
                 self.file_error.write("ERROR: en P falta parentesis en el while\n")
-                return -1
+                exit(-1)
         elif self.token[1] is 'function':
             self.parse.write("5 ")
             self.token = self.tokens.pop(0)
@@ -186,14 +186,14 @@ class Syntactic(object):
                 self.parse.write("10 ")
             else:
                 self.file_error.write("ERROR: en P tipo de funcion no existe\n")
-                return -1
+                exit(-1)
             self.token = self.tokens.pop(0)
             if self.token[0] == 'id':
                 name = self.token[1]
                 self.fun.append([self.token[1], ret])
             else:
                 self.file_error.write("ERROR: en P falta id en function\n")
-                return -1
+                exit(-1)
             self.token = self.tokens.pop(0)
             if self.token[1] == '(':
                 self.token = self.tokens.pop(0)
@@ -220,12 +220,12 @@ class Syntactic(object):
                                 if aux[1] != val or aux[0] != name:
                                     self.file_error.write(
                                         "ERROR: en R no se puede devolver un tipo diferente a la funcion\n")
-                                    return -1
+                                    exit(-1)
                                 if self.token[1] == ';':
                                     self.token = self.tokens.pop(0)
                                 else:
                                     self.file_error.write("ERROR: en R falta punto y coma\n")
-                                    return -1
+                                    exit(-1)
                                 if self.token[0] == 'blanc':
                                     self.token = self.tokens.pop(0)
                                 if self.token[1] == '}':
@@ -233,7 +233,7 @@ class Syntactic(object):
                                     return self.axioma()
                                 else:
                                     self.file_error.write("ERROR: en P cerrar corchete")
-                                    return -1
+                                    exit(-1)
                             else:
                                 self.parse.write("29 ")
                                 return self.axioma()
@@ -241,16 +241,16 @@ class Syntactic(object):
                             self.file_error.close()
                             file_error = open("errorSintactico.txt", "w")
                             file_error.write("ERROR: fallo dentro del function")
-                            return -1
+                            exit(-1)
                     else:
                         self.file_error.write("ERROR: en P abrir corchete")
-                        return -1
+                        exit(-1)
                 else:
                     self.file_error.write("ERROR: en A mal formado\n")
-                    return -1
+                    exit(-1)
             else:
                 self.file_error.write("ERROR: en P falta abre parentesis en function\n")
-                return -1
+                exit(-1)
         elif self.token[1] is 'write':
             self.parse.write("3 ")
             self.token = self.tokens.pop(0)
@@ -262,7 +262,7 @@ class Syntactic(object):
                 else:
                     a = self.M1(tipo)
                     if a == -1:
-                        return -1
+                        exit(-1)
                     self.token = self.tokens.pop(0)
                 if self.token[1] is ';':
                     self.parse.write("19 ")
@@ -270,10 +270,10 @@ class Syntactic(object):
                     return self.axioma()
                 else:
                     self.file_error.write("ERROR: en P falta punto y coma\n")
-                    return -1
+                    exit(-1)
             else:
                 self.file_error.write("ERROR: en P falta abre parentesis en write\n")
-                return -1
+                exit(-1)
         elif self.token[0] == 'blanc':
             self.token = self.tokens.pop(0)
         elif self.token[1] == '}':
@@ -289,12 +289,15 @@ class Syntactic(object):
             a = self.comprobar_declarado(index)
             if a is not None:
                 self.semantico.write(a + "\n")
-                return -1
+                self.token = self.tokens.pop(0)
+                exit(-1)
             self.token = self.tokens.pop(0)
             if self.token[1] is '=':
                 self.parse.write("7 ")
                 self.token = self.tokens.pop(0)
                 aux = self.T1(index)
+                if aux == -1:
+                    exit(-1)
                 self.M(aux, index)
             elif self.token[1] is '|':
                 self.token = self.tokens.pop(0)
@@ -302,17 +305,19 @@ class Syntactic(object):
                     self.parse.write("8 ")
                     self.token = self.tokens.pop(0)
                     aux = self.T1(index)
+                    if aux == -1:
+                        exit(-1)
                     self.M(aux, index)
                 else:
                     self.file_error.write("ERROR: en B mal operador\n")
-                    return -1
+                    exit(-1)
             else:
                 self.file_error.write("ERROR: en B mal operador\n")
-                return -1
+                exit(-1)
         else:
             self.file_error.write("ERROR: en P palabra no valida\n")
             print self.token
-            return -1
+            exit(-1)
 
     def A(self):
         if self.token[1] == ',':
@@ -357,28 +362,28 @@ class Syntactic(object):
                 self.token = self.tokens.pop(0)
                 aux = self.T()
                 if aux is None:
-                    return -1
+                    exit(-1)
                 if self.token[1] == '=':
                     self.token = self.tokens.pop(0)
                     if self.token[1] == '=':
                         self.token = self.tokens.pop(0)
                         aux2 = self.T()
                         if aux2 is None:
-                            return -1
+                            exit(-1)
                         if aux == aux2:
                             return self.C1()
                         else:
                             self.semantico.write("ERROR: no puedes comparar un tipo " + aux + " con un tipo " + aux2)
-                            return -1
+                            exit(-1)
                     else:
                         self.file_error.write("ERROR: en C mal operacion de comparacion\n")
-                        return -1
+                        exit(-1)
                 else:
                     self.file_error.write("ERROR: en C mal operacion de comparacion\n")
-                    return -1
+                    exit(-1)
             else:
                 self.file_error.write("ERROR: en C falta operacion de comparacion\n")
-                return -1
+                exit(-1)
         else:
             self.parse.write("22 ")
 
@@ -441,10 +446,14 @@ class Syntactic(object):
             a = self.comprobar_declarado(index1)
             if a is not None:
                 self.semantico.write(a + "\n")
+                self.token = self.tokens.pop(0)
+                exit(-1)
             aux = self.comprobar_ids(index, index1)
             if aux is not 'chars':
                 if aux is not 'int':
                     self.semantico.write(aux + "\n")
+                    self.token = self.tokens.pop(0)
+                    exit(-1)
                 else:
                     self.token = self.tokens.pop(0)
                     return aux
@@ -472,6 +481,7 @@ class Syntactic(object):
             a = self.comprobar_declarado(index)
             if a is not None:
                 self.semantico.write(a + "\n")
+                self.token = self.tokens.pop(0)
                 return None
             if self.comprobar_tipos(index, 'int') is 'int':
                 self.token = self.tokens.pop(0)
@@ -492,7 +502,7 @@ class Syntactic(object):
             self.token = self.tokens.pop(0)
             tipo = self.T()
             if tipo is None:
-                return -1
+                exit(-1)
             if tipo != aux:
                 self.semantico.write("ERROR: no se puede concatenar un tipo " + aux + " con un tipo " + tipo + "\n")
         elif self.token[1] is '-':
@@ -501,14 +511,14 @@ class Syntactic(object):
             self.token = self.tokens.pop(0)
             tipo = self.T()
             if tipo is None:
-                return -1
+                exit(-1)
             if tipo != aux:
                 self.semantico.write("ERROR: no se puede concatenar un tipo " + aux + " con un tipo " + tipo + "\n")
             if self.token[1] is not ')':
                 return self.M1(aux)
         else:
             self.file_error.write("ERROR: en O operador no aceptado\n")
-            return -1
+            exit(-1)
 
     def comprobar_ids(self, index, index1):
         try:

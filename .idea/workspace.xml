@@ -3,6 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="c23a96c5-bb83-4644-9cd5-0dc878c1d015" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/codigo2.js" afterPath="$PROJECT_DIR$/codigo2.js" />
+      <change beforePath="$PROJECT_DIR$/codigo3.js" afterPath="$PROJECT_DIR$/codigo3.js" />
+      <change beforePath="$PROJECT_DIR$/errorSintactico.txt" afterPath="$PROJECT_DIR$/errorSintactico.txt" />
+      <change beforePath="$PROJECT_DIR$/parseSintactico.txt" afterPath="$PROJECT_DIR$/parseSintactico.txt" />
+      <change beforePath="$PROJECT_DIR$/sintactico.py" afterPath="$PROJECT_DIR$/sintactico.py" />
+      <change beforePath="$PROJECT_DIR$/tokensLexico.txt" afterPath="$PROJECT_DIR$/tokensLexico.txt" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -18,7 +24,7 @@
           <file leaf-file-name="lexico.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/lexico.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1275">
+                <state relative-caret-position="461">
                   <caret line="77" column="17" lean-forward="false" selection-start-line="77" selection-start-column="17" selection-end-line="77" selection-end-column="17" />
                   <folding />
                 </state>
@@ -28,8 +34,8 @@
           <file leaf-file-name="sintactico.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/sintactico.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-39">
-                  <caret line="383" column="28" lean-forward="false" selection-start-line="383" selection-start-column="28" selection-end-line="383" selection-end-column="28" />
+                <state relative-caret-position="602">
+                  <caret line="342" column="27" lean-forward="true" selection-start-line="342" selection-start-column="27" selection-end-line="342" selection-end-column="27" />
                   <folding />
                 </state>
               </provider>
@@ -64,26 +70,26 @@
             </leaf>
           </split-first>
           <split-second>
-            <splitter split-orientation="vertical" split-proportion="0.6142506">
+            <splitter split-orientation="vertical" split-proportion="0.61690646">
               <split-first>
-                <splitter split-orientation="vertical" split-proportion="0.5873016">
+                <splitter split-orientation="vertical" split-proportion="0.5760234">
                   <split-first>
                     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-                      <file leaf-file-name="codigo2.js" pinned="false" current-in-tab="false">
+                      <file leaf-file-name="codigo2.js" pinned="false" current-in-tab="true">
                         <entry file="file://$PROJECT_DIR$/codigo2.js">
                           <provider selected="true" editor-type-id="text-editor">
                             <state relative-caret-position="119">
-                              <caret line="7" column="29" lean-forward="false" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
+                              <caret line="7" column="16" lean-forward="false" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
                               <folding />
                             </state>
                           </provider>
                         </entry>
                       </file>
-                      <file leaf-file-name="codigo3.js" pinned="false" current-in-tab="true">
+                      <file leaf-file-name="codigo3.js" pinned="false" current-in-tab="false">
                         <entry file="file://$PROJECT_DIR$/codigo3.js">
                           <provider selected="true" editor-type-id="text-editor">
-                            <state relative-caret-position="17">
-                              <caret line="1" column="10" lean-forward="false" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="10" />
+                            <state relative-caret-position="51">
+                              <caret line="3" column="12" lean-forward="true" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
                               <folding />
                             </state>
                           </provider>
@@ -115,7 +121,7 @@
                         <entry file="file://$PROJECT_DIR$/errorSintactico.txt">
                           <provider selected="true" editor-type-id="text-editor">
                             <state relative-caret-position="0">
-                              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                              <caret line="0" column="20" lean-forward="true" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
                               <folding />
                             </state>
                           </provider>
@@ -129,7 +135,7 @@
                         <entry file="file://$PROJECT_DIR$/parseSintactico.txt">
                           <provider selected="true" editor-type-id="text-editor">
                             <state relative-caret-position="0">
-                              <caret line="0" column="18" lean-forward="false" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
+                              <caret line="0" column="15" lean-forward="true" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
                               <folding />
                             </state>
                           </provider>
@@ -182,6 +188,8 @@
       <find>20</find>
       <find>31</find>
       <find>32</find>
+      <find>ERROR: en O operador no aceptado</find>
+      <find>ERROR: variable no ceclarada</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -194,17 +202,19 @@
         <option value="$PROJECT_DIR$/tablaSimbolos.py" />
         <option value="$PROJECT_DIR$/sintactico_old.py" />
         <option value="$PROJECT_DIR$/tokensLexico.txt" />
-        <option value="$PROJECT_DIR$/errorSintactico.txt" />
         <option value="$PROJECT_DIR$/lexico.py" />
-        <option value="$PROJECT_DIR$/codigo2.js" />
+        <option value="$PROJECT_DIR$/errorSemantico.txt" />
         <option value="$PROJECT_DIR$/codigo3.js" />
+        <option value="$PROJECT_DIR$/errorSintactico.txt" />
         <option value="$PROJECT_DIR$/sintactico.py" />
+        <option value="$PROJECT_DIR$/codigo2.js" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-7" />
-    <option name="width" value="1640" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="536" />
+    <option name="y" value="-11" />
+    <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
   <component name="ProjectLevelVcsManager">
@@ -225,6 +235,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -236,8 +248,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -315,16 +325,16 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1640" height="1047" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.114532016" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1328125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33190578" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24390244" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -359,7 +369,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="884">
           <caret line="52" column="17" lean-forward="false" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -409,7 +418,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="884">
           <caret line="52" column="17" lean-forward="true" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -472,7 +480,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="884">
           <caret line="52" column="17" lean-forward="false" selection-start-line="52" selection-start-column="17" selection-end-line="52" selection-end-column="17" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -560,7 +567,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="25" column="30" lean-forward="true" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -573,14 +579,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lexico.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1275">
-          <caret line="77" column="17" lean-forward="false" selection-start-line="77" selection-start-column="17" selection-end-line="77" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/errorLexico.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -589,18 +587,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/codigo2.js">
+    <entry file="file://$PROJECT_DIR$/lexico.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="29" lean-forward="false" selection-start-line="7" selection-start-column="29" selection-end-line="7" selection-end-column="29" />
+        <state relative-caret-position="461">
+          <caret line="77" column="17" lean-forward="false" selection-start-line="77" selection-start-column="17" selection-end-line="77" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/codigo3.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="10" lean-forward="false" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="10" />
+        <state relative-caret-position="51">
+          <caret line="3" column="12" lean-forward="true" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parseSintactico.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="15" lean-forward="true" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
           <folding />
         </state>
       </provider>
@@ -613,26 +619,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/parseSintactico.txt">
+    <entry file="file://$PROJECT_DIR$/errorSintactico.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="18" lean-forward="false" selection-start-line="0" selection-start-column="18" selection-end-line="0" selection-end-column="18" />
+          <caret line="0" column="20" lean-forward="true" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/errorSintactico.txt">
+    <entry file="file://$PROJECT_DIR$/codigo2.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="119">
+          <caret line="7" column="16" lean-forward="false" selection-start-line="7" selection-start-column="16" selection-end-line="7" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sintactico.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-39">
-          <caret line="383" column="28" lean-forward="false" selection-start-line="383" selection-start-column="28" selection-end-line="383" selection-end-column="28" />
+        <state relative-caret-position="602">
+          <caret line="342" column="27" lean-forward="true" selection-start-line="342" selection-start-column="27" selection-end-line="342" selection-end-column="27" />
           <folding />
         </state>
       </provider>
