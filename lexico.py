@@ -1,6 +1,6 @@
 import sys
 import re
-from tablaSimbolos import tabla_simbolos
+from tabla_de_simbolos import TablaDeSimbolos, Entry
 
 token_pattern = r"""
 (?P<chars>"[a-zA-Z_ ][a-zA-Z0-9_ ]*")
@@ -48,7 +48,7 @@ def tokenize(text):
 
 
 def gen_tokens(file_name):
-    tabla = tabla_simbolos()
+    tabla = TablaDeSimbolos()
     file_pointer = open(file_name)
     file = file_pointer.readlines()
     lines = ""
@@ -56,23 +56,24 @@ def gen_tokens(file_name):
         lines = lines + line
     for tok in tokenize(lines):
         if tok[0] == 'iden':
-            try:
-                index = tabla.index(tok[1])
-                if index < 55:
-                    file_tokens.write("<PR," + str(index) + ">\n")
-                    tokens.append(("PR", tabla[index]))
-                else:
+            index = tabla.search_index(Entry(name=tok[1], type="PR"))
+            if index != -1:
+                file_tokens.write("<PR," + str(index) + ">\n")
+                tokens.append(("PR", tabla[index]))
+            else:
+                index = tabla.search_index(Entry(name=tok[1], type="id"))
+                if index != -1:
                     file_tokens.write("<id," + str(index) + ">\n")
                     tokens.append(("id", tabla[index]))
-            except ValueError:
-                tabla.append(tok[1])
-                index = tabla.index(tok[1])
-                file_tokens.write("<id," + str(index) + ">\n")
-                tokens.append(("id", tabla[index]))
+                else:
+                    tabla.insert(Entry(name=tok[1], type="id"))
+                    index = tabla.search_index(Entry(name=tok[1], type="id"))
+                    file_tokens.write("<id," + str(index) + ">\n")
+                    tokens.append(("id", tabla[index]))
         else:
             if tok[1] is not ' ':
                 if tok[0] != 'eol':
-                    tokens.append((tok[0],tok[1]))
+                    tokens.append((tok[0], tok[1]))
             if tok[0] == 'eol' or tok[1] is ' ' or tok[1] is ';' or tok[1] is '=' or tok[1] is '+':
                 file_tokens.write("<" + tok[0] + ">\n")
             else:
@@ -81,3 +82,11 @@ def gen_tokens(file_name):
     print "Fichero generado: errorLexico.txt"
     tokens.append(('fin', 'se acabo'))
     return tokens, tabla
+
+
+def main():
+    gen_tokens(sys.argv[1])
+
+
+if __name__ == '__main__':
+    main()

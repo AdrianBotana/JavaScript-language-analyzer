@@ -2,7 +2,7 @@ Axioma = S
 
 NoTerminales = { S B T E E1 E2 M O P V V1 R}
 
-Terminales = { var id write ( ) { } int chars function while int return |= = + - ; == && , }
+Terminales = { var id write ( ) { } int chars function while return |= = + - ; == && , }
 
 Producciones = {
 S -> var T id ; S
