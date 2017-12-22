@@ -1,6 +1,3 @@
-//// Decidimos implementar el comentario //, cadenas con "",  el + y -, operador relacional ==, 
-//// operador logico && y operadores de asignacion = y |=
-
 Axioma = P
 
 NoTerminales = { P T T1 O M M1 C C1 A A1 Q R R1 Z B }
@@ -14,6 +11,7 @@ P -> write ( T1 M1 ) ; ////3
 P -> while ( C ) { Z Q } ////4 
 P -> function T id ( A ) { Z Q R } ////5
 P -> comment ////6
+P -> if ( C ) { Z Q } ////
 B -> = ////7
 B -> |= ////8
 T -> int ////9 

@@ -22,6 +22,7 @@ P -> write ( T1 M1 ) ; ////3
 P -> while ( C ) { Z Q } ////4 
 P -> function T id ( A ) { Z Q R } ////5
 P -> comment ////6
+P -> if ( C ) { Z Q } ////
 B -> = ////7
 B -> |= ////8
 T -> int ////9 
@@ -278,6 +279,60 @@ class Syntactic(object):
             self.token = self.tokens.pop(0)
         elif self.token[1] == '}':
             pass
+        elif self.token[1] == 'if':
+            self.parse.write("4 ")
+            self.token = self.tokens.pop(0)
+            if self.token[1] == '(':
+                self.token = self.tokens.pop(0)
+                self.parse.write("20 ")
+                aux = self.T()
+                if aux is None:
+                    exit(-1)
+                if self.token[1] == '=':
+                    self.token = self.tokens.pop(0)
+                    if self.token[1] == '=':
+                        self.token = self.tokens.pop(0)
+                        aux2 = self.T()
+                        if aux2 is None:
+                            exit(-1)
+                        if aux == aux2:
+                            a = self.C1()
+                            if a == -1:
+                                exit(-1)
+                            if self.token[1] == ')':
+                                self.token = self.tokens.pop(0)
+                                if self.token[1] == '{':
+                                    self.token = self.tokens.pop(0)
+                                    if self.token[0] == 'comment':
+                                        self.parse.write("6 ")
+                                        self.parse.write("30 ")
+                                        self.token = self.tokens.pop(0)
+                                    elif self.token[0] == 'blanc':
+                                        self.token = self.tokens.pop(0)
+                                    else:
+                                        self.parse.write("31 ")
+                                        print self.token
+                                        self.axioma()
+                                        print self.token
+                                        return self.axioma()
+                                else:
+                                    self.file_error.write("ERROR: en P abrir corchete")
+                                    exit(-1)
+                            else:
+                                self.file_error.write("ERROR: en P falta cerrar parentesis")
+                                exit(-1)
+                        else:
+                            self.semantico.write("ERROR: no puedes comparar un tipo " + aux + " con un tipo " + aux2)
+                            exit(-1)
+                    else:
+                        self.file_error.write("ERROR: en C mal operacion de comparacion\n")
+                        exit(-1)
+                else:
+                    self.file_error.write("ERROR: en C falta operacion de comparacion\n")
+                    exit(-1)
+            else:
+                self.file_error.write("ERROR: en P falta parentesis en el if\n")
+                exit(-1)
         elif self.token[0] == 'comment':
             self.parse.write("6 ")
             self.parse.write("30 ")
