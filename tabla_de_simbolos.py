@@ -9,15 +9,14 @@ class Entry(object):
 
 class TablaDeSimbolos(object):
     tabla = list()
-    #TODO: Arreglar toda la tabla de simbolos
-    tabla.append(Entry(name="chars", type="PR"))
-    tabla.append(Entry("function", "PR"))
-    tabla.append(Entry(name="int", type="PR"))
-    tabla.append(Entry("return", "PR"))
-    tabla.append(Entry("var", "PR"))
-    tabla.append(Entry("while", "PR"))
-    tabla.append(Entry("write", "PR"))
-    tabla.append(Entry(name="if", type="PR"))
+    tabla.append(Entry(name="chars", type="PR", desp=16))
+    tabla.append(Entry(name="function", type="PR", desp=16))
+    tabla.append(Entry(name="int", type="PR", desp=16))
+    tabla.append(Entry(name="return", type="PR", desp=16))
+    tabla.append(Entry(name="var", type="PR", desp=16))
+    tabla.append(Entry(name="while", type="PR", desp=16))
+    tabla.append(Entry(name="write", type="PR", desp=16))
+    tabla.append(Entry(name="if", type="PR", desp=16))
 
     def __getitem__(self, item):
         return self.tabla.__getitem__(item)

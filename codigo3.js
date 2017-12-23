@@ -1,11 +1,15 @@
 var int a;
 var int b;
-a = 2 + 3;
-var chars b;
-if(a == b){
-    var chars adios;
+a |= b;
+write("que pasa" + "buenas");
+var chars z;
+//que pasa
+if (a == b && b == a){
+    var int f;
+    b = a;
 }
-b = "que pasa";
-function int hola(){
-    var chars b;
+function int hola (int s, chars m){
+    var chars e;
+    write("hola");
+    return 2 + 4;
 }

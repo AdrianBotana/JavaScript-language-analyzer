@@ -13,15 +13,19 @@ S -> if ( E1 ) { P } S
 S -> function T id ( V ){ P R } S
 T -> int | chars
 E -> cte-ent M | cadena M | id M
+M -> O E | lambda
 E1 -> E == E E2
 E2 -> && E1 | lambda
-M -> O E | lambda
 O -> + | -
 P -> S P | lambda
 B -> = | |=
 V -> T id V1 
 V1 -> , V | lambda
-R -> return E | lambda
+R -> return E ;| lambda
 }
 
 crear variable global tipo para manejar mejor los errores semanticos
+
+int desp 2
+chars desp 16
+fun desp = valor devuelto

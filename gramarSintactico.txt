@@ -1,41 +1,25 @@
-Axioma = P
+Axioma = S
 
-NoTerminales = { P T T1 O M M1 C C1 A A1 Q R R1 Z B }
+NoTerminales = { S B T E E1 E2 M O P V V1 R}
 
-Terminales = { var id write ( ) { } int chars bool function while cte-ent coment cadena return |= = + - ; == && , }
+Terminales = { var id write ( ) { } int chars function while return |= = + - ; == && , }
 
 Producciones = {
-P -> var T id ; ////1
-P -> id B T1 M ////2
-P -> write ( T1 M1 ) ; ////3 
-P -> while ( C ) { Z Q } ////4 
-P -> function T id ( A ) { Z Q R } ////5
-P -> comment ////6
-P -> if ( C ) { Z Q } ////
-B -> = ////7
-B -> |= ////8
-T -> int ////9 
-T -> chars ////10 
-T1 -> cte-ent ////11 
-T1 -> cadena ////12 
-T1 -> id ////13 
-O -> + ////14 
-O -> - ////15 
-M -> O T1 M ////16 
-M -> ; ////17
-M1 -> O T1 M1 ////18 
-M1 -> lambda ////19 
-C -> T1 == T1 C1 ////20 
-C1 -> && T1 == T1 C1 ////21 
-C1 -> lambda ////22 
-A -> T id A1 ////23 
-A1 -> , T id A1 ////24 
-A1 -> lambda ////25 
-Q -> P Q ////26
-Q -> lambda ////27
-R -> return T1 ; ////28
-R -> lambda ////29 
-Z -> comment ////30
-Z -> lambda ////31
-A -> lambda ////32
+S -> var T id ; S
+S -> id B E ; S
+S -> write ( E ) ; S
+S -> while ( E1 ) { P } S
+S -> if ( E1 ) { P } S
+S -> function T id ( V ){ P R } S
+T -> int | chars
+E -> cte-ent M | cadena M | id M
+E1 -> E == E E2
+E2 -> && E1 | lambda
+M -> O E | lambda
+O -> + | -
+P -> S P | lambda
+B -> = | |=
+V -> T id V1 
+V1 -> , V | lambda
+R -> return E ; | lambda
 }

@@ -22,6 +22,7 @@ token_pattern = r"""
 |(?P<dec>--)
 |(?P<arit1>[-])
 |(?P<puntocoma>[;])
+|(?P<coma>[,])
 """
 
 token_re = re.compile(token_pattern, re.VERBOSE)
@@ -56,25 +57,26 @@ def gen_tokens(file_name):
         lines = lines + line
     for tok in tokenize(lines):
         if tok[0] == 'iden':
-            index = tabla.search_index(Entry(name=tok[1], type="PR"))
-            if index != -1:
+            index = tabla.search_index(Entry(name=tok[1], type="PR", desp=16))
+            if index != -1 and index < 8:
                 file_tokens.write("<PR," + str(index) + ">\n")
                 tokens.append(("PR", tabla[index]))
             else:
-                index = tabla.search_index(Entry(name=tok[1], type="id"))
+                index = tabla.search_index(Entry(name=tok[1]))
                 if index != -1:
                     file_tokens.write("<id," + str(index) + ">\n")
                     tokens.append(("id", tabla[index]))
                 else:
-                    tabla.insert(Entry(name=tok[1], type="id"))
-                    index = tabla.search_index(Entry(name=tok[1], type="id"))
+                    tabla.insert(Entry(name=tok[1]))
+                    index = tabla.search_index(Entry(name=tok[1]))
                     file_tokens.write("<id," + str(index) + ">\n")
                     tokens.append(("id", tabla[index]))
         else:
             if tok[1] is not ' ':
-                if tok[0] != 'eol':
+                if tok[0] != 'eol' and tok[0] != 'blanc' and tok[0] != 'comment':
                     tokens.append((tok[0], tok[1]))
-            if tok[0] == 'eol' or tok[1] is ' ' or tok[1] is ';' or tok[1] is '=' or tok[1] is '+':
+            if tok[0] == 'eol' or tok[1] is ' ' or tok[1] is ';' or tok[1] is '=' or tok[1] is '|' \
+                    or tok[1] is '(' or tok[1] is ')' or tok[1] is '{' or tok[1] is '}':
                 file_tokens.write("<" + tok[0] + ">\n")
             else:
                 file_tokens.write("<" + tok[0] + "," + tok[1] + ">\n")
