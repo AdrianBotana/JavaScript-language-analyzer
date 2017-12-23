@@ -13,3 +13,17 @@ function int hola (int s, chars m){
     write("hola");
     return 2 + 4;
 }
+
+
+
+write(2);
+write(hola);
+while(hola == adios){
+    var chars id;
+    write(hola);
+}
+
+function chars cosa(){
+    var int que;
+    return hola;
+}

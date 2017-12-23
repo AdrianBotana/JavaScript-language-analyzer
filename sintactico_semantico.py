@@ -11,29 +11,29 @@ gramar.write('''Axioma = S
 
 NoTerminales = { S B T E E1 E2 M O P V V1 R}
 
-Terminales = { var id write ( ) { } int chars function while return |= = + - ; == && , }
+Terminales = { var id write ( ) { } int chars cte-ent cadena function while return |= = + - ; == && , }
 
 Producciones = {
-S -> var T id ; S
-S -> id B E ; S
-S -> write ( E ) ; S
-S -> while ( E1 ) { P } S
-S -> if ( E1 ) { P } S
-S -> function T id ( V ){ P R } S
-T -> int | chars
-E -> cte-ent M | cadena M | id M
-E1 -> E == E E2
-E2 -> && E1 | lambda
-M -> O E | lambda
-O -> + | -
-P -> S P | lambda
-B -> = | |=
-V -> T id V1 
-V1 -> , V | lambda
-R -> return E ; | lambda
+S -> var T id ; S //// 1
+S -> id B E ; S //// 2
+S -> write ( E ) ; S //// 3
+S -> while ( E1 ) { P } S //// 4
+S -> if ( E1 ) { P } S //// 5
+S -> function T id ( V ){ P R } S //// 6
+T -> int | chars //// 7, 8
+E -> cte-ent M | cadena M | id M //// 9, 10, 11
+E1 -> E == E E2 //// 12
+E2 -> && E1 | lambda //// 13, 14
+M -> O E | lambda //// 15, 16
+O -> + | - //// 17, 18
+B -> = | |= //// 19, 20
+V -> T id V1 //// 21
+V1 -> , V | lambda //// 22, 23
+R -> return E ; | lambda //// 24, 25
 }''')
 error_sintactico = open("errorSintactico.txt", "w")
 error_semantico = open("errorSemantico.txt", "w")
+parse = open("parse.txt", "w")
 
 
 class Syntactic(object):
@@ -43,28 +43,26 @@ class Syntactic(object):
         self.token = self.tokens.pop(0)
         self.tipo = "no"
         self.ret = "no"
+        parse.write("Des ")
 
     def s(self):
         self.tipo = "no"
         if self.token[0] == "PR":
             if self.token[1].name == "var":
+                parse.write("1 ")
                 self.token = self.tokens.pop(0)
                 self.t()
-                if self.token[1].type == "no":
-                    self.asignar_tipo(self.token[1], self.tipo)
+                self.asignar_tipo(self.token[1], self.tipo)
+                self.token = self.tokens.pop(0)
+                if self.token[1] == ";":
                     self.token = self.tokens.pop(0)
-                    if self.token[1] == ";":
-                        self.token = self.tokens.pop(0)
-                        return self.s()
-                    else:
-                        error_sintactico.write("ERROR: falta punto y coma en la declaracion de variables \n")
-                        exit(-1)
+                    return self.s()
                 else:
-                    error_semantico.write("ERROR: variable ya declarada con tipo " + self.token[1].type +
-                                          " y se quiere pasar a tipo " + self.tipo + "\n")
+                    error_sintactico.write("ERROR: falta punto y coma en la declaracion de variables \n")
                     exit(-1)
-                    # puede que haya que cambiarlo para que cambie de tipo siempre
+
             elif self.token[1].name == "write":
+                parse.write("3 ")
                 self.token = self.tokens.pop(0)
                 if self.token[1] == "(":
                     self.token = self.tokens.pop(0)
@@ -84,6 +82,7 @@ class Syntactic(object):
                     error_sintactico.write("ERROR: falta abrir parentesis en el write \n")
                     exit(-1)
             elif self.token[1].name == "while":
+                parse.write("4 ")
                 self.token = self.tokens.pop(0)
                 if self.token[1] == "(":
                     self.token = self.tokens.pop(0)
@@ -109,6 +108,7 @@ class Syntactic(object):
                     error_sintactico.write("ERROR: falta abrir parentesis en el while \n")
                     exit(-1)
             elif self.token[1].name == "if":
+                parse.write("5 ")
                 self.token = self.tokens.pop(0)
                 if self.token[1] == "(":
                     self.token = self.tokens.pop(0)
@@ -135,12 +135,12 @@ class Syntactic(object):
                     exit(-1)
             elif self.token[1].name == "return":
                 if self.ret != "no":
+                    parse.write("24 ")
                     self.token = self.tokens.pop(0)
                     self.tipo = self.ret
                     self.e()
                     if self.token[1] == ";":
                         self.token = self.tokens.pop(0)
-                        return self.s()
                     else:
                         error_sintactico.write("ERROR: falta punto y coma tras el return \n")
                         exit(-1)
@@ -148,6 +148,7 @@ class Syntactic(object):
                     error_semantico.write("ERROR: no puedes usar return si no se esta en una funcion \n")
                     exit(-1)
             elif self.token[1].name == "function":
+                parse.write("6 ")
                 self.token = self.tokens.pop(0)
                 self.t()
                 if self.token[0] == "id":
@@ -161,14 +162,16 @@ class Syntactic(object):
                             if self.token[1] != ")":
                                 ini = list()
                                 result = self.v(ini)
-                                self.asignar_tipo(fun,fun.type, result)
-                            #usar result para la tabla de simbolos y demas
+                                self.asignar_tipo(fun, fun.type, result)
+                            # usar result para la tabla de simbolos y demas
                             if self.token[1] == ")":
                                 self.token = self.tokens.pop(0)
                                 if self.token[1] == "{":
                                     self.token = self.tokens.pop(0)
                                     self.s()
                                     if self.token[1] == "}":
+                                        if self.ret == "no":
+                                            parse.write("25 ")
                                         self.token = self.tokens.pop(0)
                                         self.ret = "no"
                                         return self.s()
@@ -194,13 +197,16 @@ class Syntactic(object):
                 error_sintactico.write("ERROR: palabra reservada no conocida: " + self.token[1].name + "\n")
                 exit(-1)
         elif self.token[0] == "id":
+            parse.write("2 ")
             if self.token[1].type != "no":
                 self.tipo = self.token[1].type
                 self.token = self.tokens.pop(0)
                 if self.token[1] == "|":
+                    parse.write("20 ")
                     self.token = self.tokens.pop(0)
                     self.token = self.tokens.pop(0)
                 elif self.token[1] == "=":
+                    parse.write("19 ")
                     self.token = self.tokens.pop(0)
                 else:
                     error_sintactico.write("ERROR: operador de asignacion no aceptado \n")
@@ -229,7 +235,9 @@ class Syntactic(object):
             exit(-1)
 
     def v(self, result):
-        if self.token[1].name == "int" or self.token[1].name == "chars":
+        parse.write("21 ")
+        if self.token[1].name == "int":
+            parse.write("7 ")
             type = self.token[1].name
             self.token = self.tokens.pop(0)
             if self.token[0] == "id":
@@ -238,8 +246,10 @@ class Syntactic(object):
                 self.token = self.tokens.pop(0)
                 if self.token[1] == ",":
                     self.token = self.tokens.pop(0)
-                    self.v(result)
+                    parse.write("22 ")
+                    return self.v(result)
                 elif self.token[1] == ")":
+                    parse.write("23 ")
                     return result
                 else:
                     error_sintactico.write("ERROR: simbolo incorrecto en los parametros \n")
@@ -247,29 +257,71 @@ class Syntactic(object):
             else:
                 error_sintactico.write("ERROR: los parametros tienen que ser ids \n")
                 exit(-1)
+        elif self.token[1].name == "chars":
+            parse.write("8 ")
+            type = self.token[1].name
+            self.token = self.tokens.pop(0)
+            if self.token[0] == "id":
+                entry = self.asignar_tipo(self.token[1], type, 1)
+                result.append(self.tablaSimbolos.search_index(entry))
+                self.token = self.tokens.pop(0)
+                if self.token[1] == ",":
+                    self.token = self.tokens.pop(0)
+                    parse.write("22 ")
+                    return self.v(result)
+                elif self.token[1] == ")":
+                    parse.write("23 ")
+                    return result
+                else:
+                    error_sintactico.write("ERROR: simbolo incorrecto en los parametros \n")
+                    exit(-1)
+            else:
+                error_sintactico.write("ERROR: los parametros tienen que ser ids \n")
+                exit(-1)
+
         else:
             error_sintactico.write("ERROR: tipo no definido \n")
             exit(-1)
 
     def e(self):
         if self.token[0] == "id":
+            parse.write("11 ")
             if self.token[1].type == self.tipo:
                 self.token = self.tokens.pop(0)
             else:
                 error_semantico.write(
                     "ERROR: no puedes asignar un tipo " + self.token[1].type + " a un tipo " + self.tipo)
                 exit(-1)
-        elif self.token[0] == 'int' or self.token[0] == "chars":
+        elif self.token[0] == 'int':
+            parse.write("9 ")
             if self.token[0] == self.tipo:
                 self.token = self.tokens.pop(0)
             else:
                 error_semantico.write("ERROR: no puedes asignar un tipo " + self.token[0] + " a un tipo " + self.tipo)
                 exit(-1)
-        if self.token[1] == "+" or self.token[1] == "-":
+        elif self.token[0] == "chars":
+            parse.write("10 ")
+            if self.token[0] == self.tipo:
+                self.token = self.tokens.pop(0)
+            else:
+                error_semantico.write("ERROR: no puedes asignar un tipo " + self.token[0] + " a un tipo " + self.tipo)
+                exit(-1)
+        if self.token[1] == "+":
+            parse.write("15 ")
+            parse.write("17 ")
             self.token = self.tokens.pop(0)
             return self.e()
+        elif self.token[1] == "-":
+            parse.write("15 ")
+            parse.write("18 ")
+            self.token = self.tokens.pop(0)
+            return self.e()
+        else:
+            parse.write("16 ")
+        #intentar tratar el caso de error para otros operadores
 
     def e1(self):
+        parse.write("12 ")
         self.e_aux()
         if self.token[1] == "=":
             self.token = self.tokens.pop(0)
@@ -280,8 +332,10 @@ class Syntactic(object):
                     exit(-1)
                 self.e()
                 if self.token[1] == "&&":
+                    parse.write("13 ")
                     self.token = self.tokens.pop(0)
                     return self.e1()
+                parse.write("14 ")
             else:
                 error_sintactico.write("ERROR: operador de comparacion desconocido. \n")
                 exit(-1)
@@ -291,6 +345,7 @@ class Syntactic(object):
 
     def e_aux(self):
         if self.token[0] == "id":
+            parse.write("11 ")
             if self.token[1].type != "no":
                 self.tipo = self.token[1].type
                 self.token = self.tokens.pop(0)
@@ -298,16 +353,27 @@ class Syntactic(object):
             else:
                 error_semantico.write("ERROR: variable no declarada \n")
                 exit(-1)
-        else:
+        elif self.token[0] == "int":
+            parse.write("9 ")
             self.tipo = self.token[0]
             self.token = self.tokens.pop(0)
             return self.e()
+        elif self.token[0] == "chars":
+            parse.write("10 ")
+            self.tipo = self.token[0]
+            self.token = self.tokens.pop(0)
+            return self.e()
+        else:
+            error_sintactico.write("ERROR: tipo no conocido \n")
+            exit(-1)
 
     def t(self):
         if self.token[1].name == "int":
+            parse.write("7 ")
             self.tipo = "int"
             self.token = self.tokens.pop(0)
         elif self.token[1].name == "chars":
+            parse.write("8 ")
             self.tipo = "chars"
             self.token = self.tokens.pop(0)
         else:
@@ -327,8 +393,11 @@ class Syntactic(object):
 
 
 def main():
+    print "Fichero generado: gramarSintactico.txt"
+    print "Fichero generado: errorSintactico.txt"
+    print "Fichero generado: errorSemantico.txt"
+
     Syntactic().s()
-    print tokens
 
 
 if __name__ == '__main__':
