@@ -52,6 +52,9 @@ class Syntactic(object):
                 parse.write("1 ")
                 self.token = self.tokens.pop(0)
                 self.t()
+                if self.token[1] == ";":
+                    error_sintactico.write("ERROR: falta id para asignarle un tipo")
+                    exit(-1)
                 self.asignar_tipo(self.token[1], self.tipo)
                 self.token = self.tokens.pop(0)
                 if self.token[1] == ";":
