@@ -30,11 +30,10 @@ V -> T id V1 //// 21
 V1 -> , V | lambda //// 22, 23
 R -> return E ; | lambda //// 24, 25
 }''')
-error_sintactico = open("errorSintactico.txt", "w")
+error = open("errores.txt", "w")
 error_semantico = open("errorSemantico.txt", "w")
 parse = open("parse.txt", "w")
 simbolos = open("tablaDeSimbolos.txt", "w")
-simbolos.write("TABLA DE SIMBOLOS #1: \n \n")
 
 
 class Syntactic(object):
@@ -45,6 +44,7 @@ class Syntactic(object):
         self.tipo = "no"
         self.ret = "no"
         parse.write("Des ")
+        simbolos.write("TABLA DE SIMBOLOS #1: \n \n")
 
     def s(self):
         self.tipo = "no"
@@ -54,7 +54,7 @@ class Syntactic(object):
                 self.token = self.tokens.pop(0)
                 self.t()
                 if self.token[1] == ";":
-                    error_sintactico.write("ERROR: falta id para asignarle un tipo")
+                    error.write("ERROR SINTACTICO: falta id para asignarle un tipo")
                     print "Error al analizar el fichero"
                     exit(-1)
                 self.asignar_tipo(self.token[1], self.tipo)
@@ -65,7 +65,7 @@ class Syntactic(object):
                     self.escribe_tabla(nombre, self.tipo)
                     return self.s()
                 else:
-                    error_sintactico.write("ERROR: falta punto y coma en la declaracion de variables \n")
+                    error.write("ERROR SINTACTICO: falta punto y coma en la declaracion de variables \n")
                     print "Error al analizar el fichero"
                     exit(-1)
 
@@ -81,15 +81,15 @@ class Syntactic(object):
                             self.token = self.tokens.pop(0)
                             return self.s()
                         else:
-                            error_sintactico.write("ERROR: falta punto y coma en el write \n")
+                            error.write("ERROR SINTACTICO: falta punto y coma en el write \n")
                             print "Error al analizar el fichero"
                             exit(-1)
                     else:
-                        error_sintactico.write("ERROR: falta cerrar parentesis en el write \n")
+                        error.write("ERROR SINTACTICO: falta cerrar parentesis en el write \n")
                         print "Error al analizar el fichero"
                         exit(-1)
                 else:
-                    error_sintactico.write("ERROR: falta abrir parentesis en el write \n")
+                    error.write("ERROR SINTACTICO: falta abrir parentesis en el write \n")
                     print "Error al analizar el fichero"
                     exit(-1)
             elif self.token[1].name == "while":
@@ -107,19 +107,19 @@ class Syntactic(object):
                                 self.token = self.tokens.pop(0)
                                 return self.s()
                             else:
-                                error_sintactico.write("ERROR: falta cerrar corchete en el while \n")
+                                error.write("ERROR SINTACTICO: falta cerrar corchete en el while \n")
                                 print "Error al analizar el fichero"
                                 exit(-1)
                         else:
-                            error_sintactico.write("ERROR: falta abrir corchete en el while \n")
+                            error.write("ERROR SINTACTICO: falta abrir corchete en el while \n")
                             print "Error al analizar el fichero"
                             exit(-1)
                     else:
-                        error_sintactico.write("ERROR: falta cerrar parentesis en el while \n")
+                        error.write("ERROR SINTACTICO: falta cerrar parentesis en el while \n")
                         print "Error al analizar el fichero"
                         exit(-1)
                 else:
-                    error_sintactico.write("ERROR: falta abrir parentesis en el while \n")
+                    error.write("ERROR SINTACTICO: falta abrir parentesis en el while \n")
                     print "Error al analizar el fichero"
                     exit(-1)
             elif self.token[1].name == "if":
@@ -137,19 +137,19 @@ class Syntactic(object):
                                 self.token = self.tokens.pop(0)
                                 return self.s()
                             else:
-                                error_sintactico.write("ERROR: falta cerrar corchete en el if \n")
+                                error.write("ERROR SINTACTICO: falta cerrar corchete en el if \n")
                                 print "Error al analizar el fichero"
                                 exit(-1)
                         else:
-                            error_sintactico.write("ERROR: falta abrir corchete en el if \n")
+                            error.write("ERROR SINTACTICO: falta abrir corchete en el if \n")
                             print "Error al analizar el fichero"
                             exit(-1)
                     else:
-                        error_sintactico.write("ERROR: falta cerrar parentesis en el if \n")
+                        error.write("ERROR SINTACTICO: falta cerrar parentesis en el if \n")
                         print "Error al analizar el fichero"
                         exit(-1)
                 else:
-                    error_sintactico.write("ERROR: falta abrir parentesis en el if \n")
+                    error.write("ERROR SINTACTICO: falta abrir parentesis en el if \n")
                     print "Error al analizar el fichero"
                     exit(-1)
             elif self.token[1].name == "return":
@@ -161,11 +161,11 @@ class Syntactic(object):
                     if self.token[1] == ";":
                         self.token = self.tokens.pop(0)
                     else:
-                        error_sintactico.write("ERROR: falta punto y coma tras el return \n")
+                        error.write("ERROR SINTACTICO: falta punto y coma tras el return \n")
                         print "Error al analizar el fichero"
                         exit(-1)
                 else:
-                    error_semantico.write("ERROR: no puedes usar return si no se esta en una funcion \n")
+                    error.write("ERROR SEMANTICO: no puedes usar return si no se esta en una funcion \n")
                     print "Error al analizar el fichero"
                     exit(-1)
             elif self.token[1].name == "function":
@@ -214,31 +214,31 @@ class Syntactic(object):
                                         simbolos.write("TABLA DE SIMBOLOS #1: \n \n")
                                         return self.s()
                                     else:
-                                        error_sintactico.write("ERROR: falta cerrar corchete en el function \n")
+                                        error.write("ERROR SINTACTICO: falta cerrar corchete en el function \n")
                                         print "Error al analizar el fichero"
                                         exit(-1)
                                 else:
-                                    error_sintactico.write("ERROR: falta abrir corchete en el function \n")
+                                    error.write("ERROR SINTACTICO: falta abrir corchete en el function \n")
                                     print "Error al analizar el fichero"
                                     exit(-1)
                             else:
-                                error_sintactico.write("ERROR: falta cerrar parentesis en function \n")
+                                error.write("ERROR SINTACTICO: falta cerrar parentesis en function \n")
                                 print "Error al analizar el fichero"
                                 exit(-1)
                         else:
-                            error_sintactico.write("ERROR: falta abrir parentesis en function \n")
+                            error.write("ERROR SINTACTICO: falta abrir parentesis en function \n")
                             print "Error al analizar el fichero"
                             exit(-1)
                     else:
-                        error_semantico.write("ERROR: variable ya declarada, no puede ser funcion \n")
+                        error.write("ERROR SEMANTICO: variable ya declarada, no puede ser funcion \n")
                         print "Error al analizar el fichero"
                         exit(-1)
                 else:
-                    error_sintactico.write("ERROR: se necesita id para la funcion \n")
+                    error.write("ERROR SINTACTICO: se necesita id para la funcion \n")
                     print "Error al analizar el fichero"
                     exit(-1)
             else:
-                error_sintactico.write("ERROR: palabra reservada no conocida: " + self.token[1].name + "\n")
+                error.write("ERROR SINTACTICO: palabra reservada no conocida: " + self.token[1].name + "\n")
                 print "Error al analizar el fichero"
                 exit(-1)
         elif self.token[0] == "id":
@@ -254,11 +254,11 @@ class Syntactic(object):
                     parse.write("19 ")
                     self.token = self.tokens.pop(0)
                 else:
-                    error_sintactico.write("ERROR: operador de asignacion no aceptado \n")
+                    error.write("ERROR SINTACTICO: operador de asignacion no aceptado \n")
                     print "Error al analizar el fichero"
                     exit(-1)
                 if self.token[1] == ";":
-                    error_sintactico.write("ERROR: falta segundo operando en la asignacion \n")
+                    error.write("ERROR SINTACTICO: falta segundo operando en la asignacion \n")
                     print "Error al analizar el fichero"
                     exit(-1)
                 self.e()
@@ -266,11 +266,11 @@ class Syntactic(object):
                     self.token = self.tokens.pop(0)
                     return self.s()
                 else:
-                    error_sintactico.write("ERROR: falta punto y coma en la asignacion \n")
+                    error.write("ERROR SINTACTICO: falta punto y coma en la asignacion \n")
                     print "Error al analizar el fichero"
                     exit(-1)
             else:
-                error_semantico.write("ERROR: variable no declarada \n")
+                error.write("ERROR SEMANTICO: variable no declarada \n")
                 print "Error al analizar el fichero"
                 exit(-1)
         elif self.token[0] == "fin":
@@ -279,7 +279,7 @@ class Syntactic(object):
         elif self.token[1] == "}":
             pass
         else:
-            error_sintactico.write("ERROR: inicio de axioma desconocido \n")
+            error.write("ERROR SINTACTICO: inicio de axioma desconocido \n")
             print "Error al analizar el fichero"
             print self.token
             exit(-1)
@@ -303,11 +303,11 @@ class Syntactic(object):
                     parse.write("23 ")
                     return result
                 else:
-                    error_sintactico.write("ERROR: simbolo incorrecto en los parametros \n")
+                    error.write("ERROR SINTACTICO: simbolo incorrecto en los parametros \n")
                     print "Error al analizar el fichero"
                     exit(-1)
             else:
-                error_sintactico.write("ERROR: los parametros tienen que ser ids \n")
+                error.write("ERROR SINTACTICO: los parametros tienen que ser ids \n")
                 print "Error al analizar el fichero"
                 exit(-1)
         elif self.token[1].name == "chars":
@@ -327,16 +327,16 @@ class Syntactic(object):
                     parse.write("23 ")
                     return result
                 else:
-                    error_sintactico.write("ERROR: simbolo incorrecto en los parametros \n")
+                    error.write("ERROR SINTACTICO: simbolo incorrecto en los parametros \n")
                     print "Error al analizar el fichero"
                     exit(-1)
             else:
-                error_sintactico.write("ERROR: los parametros tienen que ser ids \n")
+                error.write("ERROR SINTACTICO: los parametros tienen que ser ids \n")
                 print "Error al analizar el fichero"
                 exit(-1)
 
         else:
-            error_sintactico.write("ERROR: tipo no definido \n")
+            error.write("ERROR SINTACTICO: tipo no definido \n")
             print "Error al analizar el fichero"
             exit(-1)
 
@@ -346,8 +346,8 @@ class Syntactic(object):
             if self.token[1].type == self.tipo:
                 self.token = self.tokens.pop(0)
             else:
-                error_semantico.write(
-                    "ERROR: no puedes asignar un tipo " + self.token[1].type + " a un tipo " + self.tipo)
+                error.write(
+                    "ERROR SEMANTICO: no puedes asignar un tipo " + self.token[1].type + " a un tipo " + self.tipo)
                 print "Error al analizar el fichero"
                 exit(-1)
         elif self.token[0] == 'int':
@@ -355,7 +355,7 @@ class Syntactic(object):
             if self.token[0] == self.tipo:
                 self.token = self.tokens.pop(0)
             else:
-                error_semantico.write("ERROR: no puedes asignar un tipo " + self.token[0] + " a un tipo " + self.tipo)
+                error.write("ERROR SEMANTICO: no puedes asignar un tipo " + self.token[0] + " a un tipo " + self.tipo)
                 print "Error al analizar el fichero"
                 exit(-1)
         elif self.token[0] == "chars":
@@ -363,7 +363,7 @@ class Syntactic(object):
             if self.token[0] == self.tipo:
                 self.token = self.tokens.pop(0)
             else:
-                error_semantico.write("ERROR: no puedes asignar un tipo " + self.token[0] + " a un tipo " + self.tipo)
+                error.write("ERROR SEMANTICO: no puedes asignar un tipo " + self.token[0] + " a un tipo " + self.tipo)
                 print "Error al analizar el fichero"
                 exit(-1)
         if self.token[1] == "+":
@@ -383,7 +383,7 @@ class Syntactic(object):
     def e1(self):
         parse.write("12 ")
         if self.token[1] == ")":
-            error_sintactico.write("ERROR: falta condicion para analizar")
+            error.write("ERROR SINTACTICO: falta condicion para analizar")
             print "Error al analizar el fichero"
             exit(-1)
         self.e_aux()
@@ -392,7 +392,7 @@ class Syntactic(object):
             if self.token[1] == "=":
                 self.token = self.tokens.pop(0)
                 if self.token[1] == ")" or self.token[1] == "&&":
-                    error_sintactico.write("ERROR: falta segundo operando de la comparacion \n")
+                    error.write("ERROR SINTACTICO: falta segundo operando de la comparacion \n")
                     print "Error al analizar el fichero"
                     exit(-1)
                 self.e()
@@ -402,12 +402,12 @@ class Syntactic(object):
                     return self.e1()
                 parse.write("14 ")
             else:
-                error_sintactico.write("ERROR: operador de comparacion desconocido. \n")
+                error.write("ERROR SINTACTICO: operador de comparacion desconocido. \n")
                 print "Error al analizar el fichero"
                 exit(-1)
         else:
             if self.token[1] != ")":
-                error_sintactico.write("ERROR: operador de comparacion desconocido. \n")
+                error.write("ERROR SINTACTICO: operador de comparacion desconocido. \n")
                 print "Error al analizar el fichero"
                 exit(-1)
 
@@ -419,7 +419,7 @@ class Syntactic(object):
                 self.token = self.tokens.pop(0)
                 return self.e()
             else:
-                error_semantico.write("ERROR: variable no declarada \n")
+                error.write("ERROR SEMANTICO: variable no declarada \n")
                 print "Error al analizar el fichero"
                 exit(-1)
         elif self.token[0] == "int":
@@ -433,7 +433,7 @@ class Syntactic(object):
             self.token = self.tokens.pop(0)
             return self.e()
         else:
-            error_sintactico.write("ERROR: tipo no conocido \n")
+            error.write("ERROR SINTACTICO: tipo no conocido \n")
             print "Error al analizar el fichero"
             exit(-1)
 
@@ -447,7 +447,7 @@ class Syntactic(object):
             self.tipo = "chars"
             self.token = self.tokens.pop(0)
         else:
-            error_sintactico.write("ERROR: tipo no conocido \n")
+            error.write("ERROR SINTACTICO: tipo no conocido \n")
             print "Error al analizar el fichero"
             exit(-1)
 
@@ -484,8 +484,7 @@ class Syntactic(object):
 def main():
     print "Fichero generado: gramarSintactico.txt"
     print "Fichero generado: parse.txt"
-    print "Fichero generado: errorSintactico.txt"
-    print "Fichero generado: errorSemantico.txt"
+    print "Fichero generado: tablaDeSimbolos.txt"
     Syntactic().s()
 
 

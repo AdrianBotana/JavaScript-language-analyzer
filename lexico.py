@@ -27,7 +27,7 @@ token_pattern = r"""
 
 token_re = re.compile(token_pattern, re.VERBOSE)
 file_tokens = open("tokensLexico.txt", "w")
-file_error = open("errorLexico.txt", "w")
+file_error = open("errores.txt", "w")
 tokens = list()
 
 
@@ -44,7 +44,7 @@ def tokenize(text):
         tokvalue = m.group(tokname)
         yield tokname, tokvalue
     if pos != len(text):
-        file_error.write('ERROR: se ha encontrado el token no valido %s en la posicion posicion %r de %r' % (
+        file_error.write('ERROR LEXICO: se ha encontrado el token no valido %s en la posicion posicion %r de %r' % (
             text[pos], pos, len(text)))
 
 
@@ -81,7 +81,7 @@ def gen_tokens(file_name):
             else:
                 file_tokens.write("<" + tok[0] + "," + tok[1] + ">\n")
     print "Fichero generado: tokensLexico.txt"
-    print "Fichero generado: errorLexico.txt"
+    print "Fichero generado: errores.txt"
     tokens.append(('fin', 'se acabo'))
     return tokens, tabla
 
