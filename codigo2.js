@@ -13,3 +13,7 @@ function chars cosa(int hola, chars e){
 }
 
 var int a;
+
+while (a){
+    var chars y;
+}

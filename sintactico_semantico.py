@@ -382,6 +382,10 @@ class Syntactic(object):
 
     def e1(self):
         parse.write("12 ")
+        if self.token[1] == ")":
+            error_sintactico.write("ERROR: falta condicion para analizar")
+            print "Error al analizar el fichero"
+            exit(-1)
         self.e_aux()
         if self.token[1] == "=":
             self.token = self.tokens.pop(0)
