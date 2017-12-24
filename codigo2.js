@@ -6,12 +6,10 @@ if (4){
     var chars hd;
 }
 
-while(hola == adios){
-    var chars id;
-    write(hola);
-}
-
-function chars cosa(){
+function chars cosa(int hola, chars e){
     var chars que;
+    var int hola;
     return que;
 }
+
+var int a;

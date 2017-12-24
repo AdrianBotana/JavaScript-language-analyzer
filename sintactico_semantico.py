@@ -175,7 +175,10 @@ class Syntactic(object):
                 if self.token[0] == "id":
                     if self.token[1].type == "no":
                         fun = self.token[1]
+                        simbolos.write("* LEXEMA : '" + fun.name + "' (funcion) \n \t")
                         fun.type = self.tipo
+                        simbolos.write("ATRIBUTOS : \n \t")
+                        simbolos.write("+ tipo : '" + fun.type + "' \n \t")
                         self.ret = fun.type
                         self.token = self.tokens.pop(0)
                         if self.token[1] == "(":
@@ -184,6 +187,17 @@ class Syntactic(object):
                                 ini = list()
                                 result = self.v(ini)
                                 self.asignar_tipo(fun, fun.type, result)
+                                simbolos.write("+ parametros : " + str(result.__len__()) + "\n \t")
+                                for x in result:
+                                    simbolos.write("+ tipoparametro : '" + x[1] + "' \n \t")
+                            else:
+                                simbolos.write("+ parametros : 0 \n \t")
+                            simbolos.write("\n")
+                            simbolos.write("---------------------------------------------- \n")
+                            simbolos.write("TABLA DE FUNCION " + fun.name + " #2: \n \n")
+                            for x in result:
+                                self.escribe_tabla(x[0], x[1], 1)
+
                             # usar result para la tabla de simbolos y demas
                             if self.token[1] == ")":
                                 self.token = self.tokens.pop(0)
@@ -195,6 +209,9 @@ class Syntactic(object):
                                             parse.write("25 ")
                                         self.token = self.tokens.pop(0)
                                         self.ret = "no"
+                                        simbolos.write("\n")
+                                        simbolos.write("---------------------------------------------- \n")
+                                        simbolos.write("TABLA DE SIMBOLOS #1: \n \n")
                                         return self.s()
                                     else:
                                         error_sintactico.write("ERROR: falta cerrar corchete en el function \n")
@@ -275,7 +292,8 @@ class Syntactic(object):
             self.token = self.tokens.pop(0)
             if self.token[0] == "id":
                 entry = self.asignar_tipo(self.token[1], type, 1)
-                result.append(self.tablaSimbolos.search_index(entry))
+                self.tablaSimbolos.search_index(entry)
+                result.append([self.token[1].name, type])
                 self.token = self.tokens.pop(0)
                 if self.token[1] == ",":
                     self.token = self.tokens.pop(0)
@@ -298,7 +316,8 @@ class Syntactic(object):
             self.token = self.tokens.pop(0)
             if self.token[0] == "id":
                 entry = self.asignar_tipo(self.token[1], type, 1)
-                result.append(self.tablaSimbolos.search_index(entry))
+                self.tablaSimbolos.search_index(entry)
+                result.append([self.token[1].name, type])
                 self.token = self.tokens.pop(0)
                 if self.token[1] == ",":
                     self.token = self.tokens.pop(0)
@@ -439,16 +458,23 @@ class Syntactic(object):
         self.tablaSimbolos.insert(entry)
         return entry
 
-    def escribe_tabla(self, lexema, tipo):
+    def escribe_tabla(self, lexema, tipo, art=0):
         if tipo == "int":
             desp = 2
         else:
             desp = 16
-        simbolos.write("* LEXEMA : '" + lexema + "' \n \t")
-        simbolos.write("ATRIBUTOS : \n \t")
-        simbolos.write("+ tipo : '" + tipo + "'\n \t")
-        simbolos.write("+ desplazamiento : '" + str(desp) + "'\n \t")
-        simbolos.write("---------- ----------- \n")
+        if art != 1:
+            simbolos.write("* LEXEMA : '" + lexema + "' \n \t")
+            simbolos.write("ATRIBUTOS : \n \t")
+            simbolos.write("+ tipo : '" + tipo + "'\n \t")
+            simbolos.write("+ desplazamiento : '" + str(desp) + "'\n \t")
+            simbolos.write("---------- ----------- \n")
+        else:
+            simbolos.write("* LEXEMA : '" + lexema + "' (parametro)\n \t")
+            simbolos.write("ATRIBUTOS : \n \t")
+            simbolos.write("+ tipo : '" + tipo + "'\n \t")
+            simbolos.write("+ desplazamiento : '" + str(desp) + "'\n \t")
+            simbolos.write("---------- ----------- \n")
 
 
 def main():
