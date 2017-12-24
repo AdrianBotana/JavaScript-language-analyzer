@@ -31,7 +31,6 @@ V1 -> , V | lambda //// 22, 23
 R -> return E ; | lambda //// 24, 25
 }''')
 error = open("errores.txt", "w")
-error_semantico = open("errorSemantico.txt", "w")
 parse = open("parse.txt", "w")
 simbolos = open("tablaDeSimbolos.txt", "w")
 
