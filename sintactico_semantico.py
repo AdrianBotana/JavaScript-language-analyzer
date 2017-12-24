@@ -33,6 +33,8 @@ R -> return E ; | lambda //// 24, 25
 error_sintactico = open("errorSintactico.txt", "w")
 error_semantico = open("errorSemantico.txt", "w")
 parse = open("parse.txt", "w")
+simbolos = open("tablaDeSimbolos.txt", "w")
+simbolos.write("TABLA DE SIMBOLOS #1: \n \n")
 
 
 class Syntactic(object):
@@ -56,9 +58,11 @@ class Syntactic(object):
                     print "Error al analizar el fichero"
                     exit(-1)
                 self.asignar_tipo(self.token[1], self.tipo)
+                nombre = self.token[1].name
                 self.token = self.tokens.pop(0)
                 if self.token[1] == ";":
                     self.token = self.tokens.pop(0)
+                    self.escribe_tabla(nombre, self.tipo)
                     return self.s()
                 else:
                     error_sintactico.write("ERROR: falta punto y coma en la declaracion de variables \n")
@@ -379,9 +383,10 @@ class Syntactic(object):
                 print "Error al analizar el fichero"
                 exit(-1)
         else:
-            error_sintactico.write("ERROR: operador de comparacion desconocido. \n")
-            print "Error al analizar el fichero"
-            exit(-1)
+            if self.token[1] != ")":
+                error_sintactico.write("ERROR: operador de comparacion desconocido. \n")
+                print "Error al analizar el fichero"
+                exit(-1)
 
     def e_aux(self):
         if self.token[0] == "id":
@@ -433,6 +438,17 @@ class Syntactic(object):
             entry.desp = 16
         self.tablaSimbolos.insert(entry)
         return entry
+
+    def escribe_tabla(self, lexema, tipo):
+        if tipo == "int":
+            desp = 2
+        else:
+            desp = 16
+        simbolos.write("* LEXEMA : '" + lexema + "' \n \t")
+        simbolos.write("ATRIBUTOS : \n \t")
+        simbolos.write("+ tipo : '" + tipo + "'\n \t")
+        simbolos.write("+ desplazamiento : '" + str(desp) + "'\n \t")
+        simbolos.write("---------- ----------- \n")
 
 
 def main():
