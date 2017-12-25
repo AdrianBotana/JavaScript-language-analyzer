@@ -280,7 +280,7 @@ class Syntactic(object):
                 print "Error al analizar el fichero"
                 exit(-1)
         elif self.token[0] == "fin":
-            print "Fichero analizado correctamente"
+            return 0
         elif self.token[1] == "}":
             pass
         else:
@@ -502,6 +502,7 @@ def main():
         os.remove("tablaDeSimbolosFuncion.txt")
     else:
         print "Fichero generado: tablaDeSimbolosFuncion.txt"
+    print "Fichero analizado correctamente"
 
 
 if __name__ == '__main__':
