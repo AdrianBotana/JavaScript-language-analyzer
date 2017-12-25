@@ -1,9 +1,12 @@
 import sys
 
+import os
+
+import time
+
 from lexico import gen_tokens
 
 tokens, tabla = gen_tokens(sys.argv[1])
-# print tokens
 
 gramar = open("gramarSintactico.txt", "w")
 gramar.write('''Axioma = S
@@ -33,6 +36,7 @@ R -> return E ; | lambda //// 24, 25
 error = open("errores.txt", "w")
 parse = open("parse.txt", "w")
 simbolos = open("tablaDeSimbolos.txt", "w")
+funtion = open("tablaDeSimbolosFuncion.txt", "w")
 
 
 class Syntactic(object):
@@ -42,6 +46,7 @@ class Syntactic(object):
         self.token = self.tokens.pop(0)
         self.tipo = "no"
         self.ret = "no"
+        self.f = 1
         parse.write("Des ")
         simbolos.write("TABLA DE SIMBOLOS #1: \n \n")
 
@@ -61,7 +66,10 @@ class Syntactic(object):
                 self.token = self.tokens.pop(0)
                 if self.token[1] == ";":
                     self.token = self.tokens.pop(0)
-                    self.escribe_tabla(nombre, self.tipo)
+                    if self.ret == "no":
+                        self.escribe_tabla(nombre, self.tipo)
+                    else:
+                        self.escribe_tabla(nombre, self.tipo, 0, funtion)
                     return self.s()
                 else:
                     error.write("ERROR SINTACTICO: falta punto y coma en la declaracion de variables \n")
@@ -169,6 +177,7 @@ class Syntactic(object):
                     exit(-1)
             elif self.token[1].name == "function":
                 parse.write("6 ")
+                self.f = self.f + 1
                 self.token = self.tokens.pop(0)
                 self.t()
                 if self.token[0] == "id":
@@ -189,15 +198,15 @@ class Syntactic(object):
                                 simbolos.write("+ parametros : " + str(result.__len__()) + "\n \t")
                                 for x in result:
                                     simbolos.write("+ tipoparametro : '" + x[1] + "' \n \t")
+                                simbolos.write("---------- ----------- \n")
                             else:
+                                result = None
                                 simbolos.write("+ parametros : 0 \n \t")
-                            simbolos.write("\n")
-                            simbolos.write("---------------------------------------------- \n")
-                            simbolos.write("TABLA DE FUNCION " + fun.name + " #2: \n \n")
-                            for x in result:
-                                self.escribe_tabla(x[0], x[1], 1)
-
-                            # usar result para la tabla de simbolos y demas
+                                simbolos.write("---------- ----------- \n")
+                            funtion.write("TABLA DE FUNCION " + fun.name + " #" + str(self.f) + " : \n \n")
+                            if result is not None:
+                                for x in result:
+                                    self.escribe_tabla(x[0], x[1], 1, funtion)
                             if self.token[1] == ")":
                                 self.token = self.tokens.pop(0)
                                 if self.token[1] == "{":
@@ -208,9 +217,7 @@ class Syntactic(object):
                                             parse.write("25 ")
                                         self.token = self.tokens.pop(0)
                                         self.ret = "no"
-                                        simbolos.write("\n")
-                                        simbolos.write("---------------------------------------------- \n")
-                                        simbolos.write("TABLA DE SIMBOLOS #1: \n \n")
+                                        funtion.write("\n")
                                         return self.s()
                                     else:
                                         error.write("ERROR SINTACTICO: falta cerrar corchete en el function \n")
@@ -274,7 +281,6 @@ class Syntactic(object):
                 exit(-1)
         elif self.token[0] == "fin":
             print "Fichero analizado correctamente"
-            exit(0)
         elif self.token[1] == "}":
             pass
         else:
@@ -437,6 +443,10 @@ class Syntactic(object):
             exit(-1)
 
     def t(self):
+        if self.token[0] != "PR":
+            error.write("ERROR SINTACTICO: falta tipo o esta mal definido \n")
+            print "Error al analizar el fichero"
+            exit(-1)
         if self.token[1].name == "int":
             parse.write("7 ")
             self.tipo = "int"
@@ -461,23 +471,23 @@ class Syntactic(object):
         self.tablaSimbolos.insert(entry)
         return entry
 
-    def escribe_tabla(self, lexema, tipo, art=0):
+    def escribe_tabla(self, lexema, tipo, art=0, tab=simbolos):
         if tipo == "int":
             desp = 2
         else:
             desp = 16
         if art != 1:
-            simbolos.write("* LEXEMA : '" + lexema + "' \n \t")
-            simbolos.write("ATRIBUTOS : \n \t")
-            simbolos.write("+ tipo : '" + tipo + "'\n \t")
-            simbolos.write("+ desplazamiento : '" + str(desp) + "'\n \t")
-            simbolos.write("---------- ----------- \n")
+            tab.write("* LEXEMA : '" + lexema + "' \n \t")
+            tab.write("ATRIBUTOS : \n \t")
+            tab.write("+ tipo : '" + tipo + "'\n \t")
+            tab.write("+ desplazamiento : '" + str(desp) + "'\n \t")
+            tab.write("---------- ----------- \n")
         else:
-            simbolos.write("* LEXEMA : '" + lexema + "' (parametro)\n \t")
-            simbolos.write("ATRIBUTOS : \n \t")
-            simbolos.write("+ tipo : '" + tipo + "'\n \t")
-            simbolos.write("+ desplazamiento : '" + str(desp) + "'\n \t")
-            simbolos.write("---------- ----------- \n")
+            tab.write("* LEXEMA : '" + lexema + "' (parametro)\n \t")
+            tab.write("ATRIBUTOS : \n \t")
+            tab.write("+ tipo : '" + tipo + "'\n \t")
+            tab.write("+ desplazamiento : '" + str(desp) + "'\n \t")
+            tab.write("---------- ----------- \n")
 
 
 def main():
@@ -485,6 +495,13 @@ def main():
     print "Fichero generado: parse.txt"
     print "Fichero generado: tablaDeSimbolos.txt"
     Syntactic().s()
+    funtion.close()
+    fun = open("tablaDeSimbolosFuncion.txt", "r")
+    cont = fun.read()
+    if cont == '':
+        os.remove("tablaDeSimbolosFuncion.txt")
+    else:
+        print "Fichero generado: tablaDeSimbolosFuncion.txt"
 
 
 if __name__ == '__main__':
