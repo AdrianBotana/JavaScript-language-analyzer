@@ -164,7 +164,9 @@ class Syntactic(object):
                     parse.write("24 ")
                     self.token = self.tokens.pop(0)
                     self.tipo = self.ret
+                    self.ret = "ret"
                     self.e()
+                    self.ret = self.tipo
                     if self.token[1] == ";":
                         self.token = self.tokens.pop(0)
                     else:
@@ -351,25 +353,48 @@ class Syntactic(object):
             if self.token[1].type == self.tipo:
                 self.token = self.tokens.pop(0)
             else:
-                error.write(
-                    "ERROR SEMANTICO: no puedes asignar un tipo " + self.token[1].type + " a un tipo " + self.tipo)
-                print "Error al analizar el fichero"
-                exit(-1)
+                if self.ret != "ret":
+                    error.write(
+                        "ERROR SEMANTICO: no puedes asignar un tipo " + self.token[1].type + " a un tipo " + self.tipo)
+                    print "Error al analizar el fichero"
+                    exit(-1)
+                else:
+                    error.write(
+                        "ERROR SEMANTICO: no puedes devolver un tipo " + self.token[1].type + " cuando se espera un "
+                        + self.tipo + " en el return")
+                    print "Error al analizar el fichero"
+                    exit(-1)
         elif self.token[0] == 'int':
             parse.write("9 ")
             if self.token[0] == self.tipo:
                 self.token = self.tokens.pop(0)
             else:
-                error.write("ERROR SEMANTICO: no puedes asignar un tipo " + self.token[0] + " a un tipo " + self.tipo)
-                print "Error al analizar el fichero"
-                exit(-1)
+                if self.ret != "ret":
+                    error.write(
+                        "ERROR SEMANTICO: no puedes asignar un tipo " + self.token[0] + " a un tipo " + self.tipo)
+                    print "Error al analizar el fichero"
+                    exit(-1)
+                else:
+                    error.write(
+                        "ERROR SEMANTICO: no puedes devolver un tipo " + self.token[1].type + " cuando se espera un "
+                        + self.tipo + " en el return")
+                    print "Error al analizar el fichero"
+                    exit(-1)
         elif self.token[0] == "chars":
             parse.write("10 ")
             if self.token[0] == self.tipo:
                 self.token = self.tokens.pop(0)
             else:
-                error.write("ERROR SEMANTICO: no puedes asignar un tipo " + self.token[0] + " a un tipo " + self.tipo)
-                print "Error al analizar el fichero"
+                if self.ret != "ret":
+                    error.write(
+                        "ERROR SEMANTICO: no puedes asignar un tipo " + self.token[0] + " a un tipo " + self.tipo)
+                    print "Error al analizar el fichero"
+                else:
+                    error.write(
+                        "ERROR SEMANTICO: no puedes devolver un tipo " + self.token[1].type + " cuando se espera un "
+                        + self.tipo + " en el return")
+                    print "Error al analizar el fichero"
+                    exit(-1)
                 exit(-1)
         if self.token[1] == "+":
             parse.write("15 ")

@@ -6,8 +6,10 @@ if (4){
     var chars hd;
 }
 
-function int ho(){
+function chars ho(){
     var chars hola;
+    hola = "que pasa";
+    return hola;
 }
 
 var int a;
