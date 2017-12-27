@@ -8,22 +8,21 @@ if (a == b && b == a){
     var int f;
     b = a;
 }
-function int hola (int s, chars m){
+function chars hola (int s, chars m){
     var chars e;
     write("hola");
-    return 2 + 4;
+    return e + "que";
 }
-
-
 
 write(2);
+write("que pasa");
 write(hola);
-while(hola == adios){
+while(2 == b){
     var chars id;
-    write(hola);
 }
 
-function chars cosa(){
-    var int que;
-    return hola;
+function int adios (int s){
+    var int e;
+    write("hola");
+    return 14 - b;
 }
