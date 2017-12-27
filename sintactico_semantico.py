@@ -376,7 +376,7 @@ class Syntactic(object):
                     exit(-1)
                 else:
                     error.write(
-                        "ERROR SEMANTICO: no puedes devolver un tipo " + self.token[1].type + " cuando se espera un "
+                        "ERROR SEMANTICO: no puedes devolver un tipo " + self.token[0] + " cuando se espera un "
                         + self.tipo + " en el return")
                     print "Error al analizar el fichero"
                     exit(-1)
@@ -391,7 +391,7 @@ class Syntactic(object):
                     print "Error al analizar el fichero"
                 else:
                     error.write(
-                        "ERROR SEMANTICO: no puedes devolver un tipo " + self.token[1].type + " cuando se espera un "
+                        "ERROR SEMANTICO: no puedes devolver un tipo " + self.token[0] + " cuando se espera un "
                         + self.tipo + " en el return")
                     print "Error al analizar el fichero"
                     exit(-1)

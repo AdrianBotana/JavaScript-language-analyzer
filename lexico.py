@@ -46,6 +46,7 @@ def tokenize(text):
     if pos != len(text):
         file_error.write('ERROR LEXICO: se ha encontrado el token no valido %s en la posicion posicion %r de %r' % (
             text[pos], pos, len(text)))
+        exit(-1)
 
 
 def gen_tokens(file_name):
