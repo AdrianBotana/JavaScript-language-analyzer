@@ -81,6 +81,10 @@ class Syntactic(object):
                 self.token = self.tokens.pop(0)
                 if self.token[1] == "(":
                     self.token = self.tokens.pop(0)
+                    if self.token[1] == ")":
+                        error.write("ERROR SINTACTICO: falta contenido a escribir en el write \n")
+                        print "Error al analizar el fichero"
+                        exit(-1)
                     self.e_aux()
                     if self.token[1] == ")":
                         self.token = self.tokens.pop(0)

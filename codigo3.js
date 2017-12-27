@@ -16,7 +16,7 @@ function chars hola (int s, chars m){
 
 write(2);
 write("que pasa");
-write(hola);
+write(3);
 while(2 == b){
     var chars id;
 }
