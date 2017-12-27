@@ -32,6 +32,7 @@ B -> = | |= //// 19, 20
 V -> T id V1 //// 21
 V1 -> , V | lambda //// 22, 23
 R -> return E ; | lambda //// 24, 25
+S -> eof ////26
 }''')
 error = open("errores.txt", "w")
 parse = open("parse.txt", "w")
@@ -286,7 +287,7 @@ class Syntactic(object):
                 print "Error al analizar el fichero"
                 exit(-1)
         elif self.token[0] == "fin":
-            return 0
+            parse.write("26 ")
         elif self.token[1] == "}":
             pass
         else:
