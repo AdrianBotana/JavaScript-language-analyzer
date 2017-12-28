@@ -1,8 +1,5 @@
 import sys
-
 import os
-
-import time
 
 from lexico import gen_tokens
 
@@ -364,7 +361,8 @@ class Syntactic(object):
                     exit(-1)
                 if self.ret != "ret":
                     error.write(
-                        "ERROR SEMANTICO: no puedes asignar o comparar un tipo " + self.token[1].type + " a un tipo " + self.tipo)
+                        "ERROR SEMANTICO: no puedes asignar o comparar un tipo " + self.token[
+                            1].type + " a un tipo " + self.tipo)
                     print "Error al analizar el fichero"
                     exit(-1)
                 else:
@@ -380,7 +378,8 @@ class Syntactic(object):
             else:
                 if self.ret != "ret":
                     error.write(
-                        "ERROR SEMANTICO: no puedes asignar o comparar un tipo " + self.token[0] + " a un tipo " + self.tipo)
+                        "ERROR SEMANTICO: no puedes asignar o comparar un tipo " + self.token[
+                            0] + " a un tipo " + self.tipo)
                     print "Error al analizar el fichero"
                     exit(-1)
                 else:
@@ -396,7 +395,8 @@ class Syntactic(object):
             else:
                 if self.ret != "ret":
                     error.write(
-                        "ERROR SEMANTICO: no puedes asignar o comparar un tipo " + self.token[0] + " a un tipo " + self.tipo)
+                        "ERROR SEMANTICO: no puedes asignar o comparar un tipo " + self.token[
+                            0] + " a un tipo " + self.tipo)
                     print "Error al analizar el fichero"
                 else:
                     error.write(
