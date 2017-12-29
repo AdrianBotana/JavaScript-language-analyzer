@@ -254,6 +254,10 @@ class Syntactic(object):
         elif self.token[0] == "id":
             parse.write("2 ")
             if self.token[1].type != "no":
+                if self.token[1].argum != 0 and self.token[1].argum != 1:
+                    # Implementar aqui llamada de funcion
+
+                    print self.token[1].argum
                 self.tipo = self.token[1].type
                 self.token = self.tokens.pop(0)
                 if self.token[1] == "|":
