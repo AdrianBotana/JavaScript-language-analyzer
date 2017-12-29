@@ -42,6 +42,11 @@ simbolos = open("tablaDeSimbolos.txt", "w")
 funtion = open("tablaDeSimbolosFuncion.txt", "w")
 
 
+class Conts:
+    tabla = 0
+    fun = 0
+
+
 class Syntactic(object):
     def __init__(self):
         self.tokens = tokens
@@ -543,18 +548,29 @@ class Syntactic(object):
             desp = 2
         else:
             desp = 16
+        if tab.name == "tablaDeSimbolos.txt":
+            aux = Conts.tabla
+        else:
+            aux = Conts.fun
         if art != 1:
             tab.write("* LEXEMA : '" + lexema + "' \n \t")
             tab.write("ATRIBUTOS : \n \t")
             tab.write("+ tipo : '" + tipo + "'\n \t")
-            tab.write("+ desplazamiento : '" + str(desp) + "'\n \t")
+            if aux == 0:
+                tab.write("+ desplazamiento : '" + str(aux) + "'\n \t")
+            else:
+                tab.write("+ desplazamiento : '-" + str(aux) + "'\n \t")
             tab.write("---------- ----------- \n")
         else:
             tab.write("* LEXEMA : '" + lexema + "' (parametro)\n \t")
             tab.write("ATRIBUTOS : \n \t")
             tab.write("+ tipo : '" + tipo + "'\n \t")
-            tab.write("+ desplazamiento : '" + str(desp) + "'\n \t")
+            tab.write("+ desplazamiento : '-" + str(aux) + "'\n \t")
             tab.write("---------- ----------- \n")
+        if tab.name == "tablaDeSimbolos.txt":
+            Conts.tabla = Conts.tabla + desp
+        else:
+            Conts.fun = Conts.fun + desp
 
     def llamar_fun(self):
         arg = self.token[1].argum
