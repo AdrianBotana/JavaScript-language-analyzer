@@ -1,6 +1,8 @@
 import sys
 import os
 
+import time
+
 from lexico import gen_tokens
 
 tokens, tabla = gen_tokens(sys.argv[1])
@@ -25,7 +27,10 @@ E1 -> E == E E2 //// 12
 E2 -> && E1 | lambda //// 13, 14
 M -> O E | lambda //// 15, 16
 O -> + | - //// 17, 18
-B -> = | |= //// 19, 20
+B -> = | |= | ( V ) ; //// 19, 20
+
+CORREGIR TODO YA QUE HE ANADIDO ESTO ( V )
+
 V -> T id V1 //// 21
 V1 -> , V | lambda //// 22, 23
 R -> return E ; | lambda //// 24, 25
@@ -45,6 +50,7 @@ class Syntactic(object):
         self.tipo = "no"
         self.ret = "no"
         self.f = 1
+        self.fun = list()
         parse.write("Des ")
         simbolos.write("TABLA DE SIMBOLOS #1: \n \n")
 
@@ -240,7 +246,8 @@ class Syntactic(object):
                             print "Error al analizar el fichero"
                             exit(-1)
                     else:
-                        error.write("ERROR SEMANTICO: variable ya declarada, no puede ser funcion \n")
+                        error.write("ERROR SEMANTICO: variable o funcion ya declarada, "
+                                    "no puede pasar a ser una funcion \n")
                         print "Error al analizar el fichero"
                         exit(-1)
                 else:
@@ -255,34 +262,41 @@ class Syntactic(object):
             parse.write("2 ")
             if self.token[1].type != "no":
                 if self.token[1].argum != 0 and self.token[1].argum != 1:
-                    # Implementar aqui llamada de funcion
-
-                    print self.token[1].argum
-                self.tipo = self.token[1].type
-                self.token = self.tokens.pop(0)
-                if self.token[1] == "|":
-                    parse.write("20 ")
-                    self.token = self.tokens.pop(0)
-                    self.token = self.tokens.pop(0)
-                elif self.token[1] == "=":
-                    parse.write("19 ")
-                    self.token = self.tokens.pop(0)
+                    # Llamada de funcion
+                    self.llamar_fun()
+                    if self.token[1] == ";":
+                        self.token = self.tokens.pop(0)
+                        return self.s()
+                    else:
+                        error.write("ERROR SINTACTICO: falta punto y coma en la llamada a funcion \n")
+                        print "Error al analizar el fichero"
+                        exit(-1)
                 else:
-                    error.write("ERROR SINTACTICO: operador de asignacion no aceptado \n")
-                    print "Error al analizar el fichero"
-                    exit(-1)
-                if self.token[1] == ";":
-                    error.write("ERROR SINTACTICO: falta segundo operando en la asignacion \n")
-                    print "Error al analizar el fichero"
-                    exit(-1)
-                self.e()
-                if self.token[1] == ";":
+                    self.tipo = self.token[1].type
                     self.token = self.tokens.pop(0)
-                    return self.s()
-                else:
-                    error.write("ERROR SINTACTICO: falta punto y coma en la asignacion \n")
-                    print "Error al analizar el fichero"
-                    exit(-1)
+                    if self.token[1] == "|":
+                        parse.write("20 ")
+                        self.token = self.tokens.pop(0)
+                        self.token = self.tokens.pop(0)
+                    elif self.token[1] == "=":
+                        parse.write("19 ")
+                        self.token = self.tokens.pop(0)
+                    else:
+                        error.write("ERROR SINTACTICO: operador de asignacion no aceptado \n")
+                        print "Error al analizar el fichero"
+                        exit(-1)
+                    if self.token[1] == ";":
+                        error.write("ERROR SINTACTICO: falta segundo operando en la asignacion \n")
+                        print "Error al analizar el fichero"
+                        exit(-1)
+                    self.e()
+                    if self.token[1] == ";":
+                        self.token = self.tokens.pop(0)
+                        return self.s()
+                    else:
+                        error.write("ERROR SINTACTICO: falta punto y coma en la asignacion \n")
+                        print "Error al analizar el fichero"
+                        exit(-1)
             else:
                 error.write("ERROR SEMANTICO: variable no declarada \n")
                 print "Error al analizar el fichero"
@@ -355,26 +369,36 @@ class Syntactic(object):
 
     def e(self):
         if self.token[0] == "id":
-            parse.write("11 ")
-            if self.token[1].type == self.tipo:
-                self.token = self.tokens.pop(0)
+            if self.token[1].argum != 0 and self.token[1].argum != 1:
+                # Llamada de funcion
+                re = self.llamar_fun()
+                if re != self.tipo:
+                    error.write(
+                        "ERROR SEMANTICO: no puedes asignar o comparar un tipo " + re + " a un tipo " + self.tipo)
+                    print "Error al analizar el fichero"
+                    exit(-1)
             else:
-                if self.token[1].type == "no":
-                    error.write("ERROR SEMANTICO: variable no declarada")
-                    print "Error al analizar el fichero"
-                    exit(-1)
-                if self.ret != "ret":
-                    error.write(
-                        "ERROR SEMANTICO: no puedes asignar o comparar un tipo " + self.token[
-                            1].type + " a un tipo " + self.tipo)
-                    print "Error al analizar el fichero"
-                    exit(-1)
+                parse.write("11 ")
+                if self.token[1].type == self.tipo:
+                    self.token = self.tokens.pop(0)
                 else:
-                    error.write(
-                        "ERROR SEMANTICO: no puedes devolver un tipo " + self.token[1].type + " cuando se espera un "
-                        + self.tipo + " en el return")
-                    print "Error al analizar el fichero"
-                    exit(-1)
+                    if self.token[1].type == "no":
+                        error.write("ERROR SEMANTICO: variable no declarada")
+                        print "Error al analizar el fichero"
+                        exit(-1)
+                    if self.ret != "ret":
+                        error.write(
+                            "ERROR SEMANTICO: no puedes asignar o comparar un tipo " + self.token[
+                                1].type + " a un tipo " + self.tipo)
+                        print "Error al analizar el fichero"
+                        exit(-1)
+                    else:
+                        error.write(
+                            "ERROR SEMANTICO: no puedes devolver un tipo " + self.token[
+                                1].type + " cuando se espera un "
+                            + self.tipo + " en el return")
+                        print "Error al analizar el fichero"
+                        exit(-1)
         elif self.token[0] == 'int':
             parse.write("9 ")
             if self.token[0] == self.tipo:
@@ -456,15 +480,20 @@ class Syntactic(object):
 
     def e_aux(self):
         if self.token[0] == "id":
-            parse.write("11 ")
-            if self.token[1].type != "no":
-                self.tipo = self.token[1].type
-                self.token = self.tokens.pop(0)
+            if self.token[1].argum != 0 and self.token[1].argum != 1:
+                # Llamada de funcion
+                self.tipo = self.llamar_fun()
                 return self.e()
             else:
-                error.write("ERROR SEMANTICO: variable no declarada \n")
-                print "Error al analizar el fichero"
-                exit(-1)
+                parse.write("11 ")
+                if self.token[1].type != "no":
+                    self.tipo = self.token[1].type
+                    self.token = self.tokens.pop(0)
+                    return self.e()
+                else:
+                    error.write("ERROR SEMANTICO: variable no declarada \n")
+                    print "Error al analizar el fichero"
+                    exit(-1)
         elif self.token[0] == "int":
             parse.write("9 ")
             self.tipo = self.token[0]
@@ -527,12 +556,94 @@ class Syntactic(object):
             tab.write("+ desplazamiento : '" + str(desp) + "'\n \t")
             tab.write("---------- ----------- \n")
 
+    def llamar_fun(self):
+        arg = self.token[1].argum
+        ret = self.token[1].type
+        self.token = self.tokens.pop(0)
+        if self.token[1] == "(":
+            self.token = self.tokens.pop(0)
+            while arg.__len__() > 0:
+                tipofun = arg.pop(0)[1]
+                if self.token[0] == "id":
+                    if self.token[1].type == tipofun:
+                        self.token = self.tokens.pop(0)
+                        if arg.__len__() > 0:
+                            if self.token[1] == ",":
+                                self.token = self.tokens.pop(0)
+                            else:
+                                error.write("ERROR SINTACTICO: falta coma entre parametros de llamada")
+                                print "Error al analizar el fichero"
+                                exit(-1)
+                    else:
+                        if self.token[1].type == "no":
+                            error.write("ERROR SEMANTICO: variable no declarada")
+                            print "Error al analizar el fichero"
+                            exit(-1)
+                        error.write(
+                            "ERROR SEMANTICO: se requiere un parametro tipo " + tipofun + " no un tipo " +
+                            self.token[1].type)
+                        print "Error al analizar el fichero"
+                        exit(-1)
+                elif self.token[0] == 'int':
+                    if self.token[0] == tipofun:
+                        self.token = self.tokens.pop(0)
+                        if arg.__len__() > 0:
+                            if self.token[1] == ",":
+                                self.token = self.tokens.pop(0)
+                            else:
+                                error.write("ERROR SINTACTICO: falta coma entre parametros de llamada")
+                                print "Error al analizar el fichero"
+                                exit(-1)
+                    else:
+                        error.write(
+                            "ERROR SEMANTICO: se requiere un parametro tipo " + tipofun + " no un tipo " +
+                            self.token[0])
+                        print "Error al analizar el fichero"
+                        exit(-1)
+                elif self.token[0] == "chars":
+                    if self.token[0] == tipofun:
+                        self.token = self.tokens.pop(0)
+                        if arg.__len__() > 0:
+                            if self.token[1] == ",":
+                                self.token = self.tokens.pop(0)
+                            else:
+                                error.write("ERROR SINTACTICO: falta coma entre parametros de llamada")
+                                print "Error al analizar el fichero"
+                                exit(-1)
+                    else:
+                        error.write(
+                            "ERROR SEMANTICO: se requiere un parametro tipo " + tipofun + " no un tipo " +
+                            self.token[0])
+                        print "Error al analizar el fichero"
+                        exit(-1)
+                else:
+                    error.write("ERROR SINTACTICO: faltan parametros de funcion")
+                    print "Error al analizar el fichero"
+                    exit(-1)
+            if self.token[1] == ",":
+                error.write("ERROR SINTACTICO: sobran parametros de funcion \n")
+                print "Error al analizar el fichero"
+                exit(-1)
+            if self.token[1] == ")":
+                self.token = self.tokens.pop(0)
+                return ret
+            else:
+                error.write("ERROR SINTACTICO: falta cerrar parentesis en la llamada a funcion \n")
+                print "Error al analizar el fichero"
+                exit(-1)
+        else:
+            error.write("ERROR SINTACTICO: falta abrir parentesis en la llamada a funcion \n")
+            print "Error al analizar el fichero"
+            exit(-1)
+
 
 def main():
     print "Fichero generado: gramarSintactico.txt"
     print "Fichero generado: parse.txt"
     print "Fichero generado: tablaDeSimbolos.txt"
-    Syntactic().s()
+    s = Syntactic()
+    s.s()
+    print s.tokens
     funtion.close()
     fun = open("tablaDeSimbolosFuncion.txt", "r")
     cont = fun.read()

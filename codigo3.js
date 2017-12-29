@@ -13,7 +13,8 @@ function chars hola (int s, chars m){
     write("hola");
     return e + "que";
 }
-hola(a, z)
+
+hola (a, "queee");
 
 write(2);
 write("que pasa");
