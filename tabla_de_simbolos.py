@@ -17,6 +17,7 @@ class TablaDeSimbolos(object):
     tabla.append(Entry(name="while", type="PR", desp=16))
     tabla.append(Entry(name="write", type="PR", desp=16))
     tabla.append(Entry(name="if", type="PR", desp=16))
+    tabla.append(Entry(name="bool", type="PR", desp=16))
 
     def __getitem__(self, item):
         return self.tabla.__getitem__(item)

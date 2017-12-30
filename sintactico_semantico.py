@@ -12,7 +12,7 @@ gramar.write('''Axioma = S
 
 NoTerminales = { S B T E E1 E2 M O P V V1 R}
 
-Terminales = { var id write ( ) { } int chars cte-ent cadena function while return |= = + - ; == && , }
+Terminales = { var id write ( ) { } int chars cte-ent cadena bool function while return |= = + - ; == && , }
 
 Producciones = {
 S -> var T id ; S //// 1
@@ -21,16 +21,15 @@ S -> write ( E ) ; S //// 3
 S -> while ( E1 ) { P } S //// 4
 S -> if ( E1 ) { P } S //// 5
 S -> function T id ( V ){ P R } S //// 6
-T -> int | chars //// 7, 8
-E -> cte-ent M | cadena M | id M //// 9, 10, 11
-E1 -> E == E E2 //// 12
+T -> int | chars | bool//// 7, 8
+E -> cte-ent M | cadena M | id M | bool//// 9, 10, 11
+E1 -> E E3//// 12
+E3 -> == E E2 | lambda
 E2 -> && E1 | lambda //// 13, 14
 M -> O E | lambda //// 15, 16
 O -> + | - //// 17, 18
 B -> = | |= | ( V ) ; //// 19, 20
-
 CORREGIR TODO YA QUE HE ANADIDO ESTO ( V )
-
 V -> T id V1 //// 21
 V1 -> , V | lambda //// 22, 23
 R -> return E ; | lambda //// 24, 25
@@ -320,55 +319,34 @@ class Syntactic(object):
         parse.write("21 ")
         if self.token[1].name == "int":
             parse.write("7 ")
-            type = self.token[1].name
-            self.token = self.tokens.pop(0)
-            if self.token[0] == "id":
-                entry = self.asignar_tipo(self.token[1], type, 1)
-                self.tablaSimbolos.search_index(entry)
-                result.append([self.token[1].name, type])
-                self.token = self.tokens.pop(0)
-                if self.token[1] == ",":
-                    self.token = self.tokens.pop(0)
-                    parse.write("22 ")
-                    return self.v(result)
-                elif self.token[1] == ")":
-                    parse.write("23 ")
-                    return result
-                else:
-                    error.write("ERROR SINTACTICO: simbolo incorrecto en los parametros \n")
-                    print "Error al analizar el fichero"
-                    exit(-1)
-            else:
-                error.write("ERROR SINTACTICO: los parametros tienen que ser ids \n")
-                print "Error al analizar el fichero"
-                exit(-1)
         elif self.token[1].name == "chars":
             parse.write("8 ")
-            type = self.token[1].name
-            self.token = self.tokens.pop(0)
-            if self.token[0] == "id":
-                entry = self.asignar_tipo(self.token[1], type, 1)
-                self.tablaSimbolos.search_index(entry)
-                result.append([self.token[1].name, type])
-                self.token = self.tokens.pop(0)
-                if self.token[1] == ",":
-                    self.token = self.tokens.pop(0)
-                    parse.write("22 ")
-                    return self.v(result)
-                elif self.token[1] == ")":
-                    parse.write("23 ")
-                    return result
-                else:
-                    error.write("ERROR SINTACTICO: simbolo incorrecto en los parametros \n")
-                    print "Error al analizar el fichero"
-                    exit(-1)
-            else:
-                error.write("ERROR SINTACTICO: los parametros tienen que ser ids \n")
-                print "Error al analizar el fichero"
-                exit(-1)
-
+        elif self.token[1].name == "bool":
+            parse.write("8 ")
         else:
             error.write("ERROR SINTACTICO: tipo no definido \n")
+            print "Error al analizar el fichero"
+            exit(-1)
+        type = self.token[1].name
+        self.token = self.tokens.pop(0)
+        if self.token[0] == "id":
+            entry = self.asignar_tipo(self.token[1], type, 1)
+            self.tablaSimbolos.search_index(entry)
+            result.append([self.token[1].name, type])
+            self.token = self.tokens.pop(0)
+            if self.token[1] == ",":
+                self.token = self.tokens.pop(0)
+                parse.write("22 ")
+                return self.v(result)
+            elif self.token[1] == ")":
+                parse.write("23 ")
+                return result
+            else:
+                error.write("ERROR SINTACTICO: simbolo incorrecto en los parametros \n")
+                print "Error al analizar el fichero"
+                exit(-1)
+        else:
+            error.write("ERROR SINTACTICO: los parametros tienen que ser ids \n")
             print "Error al analizar el fichero"
             exit(-1)
 
@@ -431,19 +409,49 @@ class Syntactic(object):
                         "ERROR SEMANTICO: no puedes asignar o comparar un tipo " + self.token[
                             0] + " a un tipo " + self.tipo)
                     print "Error al analizar el fichero"
+                    exit(-1)
                 else:
                     error.write(
                         "ERROR SEMANTICO: no puedes devolver un tipo " + self.token[0] + " cuando se espera un "
                         + self.tipo + " en el return")
                     print "Error al analizar el fichero"
                     exit(-1)
-                exit(-1)
+        elif self.token[0] == "bool":
+            parse.write("10 ")
+            if self.token[0] == self.tipo:
+                self.token = self.tokens.pop(0)
+            else:
+                if self.ret != "ret":
+                    error.write(
+                        "ERROR SEMANTICO: no puedes asignar o comparar un tipo " + self.token[
+                            0] + " a un tipo " + self.tipo)
+                    print "Error al analizar el fichero"
+                    exit(-1)
+                else:
+                    error.write(
+                        "ERROR SEMANTICO: no puedes devolver un tipo " + self.token[0] + " cuando se espera un "
+                        + self.tipo + " en el return")
+                    print "Error al analizar el fichero"
+                    exit(-1)
         if self.token[1] == "+":
+            if self.tipo == "bool":
+                self.token = self.tokens.pop(0)
+                error.write(
+                    "ERROR SEMANTICO: no puedes concatenar un tipo " + self.token[
+                        0] + " con un tipo " + self.tipo)
+                print "Error al analizar el fichero"
+                exit(-1)
             parse.write("15 ")
             parse.write("17 ")
             self.token = self.tokens.pop(0)
             return self.e()
         elif self.token[1] == "-":
+            if self.tipo == "bool":
+                error.write(
+                    "ERROR SEMANTICO: no puedes concatenar un tipo " + self.token[
+                        0] + " con un tipo " + self.tipo)
+                print "Error al analizar el fichero"
+                exit(-1)
             parse.write("15 ")
             parse.write("18 ")
             self.token = self.tokens.pop(0)
@@ -459,6 +467,9 @@ class Syntactic(object):
             print "Error al analizar el fichero"
             exit(-1)
         self.e_aux()
+        if self.tipo == "bool":
+            if self.token[1] == ")":
+                return 0
         if self.token[1] == "=":
             self.token = self.tokens.pop(0)
             if self.token[1] == "=":
@@ -494,7 +505,8 @@ class Syntactic(object):
                 if self.token[1].type != "no":
                     self.tipo = self.token[1].type
                     self.token = self.tokens.pop(0)
-                    return self.e()
+                    if self.tipo != "bool":
+                        return self.e()
                 else:
                     error.write("ERROR SEMANTICO: variable no declarada \n")
                     print "Error al analizar el fichero"
@@ -509,6 +521,10 @@ class Syntactic(object):
             self.tipo = self.token[0]
             self.token = self.tokens.pop(0)
             return self.e()
+        elif self.token[0] == "bool":
+            parse.write("11 ")
+            self.tipo = self.token[0]
+            self.token = self.tokens.pop(0)
         else:
             error.write("ERROR SINTACTICO: tipo no conocido \n")
             print "Error al analizar el fichero"
@@ -526,6 +542,10 @@ class Syntactic(object):
         elif self.token[1].name == "chars":
             parse.write("8 ")
             self.tipo = "chars"
+            self.token = self.tokens.pop(0)
+        elif self.token[1].name == "bool":
+            parse.write("8 ")
+            self.tipo = "bool"
             self.token = self.tokens.pop(0)
         else:
             error.write("ERROR SINTACTICO: tipo no conocido \n")
@@ -546,8 +566,10 @@ class Syntactic(object):
     def escribe_tabla(self, lexema, tipo, art=0, tab=simbolos):
         if tipo == "int":
             desp = 2
-        else:
+        elif tipo == "chars":
             desp = 16
+        else:
+            desp = 1
         if tab.name == "tablaDeSimbolos.txt":
             aux = Conts.tabla
         else:
@@ -659,7 +681,6 @@ def main():
     print "Fichero generado: tablaDeSimbolos.txt"
     s = Syntactic()
     s.s()
-    print s.tokens
     funtion.close()
     fun = open("tablaDeSimbolosFuncion.txt", "r")
     cont = fun.read()

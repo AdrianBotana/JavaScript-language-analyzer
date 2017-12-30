@@ -59,7 +59,7 @@ def gen_tokens(file_name):
     for tok in tokenize(lines):
         if tok[0] == 'iden':
             index = tabla.search_index(Entry(name=tok[1], type="PR", desp=16))
-            if index != -1 and index < 8:
+            if index != -1 and index < 9:
                 file_tokens.write("<PR," + str(index) + ">\n")
                 tokens.append(("PR", tabla[index]))
             else:
