@@ -1,17 +1,14 @@
-var bool hey;
-var bool ja;
+var int a;
+var bool b;
+var chars c;
 
-if (hey){
-    var int ho;
+//que pasa
+if (b){
+    var int f;
 }
-
-function bool hola (bool s, chars m){
+function bool hola (int s, chars m){
     var chars e;
-    var bool h;
     write("hola");
-    return h;
 }
 
-var chars je;
-
-ja = hola (hey, je);
+b = hola(a, c);
