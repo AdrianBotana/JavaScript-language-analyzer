@@ -17,13 +17,13 @@ S1 -> S S1 | eof
 S -> var T id ; 
 S -> id B E ; 
 S -> write ( E ) ; 
-S -> while ( E E1 ) { P } 
-S -> if ( E E1 ) { P } 
+S -> while ( E1 ) { P } 
+S -> if ( E1 ) { P } 
 S -> function T id ( V ){ P R }
 T -> int | chars | bool 
 E -> cte-ent M | cadena M | id F M
-E1 -> == E E2 | lambda 
-E2 -> && E E1 | lambda 
+E1 -> E == E E2 | lambda 
+E2 -> && E1 | lambda 
 F -> ( L ) | lambda 
 M -> O E | lambda 
 O -> + | - 

@@ -22,8 +22,8 @@
           <file leaf-file-name="sintactico_semantico.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/sintactico_semantico.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="240">
-                  <caret line="25" column="11" lean-forward="false" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
+                <state relative-caret-position="255">
+                  <caret line="26" column="20" lean-forward="true" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
                   <folding />
                 </state>
               </provider>
@@ -485,7 +485,14 @@
       <option name="project" value="LOCAL" />
       <updated>1514909902481</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="MI CABEZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA">
+      <created>1514910110761</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1514910110761</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -519,7 +526,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Creacion del fichero parse correctamente" />
     <MESSAGE value="Caso de error en la declaracion" />
     <MESSAGE value="prints de Error al analizar el fichero" />
     <MESSAGE value="Creacion a añadido de las variables al fichero de tabla de simbolos" />
@@ -544,7 +550,8 @@
     <MESSAGE value="Parse actualizado pero hay que asegurarse de que funcione, que parece que no" />
     <MESSAGE value="FALTA EL PUTO PARSE YA QUE CAMBIO LA GRAMATICA TODO EL RATO" />
     <MESSAGE value="AHORA PARECE QUE YA ES LA GRAMATICA DEFINITIVA" />
-    <option name="LAST_COMMIT_MESSAGE" value="AHORA PARECE QUE YA ES LA GRAMATICA DEFINITIVA" />
+    <MESSAGE value="MI CABEZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
+    <option name="LAST_COMMIT_MESSAGE" value="MI CABEZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -736,8 +743,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sintactico_semantico.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="25" column="11" lean-forward="false" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
+        <state relative-caret-position="255">
+          <caret line="26" column="20" lean-forward="true" selection-start-line="26" selection-start-column="20" selection-end-line="26" selection-end-column="20" />
           <folding />
         </state>
       </provider>
