@@ -8,32 +8,32 @@ tokens, tabla = gen_tokens(sys.argv[1])
 gramar = open("gramarSintactico.txt", "w")
 gramar.write('''Axioma = S
 
-NoTerminales = { S B T E E1 E2 F M O P V V1 R L L1}
+NoTerminales = { S S1 B T E E1 E2 F M O P V V1 R L L1}
 
-Terminales = { var id write ( ) { } int chars bool cte-ent cadena function while return |= = + - ; == && , }
+Terminales = { var id write ( ) { } int chars bool cte-ent cadena function while return |= = + - ; == && , eof}
 
 Producciones = {
-S1 -> S S1 | eof
-S -> var T id ; 
-S -> id B E ; 
-S -> write ( E ) ; 
-S -> while ( E1 ) { P } 
-S -> if ( E1 ) { P } 
-S -> function T id ( V ){ P R }
-T -> int | chars | bool 
-E -> cte-ent M | cadena M | id F M
-E1 -> E == E E2 | lambda 
-E2 -> && E1 | lambda 
-F -> ( L ) | lambda 
-M -> O E | lambda 
-O -> + | - 
-B -> = | |= 
-V -> T id V1 | lambda
-V1 -> , T id V1 | lambda 
-R -> return E ; | lambda 
-L -> E L1 | lambda 
-L1 ->, E L1 | lambda 
-P -> S P | lambda 
+S1 -> S S1 | eof ////1, 2
+S -> var T id ; ////3
+S -> id B E ; ////4
+S -> write ( E ) ; ////5 
+S -> while ( E1 ) { P } ////6 
+S -> if ( E1 ) { P } ////7
+S -> function T id ( V ){ P R } ////8
+T -> int | chars | bool ////9, 10, 11
+E -> cte-ent M | cadena M | id F M ////12, 13, 14
+E1 -> E == E E2 | lambda ////15,16
+E2 -> && E1 | lambda ////17, 18
+F -> ( L ) | lambda ////19, 20
+M -> O E | lambda ////21, 22
+O -> + | - ////23, 24
+B -> = | |= ////25, 26
+V -> T id V1 | lambda ////27, 28
+V1 -> , T id V1 | lambda ////29, 30
+R -> return E ; | lambda ////30, 31
+L -> E L1 | lambda ////32, 33
+L1 ->, E L1 | lambda ////34, 35
+P -> S P | lambda ////36, 37
 }''')
 error = open("errores.txt", "w")
 parse = open("parse.txt", "w")
