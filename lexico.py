@@ -19,7 +19,6 @@ token_pattern = r"""
 |(?P<and_cond>&&)
 |(?P<comment>//[a-zA-Z_ ][a-zA-Z0-9_ ]*)
 |(?P<arit>[+])
-|(?P<dec>--)
 |(?P<arit1>[-])
 |(?P<puntocoma>[;])
 |(?P<coma>[,])
@@ -77,10 +76,13 @@ def gen_tokens(file_name):
                 if tok[0] != 'eol' and tok[0] != 'blanc' and tok[0] != 'comment':
                     tokens.append((tok[0], tok[1]))
             if tok[0] == 'eol' or tok[1] is ' ' or tok[1] is ';' or tok[1] is '=' or tok[1] is '|' \
-                    or tok[1] is '(' or tok[1] is ')' or tok[1] is '{' or tok[1] is '}':
+                    or tok[1] is '(' or tok[1] is ')' or tok[1] is '{' or tok[1] is '}' or tok[1] is ',':
                 file_tokens.write("<" + tok[0] + ">\n")
             else:
-                file_tokens.write("<" + tok[0] + "," + tok[1] + ">\n")
+                if tok[0] == "arit1":
+                    file_tokens.write("<arit," + tok[1] + ">\n")
+                else:
+                    file_tokens.write("<" + tok[0] + "," + tok[1] + ">\n")
     print "Fichero generado: tokensLexico.txt"
     print "Fichero generado: errores.txt"
     tokens.append(('fin', 'se acabo'))

@@ -1,8 +1,6 @@
 import sys
 import os
 
-import time
-
 from lexico import gen_tokens
 
 tokens, tabla = gen_tokens(sys.argv[1])
@@ -34,7 +32,7 @@ B -> = | |= //// 25, 26
 V -> T id V1 //// 27
 V1 -> , V | lambda //// 28, 29
 R -> return E ; | lambda //// 30, 31
-L -> E , L | lambda
+L -> E , L | lambda //// 32, 33
 }''')
 error = open("errores.txt", "w")
 parse = open("parse.txt", "w")
@@ -622,12 +620,12 @@ class Syntactic(object):
             else:
                 arg.pop(0)
             if self.token[1] == ",":
-                error.write("ERROR SINTACTICO: sobran parametros en la llamada a funcion" + name +"\n")
+                error.write("ERROR SINTACTICO: sobran parametros en la llamada a funcion" + name + "\n")
                 print "Error al analizar el fichero"
                 exit(-1)
             if self.token[1] == ")":
                 if arg.__len__() > 0:
-                    error.write("ERROR SINTACTICO: falta parametros en la llamada a funcion " + name +"\n")
+                    error.write("ERROR SINTACTICO: falta parametros en la llamada a funcion " + name + "\n")
                     print "Error al analizar el fichero"
                     exit(-1)
                 parse.write("33 ")
@@ -635,117 +633,14 @@ class Syntactic(object):
                 self.tipo = aux
                 return ret
             else:
-                error.write("ERROR SINTACTICO: falta cerrar parentesis en la llamada a funcion " + name +"\n")
+                error.write("ERROR SINTACTICO: falta cerrar parentesis en la llamada a funcion " + name + "\n")
                 print "Error al analizar el fichero"
                 exit(-1)
         else:
-            error.write("ERROR SINTACTICO: falta abrir parentesis en la llamada a funcion " + name +"\n")
+            error.write("ERROR SINTACTICO: falta abrir parentesis en la llamada a funcion " + name + "\n")
             print "Error al analizar el fichero"
             exit(-1)
         return ret
-
-    def llamar_fun2(self):
-        arg = self.token[1].argum
-        ret = self.token[1].type
-        self.token = self.tokens.pop(0)
-        if self.token[1] == "(":
-            parse.write("27 ")
-            self.token = self.tokens.pop(0)
-            while arg.__len__() > 0:
-                tipofun = arg.pop(0)[1]
-                if self.token[0] == "id":
-                    if self.token[1].type == tipofun:
-                        if tipofun == "int":
-                            parse.write("27 ")
-                        elif tipofun == "chars":
-                            parse.write("27 ")
-                        elif tipofun == "bool":
-                            parse.write("27 ")
-                        self.token = self.tokens.pop(0)
-                        if arg.__len__() > 0:
-                            if self.token[1] == ",":
-                                self.token = self.tokens.pop(0)
-                            else:
-                                error.write("ERROR SINTACTICO: falta coma entre parametros de llamada")
-                                print "Error al analizar el fichero"
-                                exit(-1)
-                    else:
-                        if self.token[1].type == "no":
-                            error.write("ERROR SEMANTICO: variable no declarada")
-                            print "Error al analizar el fichero"
-                            exit(-1)
-                        error.write(
-                            "ERROR SEMANTICO: se requiere un parametro tipo " + tipofun + " no un tipo " +
-                            self.token[1].type)
-                        print "Error al analizar el fichero"
-                        exit(-1)
-                elif self.token[0] == "int":
-                    if self.token[0] == tipofun:
-                        self.token = self.tokens.pop(0)
-                        if arg.__len__() > 0:
-                            if self.token[1] == ",":
-                                self.token = self.tokens.pop(0)
-                            else:
-                                error.write("ERROR SINTACTICO: falta coma entre parametros de llamada")
-                                print "Error al analizar el fichero"
-                                exit(-1)
-                    else:
-                        error.write(
-                            "ERROR SEMANTICO: se requiere un parametro tipo " + tipofun + " no un tipo " +
-                            self.token[0])
-                        print "Error al analizar el fichero"
-                        exit(-1)
-                elif self.token[0] == "bool":
-                    if self.token[0] == tipofun:
-                        self.token = self.tokens.pop(0)
-                        if arg.__len__() > 0:
-                            if self.token[1] == ",":
-                                self.token = self.tokens.pop(0)
-                            else:
-                                error.write("ERROR SINTACTICO: falta coma entre parametros de llamada")
-                                print "Error al analizar el fichero"
-                                exit(-1)
-                    else:
-                        error.write(
-                            "ERROR SEMANTICO: se requiere un parametro tipo " + tipofun + " no un tipo " +
-                            self.token[0])
-                        print "Error al analizar el fichero"
-                        exit(-1)
-                elif self.token[0] == "chars":
-                    if self.token[0] == tipofun:
-                        self.token = self.tokens.pop(0)
-                        if arg.__len__() > 0:
-                            if self.token[1] == ",":
-                                self.token = self.tokens.pop(0)
-                            else:
-                                error.write("ERROR SINTACTICO: falta coma entre parametros de llamada")
-                                print "Error al analizar el fichero"
-                                exit(-1)
-                    else:
-                        error.write(
-                            "ERROR SEMANTICO: se requiere un parametro tipo " + tipofun + " no un tipo " +
-                            self.token[0])
-                        print "Error al analizar el fichero"
-                        exit(-1)
-                else:
-                    error.write("ERROR SINTACTICO: faltan parametros de funcion")
-                    print "Error al analizar el fichero"
-                    exit(-1)
-            if self.token[1] == ",":
-                error.write("ERROR SINTACTICO: sobran parametros de funcion \n")
-                print "Error al analizar el fichero"
-                exit(-1)
-            if self.token[1] == ")":
-                self.token = self.tokens.pop(0)
-                return ret
-            else:
-                error.write("ERROR SINTACTICO: falta cerrar parentesis en la llamada a funcion \n")
-                print "Error al analizar el fichero"
-                exit(-1)
-        else:
-            error.write("ERROR SINTACTICO: falta abrir parentesis en la llamada a funcion \n")
-            print "Error al analizar el fichero"
-            exit(-1)
 
 
 def main():
