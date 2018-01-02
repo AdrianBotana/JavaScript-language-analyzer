@@ -8,7 +8,7 @@ tokens, tabla = gen_tokens(sys.argv[1])
 gramar = open("gramarSintactico.txt", "w")
 gramar.write('''Axioma = S
 
-NoTerminales = { S B T E E1 E2 E3 F M O P V V1 R L L1}
+NoTerminales = { S B T E E1 E2 F M O P V V1 R L L1}
 
 Terminales = { var id write ( ) { } int chars bool cte-ent cadena function while return |= = + - ; == && , }
 
@@ -17,22 +17,22 @@ S1 -> S S1 | eof
 S -> var T id ; 
 S -> id B E ; 
 S -> write ( E ) ; 
-S -> while ( E E2 ) { P } 
-S -> if ( E E2 ) { P } 
+S -> while ( E E1 ) { P } 
+S -> if ( E E1 ) { P } 
 S -> function T id ( V ){ P R }
 T -> int | chars | bool 
 E -> cte-ent M | cadena M | id F M
-E2 -> == E E2 | lambda 
-E3 -> && E1 | lambda 
+E1 -> == E E2 | lambda 
+E2 -> && E E1 | lambda 
 F -> ( L ) | lambda 
 M -> O E | lambda 
 O -> + | - 
 B -> = | |= 
 V -> T id V1 | lambda
-V1 -> , V | lambda 
+V1 -> , T id V1 | lambda 
 R -> return E ; | lambda 
 L -> E L1 | lambda 
-L1 ->, L | lambda 
+L1 ->, E L1 | lambda 
 P -> S P | lambda 
 }''')
 error = open("errores.txt", "w")

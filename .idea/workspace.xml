@@ -22,8 +22,8 @@
           <file leaf-file-name="sintactico_semantico.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/sintactico_semantico.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="270">
-                  <caret line="30" column="21" lean-forward="false" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
+                <state relative-caret-position="240">
+                  <caret line="25" column="11" lean-forward="false" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
                   <folding />
                 </state>
               </provider>
@@ -478,7 +478,14 @@
       <option name="project" value="LOCAL" />
       <updated>1514909716238</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="AHORA PARECE QUE YA ES LA GRAMATICA DEFINITIVA">
+      <created>1514909902481</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1514909902481</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -512,7 +519,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Eliminar ficheros antiguos, ahora estamos mejor" />
     <MESSAGE value="Creacion del fichero parse correctamente" />
     <MESSAGE value="Caso de error en la declaracion" />
     <MESSAGE value="prints de Error al analizar el fichero" />
@@ -537,7 +543,8 @@
     <MESSAGE value="Errores en llamada a funcion y demas, creo que esto ya esta" />
     <MESSAGE value="Parse actualizado pero hay que asegurarse de que funcione, que parece que no" />
     <MESSAGE value="FALTA EL PUTO PARSE YA QUE CAMBIO LA GRAMATICA TODO EL RATO" />
-    <option name="LAST_COMMIT_MESSAGE" value="FALTA EL PUTO PARSE YA QUE CAMBIO LA GRAMATICA TODO EL RATO" />
+    <MESSAGE value="AHORA PARECE QUE YA ES LA GRAMATICA DEFINITIVA" />
+    <option name="LAST_COMMIT_MESSAGE" value="AHORA PARECE QUE YA ES LA GRAMATICA DEFINITIVA" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -729,8 +736,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sintactico_semantico.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="30" column="21" lean-forward="false" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
+        <state relative-caret-position="240">
+          <caret line="25" column="11" lean-forward="false" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
           <folding />
         </state>
       </provider>
