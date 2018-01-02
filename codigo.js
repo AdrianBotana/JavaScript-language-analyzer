@@ -16,5 +16,5 @@ function chars hey (chars h){
     write("hola");
 }
 
-b = hola(3 + 2, hey());
+b = hola(3 + 2, hey("h"));
 

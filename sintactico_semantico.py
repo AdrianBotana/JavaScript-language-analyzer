@@ -426,25 +426,6 @@ class Syntactic(object):
                         + self.tipo + " en el return")
                     print "Error al analizar el fichero"
                     exit(-1)
-        '''elif self.token[0] == "bool":
-            if self.token[0] == self.tipo:
-                self.token = self.tokens.pop(0)
-            else:
-                if self.ret != "ret":
-                    error.write(
-                        "ERROR SEMANTICO: no puedes asignar o comparar un tipo " + self.token[
-                            0] + " a un tipo " + self.tipo)
-                    print "Error al analizar el fichero"
-                    exit(-1)
-                else:
-                    error.write(
-                        "ERROR SEMANTICO: no puedes devolver un tipo " + self.token[0] + " cuando se espera un "
-                        + self.tipo + " en el return")
-                    print "Error al analizar el fichero"
-                    exit(-1)
-                    Esto no se que hacer con el(ya se vera)
-                    '''
-
         if self.token[1] == "+":
             parse.write("21 ")
             parse.write("23 ")
@@ -621,10 +602,13 @@ class Syntactic(object):
         aux = self.tipo
         self.token = self.tokens.pop(0)
         if self.token[1] == "(":
-            parse.write("27 ")
             self.token = self.tokens.pop(0)
-            print arg
             if arg[0] != "empty":
+                parse.write("32 ")
+                if self.token[1] == ")":
+                    error.write("ERROR SINTACTICO: falta parametros en la llamada a funcion " + name + "\n")
+                    print "Error al analizar el fichero"
+                    exit(-1)
                 while arg.__len__() > 0:
                     self.tipo = arg.pop(0)[1]
                     self.e()
@@ -646,6 +630,7 @@ class Syntactic(object):
                     error.write("ERROR SINTACTICO: falta parametros en la llamada a funcion " + name +"\n")
                     print "Error al analizar el fichero"
                     exit(-1)
+                parse.write("33 ")
                 self.token = self.tokens.pop(0)
                 self.tipo = aux
                 return ret
