@@ -11,10 +11,10 @@ function bool hola (int s, chars m){
     write("hola");
 }
 
-function chars hey (){
+function chars hey (chars h){
     var chars e;
     write("hola");
 }
 
-c = hey();
+b = hola(3 + 2, hey());
 

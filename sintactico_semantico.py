@@ -10,7 +10,7 @@ tokens, tabla = gen_tokens(sys.argv[1])
 gramar = open("gramarSintactico.txt", "w")
 gramar.write('''Axioma = S
 
-NoTerminales = { S B T E E1 E2 E3 F M O P V V1 R}
+NoTerminales = { S B T E E1 E2 E3 F M O P V V1 R L}
 
 Terminales = { var id write ( ) { } int chars bool cte-ent cadena function while return |= = + - ; == && , }
 
@@ -215,6 +215,9 @@ class Syntactic(object):
                                     simbolos.write("+ tipoparametro : '" + x[1] + "' \n \t")
                                 simbolos.write("---------- ----------- \n")
                             else:
+                                ini = list()
+                                ini.append("empty")
+                                self.asignar_tipo(fun, fun.type, ini)
                                 result = None
                                 simbolos.write("+ parametros : 0 \n \t")
                                 simbolos.write("---------- ----------- \n")
@@ -606,36 +609,57 @@ class Syntactic(object):
         else:
             Conts.fun = Conts.fun + desp
 
-    def llamar_fun2(self):
+    def llamar_fun(self):
         arg = self.token[1].argum
         ret = self.token[1].type
+        name = self.token[1].name
         if self.tipo != "no":
             if self.tipo != ret:
-                error.write("ERROR SEMANTICO: no se puede asignar un tipo" + ret + " a un tipo " + self.tipo + "\n")
+                error.write("ERROR SEMANTICO: no se puede asignar un tipo " + ret + " a un tipo " + self.tipo + "\n")
                 print "Error al analizar el fichero"
                 exit(-1)
+        aux = self.tipo
         self.token = self.tokens.pop(0)
         if self.token[1] == "(":
             parse.write("27 ")
             self.token = self.tokens.pop(0)
-            while arg.__len__() > 0:
-                self.tipo = arg.pop(0)[1]
-                self.e()
+            print arg
+            if arg[0] != "empty":
+                while arg.__len__() > 0:
+                    self.tipo = arg.pop(0)[1]
+                    self.e()
+                    if arg.__len__() > 0:
+                        if self.token[1] == ",":
+                            self.token = self.tokens.pop(0)
+                        else:
+                            error.write("ERROR SINTACTICO: falta coma entre parametros de llamada en funcion" + name)
+                            print "Error al analizar el fichero"
+                            exit(-1)
+            else:
+                arg.pop(0)
+            if self.token[1] == ",":
+                error.write("ERROR SINTACTICO: sobran parametros en la llamada a funcion" + name +"\n")
+                print "Error al analizar el fichero"
+                exit(-1)
+            if self.token[1] == ")":
                 if arg.__len__() > 0:
-                    if self.token[1] == ",":
-                        self.token = self.tokens.pop(0)
-                    else:
-                        error.write("ERROR SINTACTICO: falta coma entre parametros de llamada")
-                        print "Error al analizar el fichero"
-                        exit(-1)
-
+                    error.write("ERROR SINTACTICO: falta parametros en la llamada a funcion " + name +"\n")
+                    print "Error al analizar el fichero"
+                    exit(-1)
+                self.token = self.tokens.pop(0)
+                self.tipo = aux
+                return ret
+            else:
+                error.write("ERROR SINTACTICO: falta cerrar parentesis en la llamada a funcion " + name +"\n")
+                print "Error al analizar el fichero"
+                exit(-1)
         else:
-            error.write("ERROR SINTACTICO: falta abrir parentesis en la llamada a funcion \n")
+            error.write("ERROR SINTACTICO: falta abrir parentesis en la llamada a funcion " + name +"\n")
             print "Error al analizar el fichero"
             exit(-1)
         return ret
 
-    def llamar_fun(self):
+    def llamar_fun2(self):
         arg = self.token[1].argum
         ret = self.token[1].type
         self.token = self.tokens.pop(0)
