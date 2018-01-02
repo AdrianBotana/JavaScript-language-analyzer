@@ -13,27 +13,28 @@ NoTerminales = { S B T E E1 E2 E3 F M O P V V1 R L L1}
 Terminales = { var id write ( ) { } int chars bool cte-ent cadena function while return |= = + - ; == && , }
 
 Producciones = {
-S -> var T id ; S //// 1
-S -> id B E ; S //// 2
-S -> write ( E ) ; S //// 3
-S -> while ( E1 ) { S } S //// 4
-S -> if ( E1 ) { S } S //// 5
-S -> function T id ( V ){ S R } S //// 6
-S -> eof ////7
-T -> int | chars | bool //// 8, 9, 10
-E -> cte-ent M | cadena M | id F M//// 11, 12, 13
+S1 -> S S1 | eof
+S -> var T id ; 
+S -> id B E ; 
+S -> write ( E ) ; 
+S -> while ( E1 ) { P } 
+S -> if ( E1 ) { P } 
+S -> function T id ( V ){ P R }
+T -> int | chars | bool 
+E -> cte-ent M | cadena M | id F M
 E1 -> E E3 //// 14
-E3 -> == E E2 | lambda /// 15, 16 
-E2 -> && E1 | lambda //// 17, 18
-F -> ( L ) | lambda //// 19, 20
-M -> O E | lambda //// 21, 22
-O -> + | - //// 23, 24
-B -> = | |= //// 25, 26
-V -> T id V1 //// 27
-V1 -> , V | lambda //// 28, 29
-R -> return E ; | lambda //// 30, 31
-L -> E L1 | lambda //// 32, 33
-L1 ->, L | lambda //// 34, 35
+E3 -> == E E2 | lambda 
+E2 -> && E1 | lambda 
+F -> ( L ) | lambda 
+M -> O E | lambda 
+O -> + | - 
+B -> = | |= 
+V -> T id V1 
+V1 -> , V | lambda 
+R -> return E ; | lambda 
+L -> E L1 | lambda 
+L1 ->, L | lambda 
+P -> S P | lambda 
 }''')
 error = open("errores.txt", "w")
 parse = open("parse.txt", "w")
