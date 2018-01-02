@@ -356,13 +356,19 @@ class Syntactic(object):
             print "Error al analizar el fichero"
             exit(-1)
 
-    def e(self):
+    def e(self, fu="nose"):
         if self.token[0] == "id":
             parse.write("13 ")
             if self.token[1].argum != 0 and self.token[1].argum != 1:
                 # Llamada de funcion
                 parse.write("19 ")
                 re = self.llamar_fun()
+                if fu != "nose":
+                    error.write(
+                        "ERROR SEMANTICO: se espera un parametro tipo " + self.tipo + ", no un tipo " + re
+                        + " en la funcion " + fu)
+                    print "Error al analizar el fichero"
+                    exit(-1)
                 if re != self.tipo:
                     error.write(
                         "ERROR SEMANTICO: no puedes asignar o comparar un tipo " + re + " a un tipo " + self.tipo)
@@ -375,6 +381,12 @@ class Syntactic(object):
                 else:
                     if self.token[1].type == "no":
                         error.write("ERROR SEMANTICO: variable no declarada")
+                        print "Error al analizar el fichero"
+                        exit(-1)
+                    if fu != "nose":
+                        error.write(
+                            "ERROR SEMANTICO: se espera un parametro tipo " + self.tipo + ", no un tipo " +
+                            self.token[1].type + " en la funcion " + fu)
                         print "Error al analizar el fichero"
                         exit(-1)
                     if self.ret != "ret":
@@ -395,6 +407,12 @@ class Syntactic(object):
             if self.token[0] == self.tipo:
                 self.token = self.tokens.pop(0)
             else:
+                if fu != "nose":
+                    error.write(
+                        "ERROR SEMANTICO: se espera un parametro tipo " + self.tipo + ", no un tipo " + self.token[0]
+                        + " en la funcion " + fu)
+                    print "Error al analizar el fichero"
+                    exit(-1)
                 if self.ret != "ret":
                     error.write(
                         "ERROR SEMANTICO: no puedes asignar o comparar un tipo " + self.token[
@@ -412,6 +430,12 @@ class Syntactic(object):
             if self.token[0] == self.tipo:
                 self.token = self.tokens.pop(0)
             else:
+                if fu != "nose":
+                    error.write(
+                        "ERROR SEMANTICO: se espera un parametro tipo " + self.tipo + ", no un tipo " + self.token[0]
+                        + " en la funcion " + fu)
+                    print "Error al analizar el fichero"
+                    exit(-1)
                 if self.ret != "ret":
                     error.write(
                         "ERROR SEMANTICO: no puedes asignar o comparar un tipo " + self.token[
@@ -609,7 +633,11 @@ class Syntactic(object):
                     exit(-1)
                 while arg.__len__() > 0:
                     self.tipo = arg.pop(0)[1]
-                    self.e()
+                    if self.token[1] == ")":
+                        error.write("ERROR SINTACTICO: falta parametros en la llamada a funcion " + name + "\n")
+                        print "Error al analizar el fichero"
+                        exit(-1)
+                    self.e(name)
                     if arg.__len__() > 0:
                         if self.token[1] == ",":
                             self.token = self.tokens.pop(0)

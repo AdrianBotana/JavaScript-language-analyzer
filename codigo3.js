@@ -28,3 +28,5 @@ function int adios (int s){
     write("hola");
     return 14 - b;
 }
+
+adios(3+10);
