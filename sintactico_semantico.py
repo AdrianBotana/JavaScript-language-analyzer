@@ -8,7 +8,7 @@ tokens, tabla = gen_tokens(sys.argv[1])
 gramar = open("gramarSintactico.txt", "w")
 gramar.write('''Axioma = S
 
-NoTerminales = { S B T E E1 E2 E3 F M O P V V1 R L}
+NoTerminales = { S B T E E1 E2 E3 F M O P V V1 R L L1}
 
 Terminales = { var id write ( ) { } int chars bool cte-ent cadena function while return |= = + - ; == && , }
 
@@ -32,7 +32,8 @@ B -> = | |= //// 25, 26
 V -> T id V1 //// 27
 V1 -> , V | lambda //// 28, 29
 R -> return E ; | lambda //// 30, 31
-L -> E , L | lambda //// 32, 33
+L -> E L1 | lambda //// 32, 33
+L1 ->, L | lambda //// 34, 35
 }''')
 error = open("errores.txt", "w")
 parse = open("parse.txt", "w")
@@ -641,12 +642,15 @@ class Syntactic(object):
                     if arg.__len__() > 0:
                         if self.token[1] == ",":
                             self.token = self.tokens.pop(0)
+                            parse.write("34 ")
                         else:
-                            error.write("ERROR SINTACTICO: falta coma entre parametros de llamada en funcion" + name)
+                            error.write("ERROR SINTACTICO: falta coma entre parametros de llamada en funcion " + name)
                             print "Error al analizar el fichero"
                             exit(-1)
+                parse.write("35 ")
             else:
                 arg.pop(0)
+                parse.write("33 ")
             if self.token[1] == ",":
                 error.write("ERROR SINTACTICO: sobran parametros en la llamada a funcion" + name + "\n")
                 print "Error al analizar el fichero"
@@ -656,7 +660,6 @@ class Syntactic(object):
                     error.write("ERROR SINTACTICO: falta parametros en la llamada a funcion " + name + "\n")
                     print "Error al analizar el fichero"
                     exit(-1)
-                parse.write("33 ")
                 self.token = self.tokens.pop(0)
                 self.tipo = aux
                 return ret
