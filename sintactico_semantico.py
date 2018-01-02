@@ -10,7 +10,7 @@ gramar.write('''Axioma = S
 
 NoTerminales = { S S1 B T E E1 E2 F M O P V V1 R L L1}
 
-Terminales = { var id write ( ) { } int chars bool cte-ent cadena function while return |= = + - ; == && , eof}
+Terminales = { var id write if ( ) { } int chars bool cte-ent cadena function while return |= = + - ; == && , eof}
 
 Producciones = {
 S1 -> S S1 | eof ////1, 2
