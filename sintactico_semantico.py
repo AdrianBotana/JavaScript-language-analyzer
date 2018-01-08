@@ -40,7 +40,7 @@ O -> + ////22, 23
 O -> - ////23
 B -> = ////24
 B -> |= ////25
-V -> T id V1 ////26, 27
+V -> T id V1 ////26
 V -> lambda ////27
 V1 -> , T id V1 ////28
 V1 -> lambda ////29
@@ -72,17 +72,22 @@ class Syntactic(object):
         self.tipo = "no"
         self.ret = "no"
         self.f = 1
+        self.par = "no"
         self.fun = list()
+        self.retorno = 0
         parse.write("Des ")
         simbolos.write("TABLA DE SIMBOLOS #1: \n \n")
 
     def s(self):
         self.tipo = "no"
-        if self.ret != "no":
+        if self.par == "no":
+            if self.token[0] != "fin" and self.token[1] != "}":
+                parse.write("1 ")
+        else:
             if self.token[1] != "}":
                 parse.write("36 ")
-        else:
-            parse.write("1 ")
+            else:
+                parse.write("37 ")
         if self.token[0] == "PR":
             if self.token[1].name == "var":
                 parse.write("3 ")
@@ -143,10 +148,12 @@ class Syntactic(object):
                     if self.token[1] == ")":
                         self.token = self.tokens.pop(0)
                         if self.token[1] == "{":
+                            self.par = "in"
                             self.token = self.tokens.pop(0)
                             self.s()
                             if self.token[1] == "}":
                                 self.token = self.tokens.pop(0)
+                                self.par = "no"
                                 return self.s()
                             else:
                                 error.write("ERROR SINTACTICO: falta cerrar corchete en el while \n")
@@ -173,9 +180,11 @@ class Syntactic(object):
                     if self.token[1] == ")":
                         self.token = self.tokens.pop(0)
                         if self.token[1] == "{":
+                            self.par = "in"
                             self.token = self.tokens.pop(0)
                             self.s()
                             if self.token[1] == "}":
+                                self.par = "no"
                                 self.token = self.tokens.pop(0)
                                 return self.s()
                             else:
@@ -199,6 +208,7 @@ class Syntactic(object):
                     self.token = self.tokens.pop(0)
                     self.tipo = self.ret
                     self.ret = "ret"
+                    self.retorno = 1
                     parse.write("30 ")
                     self.e()
                     self.ret = self.tipo
@@ -251,12 +261,16 @@ class Syntactic(object):
                             if self.token[1] == ")":
                                 self.token = self.tokens.pop(0)
                                 if self.token[1] == "{":
+                                    self.par = "in"
                                     self.token = self.tokens.pop(0)
                                     self.s()
                                     if self.token[1] == "}":
-                                        if self.ret == "no":
-                                            parse.write("31 ")  # COMPROBAR
+                                        if self.retorno == 0:
+                                                parse.write("31 ")  # COMPROBAR
+                                        else:
+                                            self.retorno = 0
                                         self.token = self.tokens.pop(0)
+                                        self.par = "no"
                                         self.ret = "no"
                                         funtion.write("\n")
                                         return self.s()
@@ -339,7 +353,7 @@ class Syntactic(object):
         elif self.token[0] == "fin":
             parse.write("2 ")
         elif self.token[1] == "}":
-            parse.write("37 ")
+            pass
         else:
             if self.token[0] == "tab":
                 pass

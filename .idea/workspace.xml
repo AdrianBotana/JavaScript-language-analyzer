@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/sintactico_semantico.py" line="517" />
+    <bookmark url="file://$PROJECT_DIR$/sintactico_semantico.py" line="549" />
+    <bookmark url="file://$PROJECT_DIR$/sintactico_semantico.py" line="725" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c23a96c5-bb83-4644-9cd5-0dc878c1d015" name="Default" comment="Definitvo, creo">
-      <change beforePath="$PROJECT_DIR$/.idea/Analizador-PDL.iml" afterPath="$PROJECT_DIR$/.idea/Analizador-PDL.iml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+    <list default="true" id="c23a96c5-bb83-4644-9cd5-0dc878c1d015" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/codigoRober.js" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/lexico.py" afterPath="$PROJECT_DIR$/lexico.py" />
+      <change beforePath="$PROJECT_DIR$/codigo.js" afterPath="$PROJECT_DIR$/codigo.js" />
+      <change beforePath="$PROJECT_DIR$/codigo2.js" afterPath="$PROJECT_DIR$/codigo2.js" />
       <change beforePath="$PROJECT_DIR$/sintactico_semantico.py" afterPath="$PROJECT_DIR$/sintactico_semantico.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,15 +20,15 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DockManager">
-    <window id="1">
+    <window id="2">
       <content type="file-editors">
         <state>
           <leaf>
             <file leaf-file-name="gramarSintactico.txt" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/gramarSintactico.txt">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="306">
-                    <caret line="18" column="31" lean-forward="false" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+                  <state relative-caret-position="0">
+                    <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="44" selection-end-column="1" />
                     <folding />
                   </state>
                 </provider>
@@ -42,14 +43,14 @@
     <favorites_list name="Analizador-PDL" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.80764776">
+    <splitter split-orientation="horizontal" split-proportion="0.5781072">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="sintactico_semantico.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/sintactico_semantico.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-639">
-                  <caret line="325" column="26" lean-forward="true" selection-start-line="325" selection-start-column="26" selection-end-line="325" selection-end-column="26" />
+                <state relative-caret-position="476">
+                  <caret line="261" column="28" lean-forward="true" selection-start-line="261" selection-start-column="28" selection-end-line="261" selection-end-column="28" />
                   <folding />
                 </state>
               </provider>
@@ -82,28 +83,48 @@
           <file leaf-file-name="codigo2.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/codigo2.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="136">
-                  <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+                <state relative-caret-position="170">
+                  <caret line="10" column="22" lean-forward="false" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="codigo3.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/codigo3.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="527">
-                  <caret line="31" column="12" lean-forward="false" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="codigo.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="codigo.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/codigo.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="340">
-                  <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+                <state relative-caret-position="68">
+                  <caret line="4" column="14" lean-forward="false" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="codigoRober.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/codigoRober.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="85">
+                  <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="parse.txt" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/parse.txt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="0">
+                  <caret line="0" column="51" lean-forward="false" selection-start-line="0" selection-start-column="51" selection-end-line="0" selection-end-column="51" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="errores.txt" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/errores.txt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="0">
+                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -122,11 +143,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>&quot;9 &quot;</find>
-      <find>&quot;10 &quot;</find>
-      <find>&quot;11 &quot;</find>
-      <find>&quot;12 &quot;</find>
-      <find>&quot;13 &quot;</find>
       <find>&quot;14 &quot;</find>
       <find>&quot;15 &quot;</find>
       <find>&quot;16 &quot;</find>
@@ -152,6 +168,11 @@
       <find>&quot;35 &quot;</find>
       <find>&quot;36 &quot;</find>
       <find>&quot;37 &quot;</find>
+      <find>variable no declarada</find>
+      <find>31</find>
+      <find>36</find>
+      <find>return</find>
+      <find>8</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -168,22 +189,25 @@
         <option value="$PROJECT_DIR$/newGramar.txt" />
         <option value="$PROJECT_DIR$/errorSintactico.txt" />
         <option value="$PROJECT_DIR$/tablaDeSimbolos.txt" />
-        <option value="$PROJECT_DIR$/codigo2.js" />
         <option value="$PROJECT_DIR$/tokensLexico.txt" />
         <option value="$PROJECT_DIR$/cosas.py" />
         <option value="$PROJECT_DIR$/tabla_de_simbolos.py" />
-        <option value="$PROJECT_DIR$/codigo3.js" />
-        <option value="$PROJECT_DIR$/codigo.js" />
         <option value="$PROJECT_DIR$/lexico.py" />
         <option value="$PROJECT_DIR$/gramarSintactico.txt" />
+        <option value="$PROJECT_DIR$/codigo3.js" />
+        <option value="$PROJECT_DIR$/codigo2.js" />
+        <option value="$PROJECT_DIR$/parse.txt" />
         <option value="$PROJECT_DIR$/sintactico_semantico.py" />
+        <option value="$PROJECT_DIR$/codigo.js" />
+        <option value="$PROJECT_DIR$/codigoRober.js" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="426" />
-    <option name="width" value="1501" />
-    <option name="height" value="1047" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="355" />
+    <option name="y" value="-9" />
+    <option name="width" value="981" />
+    <option name="height" value="687" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -507,21 +531,34 @@
       <option name="project" value="LOCAL" />
       <updated>1514910434100</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="Parse hecho, falta pruebas">
+      <created>1515434439129</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1515434439129</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Gramatica actualizada para vast">
+      <created>1515437105096</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1515437105096</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="426" y="0" width="1501" height="1047" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11178451" sideWeight="0.4914163" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.08645833" sideWeight="0.4914163" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13043478" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12955032" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13043478" sideWeight="0.49791667" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19619326" sideWeight="0.50858366" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -541,8 +578,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="prints de Error al analizar el fichero" />
-    <MESSAGE value="Creacion a añadido de las variables al fichero de tabla de simbolos" />
     <MESSAGE value="Cabiar errores a un solo fichero" />
     <MESSAGE value="Cabiar errores a un solo fichero (cambiar pequeño error)" />
     <MESSAGE value="Se elimina el fichero de funcion sobrante pero hay que arreglar que el&#10;mensaje salga despues del de analizado correctamente" />
@@ -566,7 +601,9 @@
     <MESSAGE value="AHORA PARECE QUE YA ES LA GRAMATICA DEFINITIVA" />
     <MESSAGE value="MI CABEZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" />
     <MESSAGE value="definitiva, no voy a cambiarla mas ni queriendo creo yo &#10;(si hay que cambiar algo que sea leve por dios)" />
-    <option name="LAST_COMMIT_MESSAGE" value="definitiva, no voy a cambiarla mas ni queriendo creo yo &#10;(si hay que cambiar algo que sea leve por dios)" />
+    <MESSAGE value="Parse hecho, falta pruebas" />
+    <MESSAGE value="Gramatica actualizada para vast" />
+    <option name="LAST_COMMIT_MESSAGE" value="Gramatica actualizada para vast" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -575,13 +612,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lexico.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="52" column="24" lean-forward="false" selection-start-line="52" selection-start-column="24" selection-end-line="52" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sintacticoTablas.py" />
     <entry file="file://$PROJECT_DIR$/lexico.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -665,40 +695,6 @@
     <entry file="file://$PROJECT_DIR$/tablaDeSimbolosFuncion.txt" />
     <entry file="file://$PROJECT_DIR$/tablaDeSimbolos.txt" />
     <entry file="file://$PROJECT_DIR$/tokensLexico.txt" />
-    <entry file="file://$PROJECT_DIR$/codigo2.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/codigo3.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="31" column="12" lean-forward="false" selection-start-line="31" selection-start-column="12" selection-end-line="31" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/errores.txt" />
-    <entry file="file://$PROJECT_DIR$/tabla_de_simbolos.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="55" lean-forward="false" selection-start-line="11" selection-start-column="55" selection-end-line="11" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parse.txt" />
-    <entry file="file://$PROJECT_DIR$/codigo.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/lexico.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -707,18 +703,74 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/codigo3.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="23" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/gramarSintactico.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="31" lean-forward="false" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="44" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/codigo2.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="22" lean-forward="false" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tabla_de_simbolos.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="55" lean-forward="false" selection-start-line="11" selection-start-column="55" selection-end-line="11" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/errores.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/codigo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="14" lean-forward="false" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sintactico_semantico.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-639">
-          <caret line="325" column="26" lean-forward="true" selection-start-line="325" selection-start-column="26" selection-end-line="325" selection-end-column="26" />
+        <state relative-caret-position="476">
+          <caret line="261" column="28" lean-forward="true" selection-start-line="261" selection-start-column="28" selection-end-line="261" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/codigoRober.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="0" lean-forward="true" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parse.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="51" lean-forward="false" selection-start-line="0" selection-start-column="51" selection-end-line="0" selection-end-column="51" />
           <folding />
         </state>
       </provider>

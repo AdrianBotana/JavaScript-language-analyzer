@@ -9,7 +9,6 @@ if (4){
 function chars ho(){
     var chars hola;
     hola = "que pasa";
-    return hola;
 }
 
 var int a;

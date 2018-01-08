@@ -1,5 +1,6 @@
-var int a;
-var chars b;
-var int b;
+function int hey(chars he){
+    var int b;
+}
 
-a = b;
+b = hey("queee");
+
