@@ -73,7 +73,7 @@ def gen_tokens(file_name):
                     tokens.append(("id", tabla[index]))
         else:
             if tok[1] is not ' ':
-                if tok[0] != 'eol' and tok[0] != 'blanc' and tok[0] != 'comment':
+                if tok[0] != 'eol' and tok[0] != 'blanc' and tok[0] != 'comment' and tok[0] != 'tab':
                     tokens.append((tok[0], tok[1]))
             if tok[0] == 'eol' or tok[1] is ' ' or tok[1] is ';' or tok[1] is '=' or tok[1] is '|' \
                     or tok[1] is '(' or tok[1] is ')' or tok[1] is '{' or tok[1] is '}' or tok[1] is ',':
