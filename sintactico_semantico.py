@@ -84,10 +84,13 @@ class Syntactic(object):
             if self.token[0] != "fin" and self.token[1] != "}":
                 parse.write("1 ")
         else:
-            if self.token[1] != "}":
-                parse.write("36 ")
-            else:
+            if self.token[0] == "PR" and self.token[1].name == "return":
                 parse.write("37 ")
+            else:
+                if self.token[1] != "}":
+                    parse.write("36 ")
+                else:
+                    parse.write("37 ")
         if self.token[0] == "PR":
             if self.token[1].name == "var":
                 parse.write("3 ")
