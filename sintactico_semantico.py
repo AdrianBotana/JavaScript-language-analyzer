@@ -1,39 +1,57 @@
 import sys
 import os
 
+import time
+
 from lexico import gen_tokens
 
 tokens, tabla = gen_tokens(sys.argv[1])
 
 gramar = open("gramarSintactico.txt", "w")
-gramar.write('''Axioma = S
+gramar.write('''Axioma = S1
 
-NoTerminales = { S S1 B T E E1 E2 F M O P V V1 R L L1}
+NoTerminales = { S1 S B T E E1 E2 F M O P V V1 R L L1 }
 
-Terminales = { var id write if ( ) { } int chars bool cte-ent cadena function while return |= = + - ; == && , eof}
+Terminales = { var id write if ( ) { } int chars bool cte-ent cadena function while return |= = + - ; == && , eof }
 
 Producciones = {
-S1 -> S S1 | eof ////1, 2
+S1 -> S S1 ////1
+S1 -> eof ////2
 S -> var T id ; ////3
 S -> id B E ; ////4
 S -> write ( E ) ; ////5 
 S -> while ( E1 ) { P } ////6 
 S -> if ( E1 ) { P } ////7
-S -> function T id ( V ){ P R } ////8
-T -> int | chars | bool ////9, 10, 11
-E -> cte-ent M | cadena M | id F M ////12, 13, 14
+S -> function T id ( V ) { P R } ////8
+T -> int ////9
+T -> chars ////10
+T -> bool ////11
+E -> cte-ent M ////12
+E -> cadena M ////13
+E -> id F M ////14
 E1 -> E == E E2 ////15
-E2 -> && E1 | lambda ////16, 17
-F -> ( L ) | lambda ////18, 19
-M -> O E | lambda ////20, 21
-O -> + | - ////22, 23
-B -> = | |= ////24, 25
-V -> T id V1 | lambda ////26, 27
-V1 -> , T id V1 | lambda ////28, 29
-R -> return E ; | lambda ////30, 31
-L -> E L1 | lambda ////32, 33
-L1 ->, E L1 | lambda ////34, 35
-P -> S P | lambda ////36, 37
+E2 -> && E1 ////16
+E2 -> lambda ////17
+F -> ( L ) ////18
+F -> lambda ////19
+M -> O E ////20
+M -> lambda ////21
+O -> + ////22, 23
+O -> - ////23
+B -> = ////24
+B -> |= ////25
+V -> T id V1 ////26, 27
+V -> lambda ////27
+V1 -> , T id V1 ////28
+V1 -> lambda ////29
+R -> return E ; ////30
+R -> lambda ////31
+L -> E L1 ////32
+L -> lambda ////33
+L1 ->, E L1 ////34
+L1 -> lambda ////35
+P -> S P ////36
+P -> lambda ////37
 }''')
 error = open("errores.txt", "w")
 parse = open("parse.txt", "w")
@@ -684,15 +702,18 @@ def main():
     print "Fichero generado: gramarSintactico.txt"
     print "Fichero generado: parse.txt"
     print "Fichero generado: tablaDeSimbolos.txt"
+    print "Fichero generado: tablaDeSimbolosFuncion.txt"
     s = Syntactic()
     s.s()
-    funtion.close()
+    '''funtion.close()
     fun = open("tablaDeSimbolosFuncion.txt", "r")
     cont = fun.read()
     if cont == '':
         os.remove("tablaDeSimbolosFuncion.txt")
+        print "naaaa"
     else:
         print "Fichero generado: tablaDeSimbolosFuncion.txt"
+    '''
     print "Fichero analizado correctamente"
 
 

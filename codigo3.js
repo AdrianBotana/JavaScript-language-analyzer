@@ -30,3 +30,22 @@ function int adios (int s){
 }
 
 adios(3+10);
+
+
+
+
+//que pasa
+if (b){
+    var int f;
+}
+function bool hola (int s, chars m){
+    var chars e;
+    write("hola");
+}
+
+function chars hey (chars hey){
+    var chars e;
+    write("hola");
+}
+
+b = hola(3 + 2, "h");
