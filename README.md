@@ -1,6 +1,3 @@
-# Analizador-PDL
-Analizador del lenguaje Javascript
+# Language processor
 
-Para la ejecucion poner:
-
-python sintactico_semantico.py codigo.js
+Lexicon, syntactic and semantic analyzer of the Javascript programming language
