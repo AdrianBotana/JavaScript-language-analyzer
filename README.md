@@ -1,3 +1,3 @@
 # Language processor
 
-Lexicon, syntactic and semantic analyzer of the Javascript programming language
+Lexicon, syntactic and semantic analyzer for Javascript programming language
